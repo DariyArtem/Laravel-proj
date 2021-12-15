@@ -24,7 +24,8 @@ class UserTable extends Migration
             $table->string("country")->nullable(false);
             $table->string("region")->nullable(false);
             $table->string("city")->nullable(false);
-            $table->integer('role_id')->nullable()->references('id')->on('roles')->default(1);
+            $table->unsignedBigInteger('role_id')->nullable(false)->default(1);
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete("cascade");
             $table->string('active')->nullable(false)->default('Active');
             $table->string("picture")->nullable(true);
             $table->string("remember_token", 100)->nullable(true);

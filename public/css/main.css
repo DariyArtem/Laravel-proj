@@ -1274,6 +1274,7 @@ h5, h5 {
   height: 202px;
 }
 .sidebar-photo img {
+  border-radius: 100px;
   position: relative;
   width: 100%;
   height: 100%;
@@ -1420,6 +1421,7 @@ h5, h5 {
 }
 .header-search {
   max-width: 554px;
+  width: 100%;
   display: flex;
   align-items: center;
 }

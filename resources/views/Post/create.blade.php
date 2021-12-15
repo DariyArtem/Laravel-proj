@@ -9,7 +9,7 @@
                     <div class="card shadow-lg border-0 rounded-lg mt-5">
                         <div class="card-header"><h3 class="text-center font-weight-light">{{__('Create new post')}}</h3></div>
                         <div class="card-body">
-                            <form method="post" action="{{route('posts.store')}}">
+                            <form method="post" enctype="multipart/form-data" action="{{route('posts.store')}}">
                                 @csrf
                                 <div class="form-floating mb-3">
                                     <input class="form-control" id="inputTitle" name="title" required="required"
@@ -27,8 +27,12 @@
                                     <label for="inputNotification">{{__('Notification for post')}}</label>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inputContent"  class="form-label">Input content of your post</label>
+                                    <label for="inputContent"  class="form-label">{{__('Input content of your post')}}</label>
                                     <textarea class="form-control" name="content" id="inputContent" rows="12"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                        <label for="inputImage" class="form-label">{{__('Upload title image of you post')}}</label>
+                                        <input id="inputImage" type="file" name="image">
                                 </div>
                                 @error('formMessage')
                                 <div class="mt-4 mb-0">

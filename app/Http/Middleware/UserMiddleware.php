@@ -17,7 +17,7 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ( Auth::check() && Auth::user()->isUser() ) // Проверка, авторизован ли пользователь, и присвоена ли ему роль "Администратор
+        if ( Auth::check() && Auth::user()->role->name === 'User' ) // Проверка, авторизован ли пользователь, и присвоена ли ему роль "Администратор
         {
             // Если проверка пройдена, перебрасываем пользователя на главную страницу
             return redirect('/');

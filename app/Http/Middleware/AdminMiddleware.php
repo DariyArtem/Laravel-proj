@@ -17,7 +17,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ( Auth::check() && Auth::user()->isAdmin() ) // Проверка, авторизован ли пользователь, и присвоена ли ему роль "Администратор
+
+        if ( Auth::check() && Auth::user()->role->name === 'Admin' ) // Проверка, авторизован ли пользователь, и присвоена ли ему роль "Администратор
         {
             return $next($request); // Если проверка пройдена, продолжаем работу
         }

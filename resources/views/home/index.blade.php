@@ -25,7 +25,7 @@
             <div class="header-menu">
                 <ul class="sidebar-references">
                     <li><a href="#">Home</a></li>
-                    @if(Auth::check() && Auth::user()->isUser())
+                    @if(Auth::check() && Auth::user()->role->name === 'User')
                         <li><a href="{{route('logout')}}">Logout</a></li>
                     @endif
                     <li><a href="{{route('login')}}">Account</a></li>
@@ -100,7 +100,7 @@
                 <ul class="header-references">
                     <li><a href="#">Home</a></li>
                     @auth()
-                        @if(Auth::user()->isUser())
+                        @if(Auth::user()->role->name === "User")
                             <li><a href="{{route('logout')}}">Logout</a></li>
                         @else
                             <li><a href="{{route('private')}}">Adminka</a></li>@endif

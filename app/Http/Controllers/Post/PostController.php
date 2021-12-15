@@ -4,31 +4,36 @@ namespace App\Http\Controllers\Post;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Posts;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
     public function index()
     {
-        return view('Post.all', ['result'=> Posts::where('author_id', Auth::id())->get()]);
+        return view('Post.all', ['result' => Post::where('author_id', Auth::id())->get()]);
     }
+
     public function create()
     {
         return view('Post.create');
     }
+
     public function show($post_id)
     {
         return "Post {$post_id}";
     }
+
     public function edit($post_id)
     {
 
-        return view('Post.edit', ['result' => Posts::where('id', $post_id)->get()]);
+        return view('Post.edit', ['result' => Post::where('id', $post_id)->get()]);
     }
+
     public function store(Request $request)
     {
 
@@ -37,11 +42,16 @@ class PostController extends Controller
             'description' => 'required',
             'notification' => 'required',
             'content' => 'required',
+            'image' => 'image|mimetypes:image/jpeg,image/png',
 
         ]);
-        $post = Posts::create($validateFields + ['author_id' => Auth::id()]);
 
-        if($post){
+
+        $path = Storage::put('img', $validateFields['image']);
+        $post = Post::create($validateFields + ['author_id' => Auth::id()] + ['img_path' => $path]);
+
+
+        if ($post) {
             return redirect(route('posts'))->withSuccess("New post have been created");
         }
 
@@ -49,8 +59,10 @@ class PostController extends Controller
             'formError' => 'An error occurred'
         ]);
     }
-    public function update(Request  $request, $post_id)
+
+    public function update(Request $request, $post_id)
     {
+
         $validateFields = $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -58,18 +70,27 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
-        $post = Posts::find($post_id);
+        $post = Post::find($post_id);
 
-        $post->title = $validateFields['title'];
-        $post->description = $validateFields['description'];
-        $post->notification = $validateFields['notification'];
-        $post->content = $validateFields['content'];
+        if ($request->image !== null) {
 
-        $post->save();
+            $validateImage = $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+            Storage::delete($post->img_path);
+            $path = Storage::put('img/postsTitles', $validateImage['image']);
+            $post->img_path = $path;
 
 
+        }
+            $post->title = $validateFields['title'];
+            $post->description = $validateFields['description'];
+            $post->notification = $validateFields['notification'];
+            $post->content = $validateFields['content'];
 
-        if($post){
+            $post->save();
+
+        if ($post) {
             return redirect(route('posts'))->withSuccess("Post $post_id have been updated");
         }
 
@@ -77,12 +98,15 @@ class PostController extends Controller
             'formError' => 'An error occurred'
         ]);
     }
+
     public function delete($post_id)
     {
-       $delete = Posts::where('id', $post_id);
+        $delete = Post::where('id', $post_id)->first();
+        if ($delete) {
 
-        if($delete){
+            Storage::delete($delete->img_path);
             $delete->delete();
+
             return redirect()->back()->withSuccess("Post $post_id have been deleted");
         }
 

@@ -54,16 +54,17 @@ class User extends Authenticatable
     }
 
     public function role(){
-        return $this->belongsTo(Roles::class);
+        return $this->belongsTo(Role::class);
     }
 
-    public function isUser()
-    {
-        return $this->role()->where('name', 'User')->first();
-    }
-
+//    public function isUser()
+//    {
+//        return $this->role()->where('name', 'User');
+//    }
+//
     public function isAdmin(){
-        return $this->role()->where('name', 'Admin')->first();
+
+        return $this->role()->where('name', 'Admin');
     }
 
     public static function checkRole($role_id){

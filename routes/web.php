@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Post\PostController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Middleware\LogMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -32,8 +33,10 @@ Route:: view('/category', 'CategoryPage.index')->name('category')->middleware(Lo
 Route::redirect('/home', '/')->name('home.redirect');
 
 
-Route::middleware(['auth', 'user',])->group(function () {
+Route::middleware(['auth', 'user'])->group(function () {
     Route::get('private', function () {return view('private');})->name('private');
+    Route::get('settings', [UserController::class, 'index'])->name('settings');
+    Route::put('settings', [UserController::class, 'update'])->name('settings.update');
 });
 
 
@@ -53,12 +56,12 @@ Route::middleware('guest')->group(function () {
 Route::get('blog', [BlogController::class, 'index'])->name('blog');
 Route::get('blog/{blog}', [BlogController::class, 'show'])->name('blog.show');
 
-
-Route::fallback(function () {
-    return view('404');
-});
-
-
-
+//
+//Route::fallback(function () {
+//    return view('404');
+//});
+//
+//
+//
 
 

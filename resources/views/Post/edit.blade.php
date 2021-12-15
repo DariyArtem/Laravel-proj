@@ -11,7 +11,7 @@
                         </div>
                         <div class="card-body">
                             @foreach($result as $element)
-                                <form method="post" action="{{route('posts.update', ['id' => $element->id])}}">
+                                <form method="post" action="{{route('posts.update', ['id' => $element->id])}}" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="form-floating mb-3">
@@ -43,6 +43,7 @@
                                         <label for="inputNotification">{{__('Notification for post')}}</label>
                                     </div>
                                     @error('notification')
+
                                     <div class="mt-4 mb-0">
                                         <div class="d-grid btn-danger">{{$message}}</div>
                                     </div>
@@ -57,6 +58,19 @@
                                         <div class="d-grid btn-danger">{{$message}}</div>
                                     </div>
                                     @enderror
+                                    @error('image')
+                                    @enderror
+                                    <div class="d-block mb-3">
+                                        <div class="mb-3">Title image of your post</div>
+                                        <div class="admin-image">
+                                            <img src="{{asset("storage/".$element->img_path)}}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inputImage" class="form-label">Upload title image of you post</label>
+                                        <input id="inputImage" type="file" name="image">
+                                    </div>
+
                                     @endforeach
                                     @error('formMessage')
                                     <div class="mt-4 mb-0">

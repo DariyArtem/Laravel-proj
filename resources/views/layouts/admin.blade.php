@@ -32,7 +32,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Settings</a></li>
+                <li><a class="dropdown-item" href="{{route('settings')}}">{{__('Settings')}}</a></li>
                 <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
@@ -48,9 +48,10 @@
                     <div class="sb-sidenav-menu-heading">Interface</div>
                     <a class="nav-link collapsed">
                         <a class="nav-link" href="{{route('private')}}">{{__('Main')}}</a>
-                        <a class="nav-link" href="{{route('posts')}}">{{__('All Posts')}}</a>
+                        <a class="nav-link" href="{{route('posts')}}">{{__('All Post')}}</a>
                         <a class="nav-link" href="{{route('posts.create')}}">{{__('Create New Post')}}</a>
                         <a class="nav-link" href="{{route('admin.users')}}">{{__('All Users')}}</a>
+                        <a class="nav-link" href="{{route('home')}}">{{__('Main Page')}}</a>
                     </a>
                 </div>
             </div>

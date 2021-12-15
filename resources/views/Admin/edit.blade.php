@@ -34,9 +34,9 @@
                                 @method('put')
                                 <label for="role">{{__('Set Role')}}</label>
                                 <select class="form-select" id="role" name="role">
-                                    <option>Admin</option>
-                                    <option>Author</option>
-                                    <option>User</option>
+                                    @foreach($roles as $role)
+                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                    @endforeach
                                 </select>
                                 <label for="status">{{__('Set Status')}}</label>
                                 <select class="form-select" id="status" name="status">
