@@ -15,7 +15,7 @@ class UserTable extends Migration
     {
         Schema::create('users', function (Blueprint $table){
 
-            $table->increments("id");
+            $table->id("id");
             $table->string("email")->nullable(false)->unique('email');
             $table->string("password")->nullable(false);
             $table->string("phone")->nullable(false)->unique('phone');
@@ -26,7 +26,7 @@ class UserTable extends Migration
             $table->string("city")->nullable(false);
             $table->unsignedBigInteger('role_id')->nullable(false)->default(1);
             $table->foreign('role_id')->references('id')->on('roles')->onDelete("cascade");
-            $table->string('active')->nullable(false)->default('Active');
+            $table->boolean('status')->nullable(false)->default(true);
             $table->string("picture")->nullable(true);
             $table->string("remember_token", 100)->nullable(true);
             $table->timestamps();

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Post;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Post_Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +22,7 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('Post.create');
+        return view('Post.create', ['categories' => Category::all()]);
     }
 
     public function show($post_id)
@@ -36,22 +38,35 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-
         $validateFields = $request->validate([
             'title' => 'required',
             'description' => 'required',
             'notification' => 'required',
             'content' => 'required',
-            'image' => 'image|mimetypes:image/jpeg,image/png',
+            'image' => 'required|image|mimetypes:image/jpeg,image/png',
 
+        ]);
+        $validateCategories = $request->validate([
+            'categories.*' => 'required|integer',
         ]);
 
 
         $path = Storage::put('img', $validateFields['image']);
         $post = Post::create($validateFields + ['author_id' => Auth::id()] + ['img_path' => $path]);
 
+        $categories = $validateCategories['categories'];
+        $insert = false;
 
-        if ($post) {
+        for ($i = 0; $i<count($categories); $i++){
+            $data = [
+                'post_id' => $post->id,
+                'category_id' => $categories[$i],
+            ];
+            $insert = DB::table('post_category')->insert($data);
+        }
+
+
+        if ($post && $insert ) {
             return redirect(route('posts'))->withSuccess("New post have been created");
         }
 

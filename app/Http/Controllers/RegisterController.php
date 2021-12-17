@@ -31,7 +31,7 @@ class RegisterController extends Controller
         ]);
 
 
-        $user = User::create($validateFields);
+        $user = User::create($validateFields + ['role_id' => 1]);
 
         if($user){
             Auth::loginUsingId($user->id);

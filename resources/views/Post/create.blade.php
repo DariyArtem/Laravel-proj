@@ -34,6 +34,15 @@
                                         <label for="inputImage" class="form-label">{{__('Upload title image of you post')}}</label>
                                         <input id="inputImage" type="file" name="image">
                                 </div>
+                                <div class="mb-3">
+
+                                    <select class="form-select" id="status" multiple="multiple" name="categories[]">
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
                                 @error('formMessage')
                                 <div class="mt-4 mb-0">
                                     <div class="d-grid btn-danger">{{$message}}</div>

@@ -20,4 +20,9 @@ class Post extends Model
         "author_id",
         'video_path',
     ];
+
+    public function categories(){
+        return $this->belongsToMany(Category::class, 'post_category');
+    }
+
 }
