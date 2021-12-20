@@ -70,7 +70,6 @@
                                         <label for="inputImage" class="form-label">Upload title image of you post</label>
                                         <input id="inputImage" type="file" name="image">
                                     </div>
-
                                     @endforeach
                                     @error('formMessage')
                                     <div class="mt-4 mb-0">

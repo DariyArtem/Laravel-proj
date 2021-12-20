@@ -138,126 +138,18 @@
                 </h6>
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
+                        @foreach($categories as $category)
                         <div class="swiper-slide">
                             <a href="#">
                                 <div class="slider-card">
                                     <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category1.png')}}" alt="Category">
+                                        <img src="{{asset('storage/'.$category->img_path)}}" alt="Category">
                                     </div>
-                                    <div class="centered">Solo Travel</div>
+                                    <div class="centered">{{__($category->name)}}</div>
                                 </div>
                             </a>
                         </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category2.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Mount Travel</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category3.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Jungle Travel</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category4.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Road Travel</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category5.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Ocean Travel</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category6.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Old City Travel</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category7.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Solo Travel</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category8.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Mount Travel</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category9.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Jungle Travel</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category10.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Road Travel</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category11.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Ocean Travel</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="slider-card">
-                                    <div class="slider-img">
-                                        <img src="{{asset('img/homePage/categories/category12.png')}}" alt="Category">
-                                    </div>
-                                    <div class="centered">Old City Travel</div>
-                                </div>
-                            </a>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -277,114 +169,28 @@
                     <p>Featured Explore</p>
                 </h6>
                 <div class="row">
-                    <div class="col-xl-4 col-md-6 ">
-                        <div class="explores-content">
-                            <div class="explores-card">
-                                <img class="explores-image" src="{{asset('img/homePage/explore/explore1.png')}}" alt="">
-                            </div>
-                            <div class="explores-text">
-                                <h6 class="explores-title">The Golden Sands of Florida and California </h6>
-                                <div class="explores-context">Lorem ipsum dolor sit amet, con turadip iscingelit. In sed et donec purus viverra. Sit
-                                    justo velit, eu sed
+                    @foreach($posts as $post)
+                        @foreach($users as $user)
+                            <div class="col-xl-4 col-md-6 ">
+                            <div class="explores-content">
+                                <div class="explores-card">
+                                    <img class="explores-image" src="{{asset('storage/'.$post->img_path)}}" alt="">
                                 </div>
-                                <div class="explores-text-footer">
-                                    <div class="explores-category">Solo Travel</div>
-                                    <div class="explores-by">&nbspBy &nbsp</div>
-                                    <div class="explores-author">Adam Smith</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 ">
-                        <div class="explores-content">
-                            <div class="explores-card">
-                                <img class="explores-image" src="{{asset('img/homePage/explore/explore2.png')}}" alt="">
-                            </div>
-                            <div class="explores-text">
-                                <h6 class="explores-title">The Golden Sands of Florida and California </h6>
-                                <div class="explores-context">Lorem ipsum dolor sit amet, con turadip iscingelit. In sed et donec purus viverra. Sit
-                                    justo velit, eu sed
-                                </div>
-                                <div class="explores-text-footer">
-                                    <div class="explores-category">Solo Travel</div>
-                                    <div class="explores-by">&nbspBy &nbsp</div>
-                                    <div class="explores-author">Adam Smith</div>
+                                <div class="explores-text">
+                                    <h6 class="explores-title">{{__($post->title)}}</h6>
+                                    <div class="explores-context">{{__($post->description)}}
+                                    </div>
+                                    <div class="explores-text-footer">
+                                        <div class="explores-category">Solo Travel</div>
+                                        <div class="explores-by">&nbspBy &nbsp</div>
+                                        <div class="explores-author">{{$user->name[$post->author_id]}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 ">
-                        <div class="explores-content">
-                            <div class="explores-card">
-                                <img class="explores-image" src="{{asset('img/homePage/explore/explore3.png')}}" alt="">
-                            </div>
-                            <div class="explores-text">
-                                <h6 class="explores-title">The Golden Sands of Florida and California </h6>
-                                <div class="explores-context">Lorem ipsum dolor sit amet, con turadip iscingelit. In sed et donec purus viverra. Sit
-                                    justo velit, eu sed
-                                </div>
-                                <div class="explores-text-footer">
-                                    <div class="explores-category">Solo Travel</div>
-                                    <div class="explores-by">&nbspBy &nbsp</div>
-                                    <div class="explores-author">Adam Smith</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 ">
-                        <div class="explores-content">
-                            <div class="explores-card">
-                                <img class="explores-image" src="{{asset('img/homePage/explore/explore4.png')}}" alt="">
-                            </div>
-                            <div class="explores-text">
-                                <h6 class="explores-title">The Golden Sands of Florida and California </h6>
-                                <div class="explores-context">Lorem ipsum dolor sit amet, con turadip iscingelit. In sed et donec purus viverra. Sit
-                                    justo velit, eu sed
-                                </div>
-                                <div class="explores-text-footer">
-                                    <div class="explores-category">Solo Travel</div>
-                                    <div class="explores-by">&nbspBy &nbsp</div>
-                                    <div class="explores-author">Adam Smith</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 ">
-                        <div class="explores-content">
-                            <div class="explores-card">
-                                <img class="explores-image" src="{{asset('img/homePage/explore/explore5.png')}}" alt="">
-                            </div>
-                            <div class="explores-text">
-                                <h6 class="explores-title">The Golden Sands of Florida and California </h6>
-                                <div class="explores-context">Lorem ipsum dolor sit amet, con turadip iscingelit. In sed et donec purus viverra. Sit
-                                    justo velit, eu sed
-                                </div>
-                                <div class="explores-text-footer">
-                                    <div class="explores-category">Solo Travel</div>
-                                    <div class="explores-by">&nbspBy &nbsp</div>
-                                    <div class="explores-author">Adam Smith</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 ">
-                        <div class="explores-content">
-                            <div class="explores-card">
-                                <img class="explores-image" src="{{asset('img/homePage/explore/explore6.png')}}" alt="">
-                            </div>
-                            <div class="explores-text">
-                                <h6 class="explores-title">The Golden Sands of Florida and California </h6>
-                                <div class="explores-context">Lorem ipsum dolor sit amet, con turadip iscingelit. In sed et donec purus
-                                    viverra. Sit justo velit, eu sed
-                                </div>
-                                <div class="explores-text-footer">
-                                    <div class="explores-category">Solo Travel</div>
-                                    <div class="explores-by">&nbspBy &nbsp</div>
-                                    <div class="explores-author">Adam Smith</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        @endforeach
+                    @endforeach
+
                 </div>
             </div>
             <ul class="pagination justify-content-center align-items-center">

@@ -35,6 +35,14 @@
                                         <input id="inputImage" type="file" name="image">
                                 </div>
                                 <div class="mb-3">
+                                    <label for="inputImages" class="form-label">{{__('Upload 3 images for you post')}}</label>
+                                    <input id="inputImages" type="file" multiple name="images[]">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputVideo" class="form-label">{{__('Upload video for you post')}}</label>
+                                    <input id="inputVideo" type="file" name="video">
+                                </div>
+                                <div class="mb-3">
 
                                     <select class="form-select" id="status" multiple="multiple" name="categories[]">
                                         @foreach($categories as $category)

@@ -7,6 +7,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Middleware\LogMiddleware;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +25,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route:: view('/', 'home.index')->name('home')->middleware(LogMiddleware::class);
+Route:: view('/', 'home.index',
+    ['categories' => Category::all(), 'posts' => Post::all(), 'users' => User::all()])
+    ->name('home')->middleware(LogMiddleware::class);
 Route:: view('/about', 'about.index')->name('about')->middleware(LogMiddleware::class);
 Route:: view('/contact', 'contact.index')->name('contact')->middleware(LogMiddleware::class);
 Route:: view('/search', 'searchPage.index')->name('search')->middleware(LogMiddleware::class);

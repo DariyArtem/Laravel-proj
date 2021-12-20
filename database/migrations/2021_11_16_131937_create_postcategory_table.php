@@ -16,7 +16,9 @@ class CreatePostCategoryTable extends Migration
         Schema::create('post_category', function (Blueprint $table) {
             $table->increments("id");
             $table->integer("category_id")->nullable(false)->default(1);
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete("cascade");
             $table->integer("post_id")->nullable(false);
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete("cascade");
             $table->timestamps();
         });
     }

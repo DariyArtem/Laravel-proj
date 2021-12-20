@@ -22,13 +22,15 @@
                             </div>
                             @endforeach
                             <div class="">
-                                <form action="{{route('settings.update', [$element->id])}}" method="post" enctype="multipart/form-data">
+                                <form action="{{route('settings.update', [$element->id])}}" method="post"
+                                      enctype="multipart/form-data">
                                     @csrf
                                     @method('put')
                                     <div class="mb-3">
                                         <div class="form-floating mb-3 mb-md-0">
                                             <input class="form-control" id="inputFirstName" name="name" type="text"
-                                                   required="required" value="{{$element->name}}" placeholder="Enter your first name"/>
+                                                   required="required" value="{{$element->name}}"
+                                                   placeholder="Enter your first name"/>
                                             <label for="inputFirstName">{{__('First name')}}</label>
                                         </div>
                                         @error('name')
@@ -40,8 +42,9 @@
                                     <div class="mb-3">
 
                                         <div class="form-floating">
-                                            <input class="form-control" id="inputLastName"  name="surname"
-                                                   required="required" value="{{$element->surname}}"  type="text" placeholder="Enter your last name"/>
+                                            <input class="form-control" id="inputLastName" name="surname"
+                                                   required="required" value="{{$element->surname}}" type="text"
+                                                   placeholder="Enter your last name"/>
                                             <label for="inputLastName">{{__('Surname')}}</label>
                                         </div>
                                         @error('surname')
@@ -53,7 +56,8 @@
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputNumber" type="number" name="phone"
-                                               required="required" value="{{$element->phone}}" placeholder="+380934567890"/>
+                                               required="required" value="{{$element->phone}}"
+                                               placeholder="+380934567890"/>
                                         <label for="inputNumber">{{__('Phone Number')}}</label>
                                         @error('phone')
                                         <div class="mt-4 mb-0">
@@ -64,7 +68,8 @@
                                     <div class="mb-3">
                                         <div class="form-floating mb-3 mb-md-0">
                                             <input class="form-control" id="inputCountry" required="required"
-                                                   name="country" value="{{$element->country}}" type="text"  placeholder="Enter country"/>
+                                                   name="country" value="{{$element->country}}" type="text"
+                                                   placeholder="Enter country"/>
                                             <label for="inputCountry">{{__('Country')}}</label>
                                         </div>
                                         @error('country')
@@ -76,7 +81,8 @@
                                     <div class="mb-3">
                                         <div class="form-floating mb-3 mb-md-0">
                                             <input class="form-control" id="inputRegion" required="required"
-                                                   name="region" value="{{$element->region}}" type="text" placeholder="Enter region"/>
+                                                   name="region" value="{{$element->region}}" type="text"
+                                                   placeholder="Enter region"/>
                                             <label for="inputRegion">{{__('Region')}}</label>
                                         </div>
                                         @error('region')
@@ -98,7 +104,8 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label for="inputImage" class="form-label">{{__('Upload profile picture')}}</label>
+                                        <label for="inputImage"
+                                               class="form-label">{{__('Upload profile picture')}}</label>
                                         <input id="inputImage" type="file" name="picture">
                                     </div>
                                     <div class="d-flex mt-4 mb-0">

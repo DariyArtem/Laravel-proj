@@ -35,7 +35,9 @@
                         <td>{{$element->name}}</td>
                         <td>{{$element->surname}}</td>
                         <td>{{$element->email}}</td>
-                        <td>{{$element->active}}</td>
+                        <td>
+                            @if($element->status === 1){{"Active"}}@else{{"Banned"}}@endif
+                        </td>
                         <td>{{\App\Models\User::checkRole($element->role_id)}}</td>
                         <td>
                             <form action="{{route('admin.edit', ['id' => $element->id])}}">

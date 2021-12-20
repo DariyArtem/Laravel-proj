@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Post_Image extends Model
 {
     use HasFactory;
+    protected $table = 'post_images';
 
     protected $fillable = [
-        "name",
         "img_path",
+        "post_id",
     ];
 
-    public function posts(){
-        $this->belongsToMany(Post::class);
-    }
 }

@@ -27,6 +27,7 @@ class UserTable extends Migration
             $table->unsignedBigInteger('role_id')->nullable(false)->default(1);
             $table->foreign('role_id')->references('id')->on('roles')->onDelete("cascade");
             $table->boolean('status')->nullable(false)->default(true);
+            $table->foreign('status')->references('id')->on('statuses')->onDelete("cascade");
             $table->string("picture")->nullable(true);
             $table->string("remember_token", 100)->nullable(true);
             $table->timestamps();

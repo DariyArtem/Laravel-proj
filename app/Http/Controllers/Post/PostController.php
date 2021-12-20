@@ -44,29 +44,46 @@ class PostController extends Controller
             'notification' => 'required',
             'content' => 'required',
             'image' => 'required|image|mimetypes:image/jpeg,image/png',
+            'images.*' => 'required|image|mimetypes:image/jpeg,image/png',
+            'video' => 'required|mimetypes:video/mp4,video/avi,video/mpeg',
 
         ]);
+
+
+
         $validateCategories = $request->validate([
             'categories.*' => 'required|integer',
         ]);
 
 
-        $path = Storage::put('img', $validateFields['image']);
-        $post = Post::create($validateFields + ['author_id' => Auth::id()] + ['img_path' => $path]);
+        $imagesPath = Storage::put('img/postsTitles', $validateFields['image']);
+        $videoPath = Storage::put('video', $validateFields['video']);
+        $post = Post::create($validateFields + ['author_id' => Auth::id()]
+            + ['img_path' => $imagesPath] + ['video_path' => $videoPath]);
 
         $categories = $validateCategories['categories'];
-        $insert = false;
+        $images = $validateFields['images'];
+        $insertCategories = false;
+        $insertImages = false;
 
         for ($i = 0; $i<count($categories); $i++){
             $data = [
                 'post_id' => $post->id,
                 'category_id' => $categories[$i],
             ];
-            $insert = DB::table('post_category')->insert($data);
+            $insertCategories = DB::table('post_category')->insert($data);
         }
 
+        for ($i = 0; $i<count($images); $i++){
+            $imagesPath = Storage::put('img/posts', $images[$i]);
+            $data = [
+                'post_id' => $post->id,
+                'img_path' => $imagesPath,
+            ];
+            $insertImages = DB::table('post_images')->insert($data);
+        }
 
-        if ($post && $insert ) {
+        if ($post && $insertCategories && $insertImages) {
             return redirect(route('posts'))->withSuccess("New post have been created");
         }
 
@@ -93,8 +110,9 @@ class PostController extends Controller
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
             Storage::delete($post->img_path);
-            $path = Storage::put('img/postsTitles', $validateImage['image']);
-            $post->img_path = $path;
+            $imagePath = Storage::put('img/postsTitles', $validateImage['image']);
+
+            $post->img_path = $imagePath;
 
 
         }

@@ -51,7 +51,9 @@
                         <a class="nav-link" href="{{route('posts')}}">{{__('All Post')}}</a>
                         <a class="nav-link" href="{{route('posts.create')}}">{{__('Create New Post')}}</a>
                         <a class="nav-link" href="{{route('admin.users')}}">{{__('All Users')}}</a>
+                        <a class="nav-link" href="{{route('admin.categories')}}">{{__('Categories')}}</a>
                         <a class="nav-link" href="{{route('home')}}">{{__('Main Page')}}</a>
+
                     </a>
                 </div>
             </div>
