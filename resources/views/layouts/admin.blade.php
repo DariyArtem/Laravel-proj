@@ -48,12 +48,12 @@
                     <div class="sb-sidenav-menu-heading">Interface</div>
                     <a class="nav-link collapsed">
                         <a class="nav-link" href="{{route('private')}}">{{__('Main')}}</a>
+                        <a class="nav-link" href="{{route('home')}}">{{__('Home Page')}}</a>
                         <a class="nav-link" href="{{route('posts')}}">{{__('All Post')}}</a>
                         <a class="nav-link" href="{{route('posts.create')}}">{{__('Create New Post')}}</a>
                         <a class="nav-link" href="{{route('admin.users')}}">{{__('All Users')}}</a>
                         <a class="nav-link" href="{{route('admin.categories')}}">{{__('Categories')}}</a>
-                        <a class="nav-link" href="{{route('home')}}">{{__('Main Page')}}</a>
-
+                        <a class="nav-link" href="{{route('admin.messages')}}">{{__('All messages')}}</a>
                     </a>
                 </div>
             </div>

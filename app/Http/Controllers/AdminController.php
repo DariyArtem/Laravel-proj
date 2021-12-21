@@ -35,7 +35,7 @@ class AdminController extends Controller
 
         $user = User::find($id);
         $user->role_id = $validateFields['role'];
-        $user->active = $status;
+        $user->status = $status;
         $user->save();
 
         if($user){

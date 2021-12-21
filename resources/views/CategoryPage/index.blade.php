@@ -26,11 +26,19 @@
             </div>
             <div class="header-menu">
                 <ul class="sidebar-references">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Me</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact Me</a></li>
+                    <li><a href="{{route('home')}}">Home</a></li>
+                    @auth()
+                        @if(Auth::user()->role->name === "User")
+                            <li><a href="{{route('logout')}}">Logout</a></li>
+                        @else
+                            <li><a href="{{route('private')}}">Adminka</a></li>@endif
+                    @else
+                        <li><a href="{{route('login')}}">Account</a></li>
+                    @endauth
+                    <li><a href="{{route('about')}}">About Me</a></li>
+                    <li><a href="{{route('category')}}">Categories</a></li>
+                    {{--                <li><a href="#">Blog</a></li>--}}
+                    <li><a href="{{route('contact')}}">Contact Me</a></li>
                 </ul>
             </div>
             <div class="header-sidebarIcons">
@@ -96,11 +104,19 @@
             </div>
             <menu class="header-menu">
                 <ul class="header-references">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Me</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact Me</a></li>
+                    <li><a href="{{route('home')}}">Home</a></li>
+                    @auth()
+                        @if(Auth::user()->role->name === "User")
+                            <li><a href="{{route('logout')}}">Logout</a></li>
+                        @else
+                            <li><a href="{{route('private')}}">Adminka</a></li>@endif
+                    @else
+                        <li><a href="{{route('login')}}">Account</a></li>
+                    @endauth
+                    <li><a href="{{route('about')}}">About Me</a></li>
+                    <li><a href="{{route('category')}}">Categories</a></li>
+                    {{--                <li><a href="#">Blog</a></li>--}}
+                    <li><a href="{{route('contact')}}">Contact Me</a></li>
                 </ul>
             </menu>
             <div class="header-content">

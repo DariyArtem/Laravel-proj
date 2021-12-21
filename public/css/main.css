@@ -1274,7 +1274,6 @@ h5, h5 {
   height: 202px;
 }
 .sidebar-photo img {
-  border-radius: 100px;
   position: relative;
   width: 100%;
   height: 100%;
@@ -1369,7 +1368,7 @@ h5, h5 {
 .header {
   height: 100vh;
 }
-.header-searchPage, .header-singlePost, .header-authorPage {
+.header-template2 {
   max-height: 142px;
 }
 .header-errorPage {

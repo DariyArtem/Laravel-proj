@@ -19,6 +19,7 @@
         "sass-loader": "^12.1.0"
     },
     "dependencies": {
-        "@rails/ujs": "^6.1.4-1"
+        "@rails/ujs": "^6.1.4-1",
+        "swiper": "^7.3.3"
     }
 }

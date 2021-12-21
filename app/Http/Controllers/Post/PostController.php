@@ -49,8 +49,6 @@ class PostController extends Controller
 
         ]);
 
-
-
         $validateCategories = $request->validate([
             'categories.*' => 'required|integer',
         ]);

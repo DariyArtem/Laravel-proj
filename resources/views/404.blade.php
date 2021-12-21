@@ -41,11 +41,11 @@
         </div>
         <menu class="header-menu error-page">
             <ul class="header-references">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Me</a></li>
-                <li><a href="#">Categories</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contact Me</a></li>
+                <li><a href="{{route('home')}}">Home</a></li>
+                <li><a href="{{route('about')}}">About Me</a></li>
+                <li><a href="{{route('category')}}">Categories</a></li>
+                {{--                <li><a href="#">Blog</a></li>--}}
+                <li><a href="{{route('contact')}}">Contact Me</a></li>
             </ul>
         </menu>
     </div>

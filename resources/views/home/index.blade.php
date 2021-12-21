@@ -24,15 +24,19 @@
             </div>
             <div class="header-menu">
                 <ul class="sidebar-references">
-                    <li><a href="#">Home</a></li>
-                    @if(Auth::check() && Auth::user()->role->name === 'User')
-                        <li><a href="{{route('logout')}}">Logout</a></li>
-                    @endif
-                    <li><a href="{{route('login')}}">Account</a></li>
-                    <li><a href="#">About Me</a></li>
+                    <li><a href="{{route('home')}}">Home</a></li>
+                    @auth()
+                        @if(Auth::user()->role->name === "User")
+                            <li><a href="{{route('logout')}}">Logout</a></li>
+                        @else
+                            <li><a href="{{route('private')}}">Adminka</a></li>@endif
+                    @else
+                        <li><a href="{{route('login')}}">Account</a></li>
+                    @endauth
+                    <li><a href="{{route('about')}}">About Me</a></li>
                     <li><a href="#">Categories</a></li>
                     <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact Me</a></li>
+                    <li><a href="{{route('contact')}}">Contact Me</a></li>
                 </ul>
             </div>
             <div class="header-sidebarIcons">
@@ -98,7 +102,7 @@
             </div>
             <menu class="header-menu">
                 <ul class="header-references">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="{{route('home')}}">Home</a></li>
                     @auth()
                         @if(Auth::user()->role->name === "User")
                             <li><a href="{{route('logout')}}">Logout</a></li>
@@ -107,10 +111,10 @@
                     @else
                         <li><a href="{{route('login')}}">Account</a></li>
                     @endauth
-                    <li><a href="#">About Me</a></li>
+                    <li><a href="{{route('about')}}">About Me</a></li>
                     <li><a href="#">Categories</a></li>
                     <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact Me</a></li>
+                    <li><a href="{{route('contact')}}">Contact Me</a></li>
                 </ul>
             </menu>
             <div class="header-content">
@@ -170,7 +174,6 @@
                 </h6>
                 <div class="row">
                     @foreach($posts as $post)
-                        @foreach($users as $user)
                             <div class="col-xl-4 col-md-6 ">
                             <div class="explores-content">
                                 <div class="explores-card">
@@ -183,12 +186,11 @@
                                     <div class="explores-text-footer">
                                         <div class="explores-category">Solo Travel</div>
                                         <div class="explores-by">&nbspBy &nbsp</div>
-                                        <div class="explores-author">{{$user->name[$post->author_id]}}</div>
+                                        <div class="explores-author">{{$post->author_id}}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endforeach
                     @endforeach
 
                 </div>

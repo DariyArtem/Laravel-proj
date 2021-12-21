@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LoginController;
@@ -34,6 +35,7 @@ Route:: view('/search', 'searchPage.index')->name('search')->middleware(LogMiddl
 Route:: view('/single', 'SinglePostPage.index')->name('single')->middleware(LogMiddleware::class);
 Route:: view('/author', 'AuthorPage.index')->name('author')->middleware(LogMiddleware::class);
 Route:: view('/category', 'CategoryPage.index')->name('category')->middleware(LogMiddleware::class);
+Route::post('/message', [MessageController::class, 'store'])->name('message')->middleware(LogMiddleware::class);
 
 Route::redirect('/home', '/')->name('home.redirect');
 
@@ -61,12 +63,12 @@ Route::middleware('guest')->group(function () {
 Route::get('blog', [BlogController::class, 'index'])->name('blog');
 Route::get('blog/{blog}', [BlogController::class, 'show'])->name('blog.show');
 
-//
-//Route::fallback(function () {
-//    return view('404');
-//});
-//
-//
-//
+
+Route::fallback(function () {
+    return view('404');
+});
+
+
+
 
 
