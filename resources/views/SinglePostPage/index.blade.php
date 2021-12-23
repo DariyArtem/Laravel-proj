@@ -10,24 +10,37 @@
         <div class="single-top">
             <div class="row">
                 <div class="col-md-8">
+                    @foreach($result as $post)@endforeach
                     <div class="post-img">
-                        <img src="img/singlePage/post-img1.png" alt="">
+                        <img src="{{asset('storage/'.$post->img_path)}}" alt="">
                     </div>
-                    <h6 class="single-title">14 Things to See and Do in Portland, Oregon</h6>
+
+                    <h6 class="single-title">{{$post->title}}</h6>
+                        <h6 class="single-title">Views:{{$post->views}}</h6>
                     <div class="single-info">
                         <div class="single-data">
-                            <a class="single-reference" href="#"><div class="single-time">
-                                    <i class="far fa-clock icon-clock" aria-hidden="true"></i>30 minute ago
-                                </div></a>
-                            <a class="single-reference" href="#"><div class="single-category">
+                            <a class="single-reference" href="#">
+                                <div class="single-time">
+                                    <i class="far fa-clock icon-clock" aria-hidden="true"></i>{{$post->created_at}}
+                                </div>
+                            </a>
+                            <a class="single-reference" href="#">
+                                <div class="single-category">
                                     <i class="far fa-folder icon-folder" aria-hidden="true"></i>Solo Travel
-                                </div></a>
-                            <a class="single-reference" href="#"><div class="single-by">
-                                    <i class="far fa-user icon-user" aria-hidden="true"></i>Adam Smith
-                                </div></a>
-                            <a class="single-reference" href="#"><div class="single-quantity">
+                                </div>
+                            </a>
+                            <a class="single-reference" href="#">
+                                <div class="single-by">
+                                    <i class="far fa-user icon-user" aria-hidden="true"></i>
+                                    {{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
+                                           (\App\Models\User::where('id', $post->author_id)->first()->surname)}}
+                                </div>
+                            </a>
+                            <a class="single-reference" href="#">
+                                <div class="single-quantity">
                                     <i class="far fa-comment icon-comment" aria-hidden="true"></i>502
-                                </div></a>
+                                </div>
+                            </a>
                         </div>
                         <div class="single-social">
                             <a href="#">
@@ -56,14 +69,17 @@
                 <div class="col-md-4">
                     <div class="blog-sidebar">
                         <h6 class="sidebar-title">
-                            Popular Post
+                            Popular Posts
                         </h6>
+                        @foreach($popular as $post)
                         <div class="sidebar-post">
                             <div class="sidebar-card">
-                                <img class="sidebar-img" src="img/homePage/blog/blog1.png" alt="">
+                                <a href="{{route('single',[$post->id])}}">
+                                    <img class="sidebar-img" src="{{asset('storage/'.$post->img_path)}}" alt="">
+                                </a>
                             </div>
                             <div class="post-text">
-                                <div class="post-title">13 things i’d Tell Any New Travler </div>
+                                <div class="post-title">13 things i’d Tell Any New Travler</div>
                                 <div class="post-author">
                                     <div class="post-post">Post</div>
                                     <div class="post-by">By</div>
@@ -78,86 +94,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="sidebar-post">
-                            <div class="sidebar-card">
-                                <img class="sidebar-img" src="img/homePage/blog/blog2.png" alt="">
-                            </div>
-                            <div class="post-text">
-                                <div class="post-title">13 things i’d Tell Any New Travler </div>
-                                <div class="post-author">
-                                    <div class="post-post">Post</div>
-                                    <div class="post-by">By</div>
-                                    <div class="post-sign">Adam Smith</div>
-                                </div>
-                                <div class="post-data">
-                                    <div class="post-date">10, November</div>
-                                    <div class="post-hr"></div>
-                                    <div class="post-comments">
-                                        <a class="post-comment" href="#">50 comments</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sidebar-post">
-                            <div class="sidebar-card">
-                                <img class="sidebar-img" src="img/homePage/blog/blog3.png" alt="">
-                            </div>
-                            <div class="post-text">
-                                <div class="post-title">13 things i’d Tell Any New Travler </div>
-                                <div class="post-author">
-                                    <div class="post-post">Post</div>
-                                    <div class="post-by">By</div>
-                                    <div class="post-sign">Adam Smith</div>
-                                </div>
-                                <div class="post-data">
-                                    <div class="post-date">10, November</div>
-                                    <div class="post-hr"></div>
-                                    <div class="post-comments">
-                                        <a class="post-comment" href="#">50 comments</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sidebar-post">
-                            <div class="sidebar-card">
-                                <img class="sidebar-img" src="img/homePage/blog/blog4.png" alt="">
-                            </div>
-                            <div class="post-text">
-                                <div class="post-title">13 things i’d Tell Any New Travler </div>
-                                <div class="post-author">
-                                    <div class="post-post">Post</div>
-                                    <div class="post-by">By</div>
-                                    <div class="post-sign">Adam Smith</div>
-                                </div>
-                                <div class="post-data">
-                                    <div class="post-date">10, November</div>
-                                    <div class="post-hr"></div>
-                                    <div class="post-comments">
-                                        <a class="post-comment" href="#">50 comments</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sidebar-post">
-                            <div class="sidebar-card">
-                                <img class="sidebar-img" src="img/homePage/blog/blog5.png" alt="">
-                            </div>
-                            <div class="post-text">
-                                <div class="post-title">13 things i’d Tell Any New Travler </div>
-                                <div class="post-author">
-                                    <div class="post-post">Post</div>
-                                    <div class="post-by">By</div>
-                                    <div class="post-sign">Adam Smith</div>
-                                </div>
-                                <div class="post-data">
-                                    <div class="post-date">10, November</div>
-                                    <div class="post-hr"></div>
-                                    <div class="post-comments">
-                                        <a class="post-comment" href="#">50 comments</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="blog-sidebar blog-icons">
                         <h6 class="sidebar-title">
@@ -192,99 +129,98 @@
         <div class="col-md-8">
             <div class="single-content">
                 <div class="single-shortDescription">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac elementum
-                    amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit. Lectus a massa mi
-                    dignissim vivamus lobortis et. Ante id diam in odio. Enim sapien, aliquet libero cursus
-                    egestas amet mattis. Facilisi cursus netus massa eget. Leo pharetra, aliquam viverra
-                    pharetra. Et purus donec nibh lectus penatibus enim. Mi ut a non pharetra, egestas diam,
-                    pellentesque feugiat. Lectus turpis blandit sollicitudin mi netus. Morbi sagittis sit sem
-                    facilisis diam purus sed. Quam cursus et a posuere a. Ornare at purus faucibus enim dolor
-                    varius mauris. Arcu turpis ac facilisis ultricies eu vivamus. Lacinia feugiat dui enim massa
+                    {{$post->description}}
                 </div>
                 <div class="single-notification">
                     <span class="notification-span"></span>
                     <div class="notification-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac
-                        elementum amet, et. Non nulla nisl, libero ac. Proin vitae quis maecenas elit. Lectus a
-                        massa mi dignissim vivamus lobortis et. Ante id di
+                        {{$post->notification}}
                     </div>
                 </div>
-                <div class="row single-padding">
-                    <div class="col-sm-6">
-                        <div class="single-card">
-                            <img src="img/singlePage/card1.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="single-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ac vulputate magna ultrices
-                            est. Sed adipiscing blandit pellentesque aenean at pulvinar cursus. Vitae egestas
-                            pellentesque dolor ut nibh blandit eget. Vitae ut turpis imperdiet aenean massa.
-                            Suspendisse pulvinar semper pharetra elit morbi facilisis habitant. Eleifend ut
-                            vulputate lobortis sapien curabitur.
-                        </div>
-                    </div>
-                </div>
-                <div class="row single-padding">
-                    <div class="col-sm-6">
-                        <div class="single-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ac vulputate magna ultrices
-                            est. Sed adipiscing blandit pellentesque aenean at pulvinar cursus. Vitae egestas
-                            pellentesque dolor ut nibh blandit eget. Vitae ut turpis imperdiet aenean massa.
-                            Suspendisse pulvinar semper pharetra elit morbi facilisis habitant. Eleifend ut
-                            vulputate lobortis sapien curabitur.
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="single-card">
-                            <img src="img/singlePage/card2.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                <h6 class="single-title-fromContent">How was the jungal solo travel ?</h6>
-                <div class="single-text single-padding">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac elementum
-                    amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit. Lectus a massa mi
-                    dignissim vivamus lobortis et. Ante id diam in odio. Enim sapien, aliquet libero cursus
-                    egestas amet mattis. Facilisi cursus netus massa eget. Leo pharetra, aliquam viverra
-                    pharetra. Et purus donec nibh lectus penatibus enim.
-                </div>
-                <div class="single-button">
-                    <div>
-                        <button id="singlePost-play1" class="video-icon" type="button" >
-                            <i class="fas fa-play fa-2x"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="single-padding">
-                    <div class="single-videofile">
-                        <button id="singlePost-close" class="video-close single-close " type="button">
-                            <i class="fas fa-times fa-2x" aria-hidden="true"></i>
-                        </button>
-                        <video id="singlePost-video1" src="video/home/Airpods%20(Not%20For%20Poor%20People).mp4"></video>
-                    </div>
-                </div>
-                <div class="single-text single-padding">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac elementum
-                    amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit. Lectus a massa mi
-                    dignissim vivamus lobortis et. Ante id diam in odio. Enim sapien, aliquet libero cursus
-                    egestas amet mattis. Facilisi cursus netus massa eget. Leo pharetra, aliquam viverra
-                    pharetra. Et purus donec nibh lectus penatibus enim.
-                </div>
-                <div class="single-text single-padding">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac elementum
-                    amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit. Lectus a massa mi
-                    dignissim vivamus lobortis et. Ante id diam in odio. Enim sapien, aliquet libero cursus
-                    egestas amet mattis. Facilisi cursus netus massa eget. Leo pharetra, aliquam viverra
-                    pharetra. Et purus donec nibh lectus penatibus enim.
-                </div>
-                <div class="single-text single-padding">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac elementum
-                    amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit. Lectus a massa mi
-                    dignissim vivamus lobortis et. Ante id diam in odio. Enim sapien, aliquet libero cursus
-                    egestas amet mattis. Facilisi cursus netus massa eget. Leo pharetra, aliquam viverra
-                    pharetra. Et purus donec nibh lectus penatibus enim.
-                </div>
+                @for($i=0; $i<count(explode(PHP_EOL, $post->content)); $i++)
+                    @if($i%2 !== 0)
+                        @foreach((\App\Models\Post_Image::where('post_id', $post->id)->get()) as $img)
+                            <div class="row single-padding">
+                                <div class="col-sm-6">
+                                    <div class="single-card">
+                                        <img src="{{asset('storage/'.$img->img_path)}}" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="single-text">
+                                        {{explode(PHP_EOL, $post->content)[$i]}}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="row single-padding">
+                                    <div class="col-sm-6">
+                                        <div class="single-text">
+                                            {{explode(PHP_EOL, $post->content)[$i]}}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="single-card">
+                                            <img src="img/singlePage/card2.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            @endfor
+                            <h6 class="single-title-fromContent">How was the jungal solo travel ?</h6>
+                            <div class="single-text single-padding">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac
+                                elementum
+                                amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit. Lectus a massa
+                                mi
+                                dignissim vivamus lobortis et. Ante id diam in odio. Enim sapien, aliquet libero cursus
+                                egestas amet mattis. Facilisi cursus netus massa eget. Leo pharetra, aliquam viverra
+                                pharetra. Et purus donec nibh lectus penatibus enim.
+                            </div>
+                            <div class="single-button">
+                                <div>
+                                    <button id="singlePost-play1" class="video-icon" type="button">
+                                        <i class="fas fa-play fa-2x"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="single-padding">
+                                <div class="single-videofile">
+                                    <button id="singlePost-close" class="video-close single-close " type="button">
+                                        <i class="fas fa-times fa-2x" aria-hidden="true"></i>
+                                    </button>
+                                    <video id="singlePost-video1"
+                                           src="video/home/Airpods%20(Not%20For%20Poor%20People).mp4"></video>
+                                </div>
+                            </div>
+                            <div class="single-text single-padding">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac
+                                elementum
+                                amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit. Lectus a massa
+                                mi
+                                dignissim vivamus lobortis et. Ante id diam in odio. Enim sapien, aliquet libero cursus
+                                egestas amet mattis. Facilisi cursus netus massa eget. Leo pharetra, aliquam viverra
+                                pharetra. Et purus donec nibh lectus penatibus enim.
+                            </div>
+                            <div class="single-text single-padding">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac
+                                elementum
+                                amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit. Lectus a massa
+                                mi
+                                dignissim vivamus lobortis et. Ante id diam in odio. Enim sapien, aliquet libero cursus
+                                egestas amet mattis. Facilisi cursus netus massa eget. Leo pharetra, aliquam viverra
+                                pharetra. Et purus donec nibh lectus penatibus enim.
+                            </div>
+                            <div class="single-text single-padding">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac
+                                elementum
+                                amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit. Lectus a massa
+                                mi
+                                dignissim vivamus lobortis et. Ante id diam in odio. Enim sapien, aliquet libero cursus
+                                egestas amet mattis. Facilisi cursus netus massa eget. Leo pharetra, aliquam viverra
+                                pharetra. Et purus donec nibh lectus penatibus enim.
+                            </div>
             </div>
             <div class="single-author">
                 <div class="row">
@@ -318,7 +254,8 @@
                     <div class="col-xl-8">
                         <div class="single-name">Adam Smith</div>
                         <div class="single-function">Author</div>
-                        <div class="single-about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum
+                        <div class="single-about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl
+                            rutrum
                             vitae ac elementum amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit.
                             Lectus a massa mi
                         </div>
@@ -334,7 +271,9 @@
                                 <img src="img/categoryPage/posts/post1.png" alt="">
                             </div>
                             <div class="post-text recent-text">
-                                <div class="post-title recent-post proposition-title">13 things i’d Tell Any New Travler </div>
+                                <div class="post-title recent-post proposition-title">13 things i’d Tell Any New
+                                    Travler
+                                </div>
                                 <div class="recent-author">
                                     <div class="post-post recent-wordPost">Post</div>
                                     <div class="post-by recent-by">By</div>
@@ -356,7 +295,9 @@
                                 <img src="img/categoryPage/posts/post1.png" alt="">
                             </div>
                             <div class="post-text recent-text">
-                                <div class="post-title recent-post proposition-title">13 things i’d Tell Any New Travler </div>
+                                <div class="post-title recent-post proposition-title">13 things i’d Tell Any New
+                                    Travler
+                                </div>
                                 <div class="recent-author">
                                     <div class="post-post recent-wordPost">Post</div>
                                     <div class="post-by recent-by">By</div>
@@ -378,7 +319,9 @@
                                 <img src="img/categoryPage/posts/post1.png" alt="">
                             </div>
                             <div class="post-text recent-text">
-                                <div class="post-title recent-post proposition-title">13 things i’d Tell Any New Travler </div>
+                                <div class="post-title recent-post proposition-title">13 things i’d Tell Any New
+                                    Travler
+                                </div>
                                 <div class="recent-author">
                                     <div class="post-post recent-wordPost">Post</div>
                                     <div class="post-by recent-by">By</div>
@@ -427,7 +370,8 @@
                         <div class="form-input"><input class="form-name" type="text" placeholder="Full Name"></div>
                         <div class="form-input"><input class="form-email" type="text" placeholder="E-mail"></div>
                         <div class="form-input"><input class="form-number" type="text" placeholder="Number"></div>
-                        <div class="form-input"><textarea class="form-message" type="text" placeholder="Your message here"></textarea></div>
+                        <div class="form-input"><textarea class="form-message" type="text"
+                                                          placeholder="Your message here"></textarea></div>
                     </form>
                     <button type="submit" class="form-submitButton single-submit">POST COMMENT</button>
                 </div>

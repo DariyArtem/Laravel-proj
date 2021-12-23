@@ -27,7 +27,10 @@ class PostController extends Controller
 
     public function show($post_id)
     {
-        return "Post {$post_id}";
+
+        Post::where('id', $post_id)->first()->increment('views', 1);
+        return view('SinglePostPage.index', ['result' => Post::where('id', $post_id)->get()],
+            ['popular' => Post::orderBy('views', 'desc')->limit(5)->get()]);
     }
 
     public function edit($post_id)
@@ -43,7 +46,7 @@ class PostController extends Controller
             'description' => 'required',
             'notification' => 'required',
             'content' => 'required',
-            'image' => 'required|image|mimetypes:image/jpeg,image/png',
+            'image' => 'required|image|mimetypes:image/jpeg,image/png,image/jpg',
             'images.*' => 'required|image|mimetypes:image/jpeg,image/png',
             'video' => 'required|mimetypes:video/mp4,video/avi,video/mpeg',
 
