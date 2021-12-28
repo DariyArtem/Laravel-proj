@@ -901,6 +901,7 @@ h5, h5 {
   font-size: 15px;
   font-weight: 600;
   color: #141414;
+  max-width: 204px;
 }
 .post-post {
   font-family: Poppins, sans-serif;
@@ -952,6 +953,11 @@ h5, h5 {
 @media only screen and (max-width: 1199px) {
   .post-text {
     padding-left: 0;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .post-text {
+    margin-left: 13px;
   }
 }
 .recent-title {
@@ -1227,7 +1233,7 @@ h5, h5 {
   cursor: pointer;
   position: relative;
   height: 60px;
-  width: 80px;
+  width: 86px;
 }
 .sidebar-card img {
   width: 100%;
@@ -1250,7 +1256,6 @@ h5, h5 {
 }
 .sidebar-post {
   display: flex;
-  justify-content: space-between;
 }
 .sidebar-title {
   font-family: Poppins, sans-serif;
@@ -1331,8 +1336,8 @@ h5, h5 {
 }
 @media only screen and (max-width: 767px) {
   .sidebar-post {
+    justify-content: center;
     display: flex;
-    justify-content: space-around;
   }
   .sidebar-title {
     text-align: center;
@@ -1896,7 +1901,6 @@ h5, h5 {
 }
 .single-data {
   flex-wrap: wrap;
-  max-width: 430px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -1951,7 +1955,7 @@ h5, h5 {
   width: 100%;
 }
 .single-close {
-  left: 92%;
+  left: 58%;
   z-index: 3;
 }
 .single-author {
@@ -1968,6 +1972,7 @@ h5, h5 {
   position: relative;
   width: 100%;
   height: 100%;
+  border-radius: 100px;
 }
 .single-reference {
   white-space: pre-line;
@@ -2034,7 +2039,7 @@ h5, h5 {
     height: 306px;
   }
   .single-close {
-    left: 90%;
+    left: 57%;
   }
 }
 @media only screen and (max-width: 1199px) {
@@ -2046,7 +2051,7 @@ h5, h5 {
     height: 261px;
   }
   .single-close {
-    left: 88.5%;
+    left: 57.5%;
   }
 }
 @media only screen and (max-width: 991px) {
@@ -2057,13 +2062,22 @@ h5, h5 {
     width: 379px;
     height: 213px;
   }
+  .single-data {
+    flex-wrap: nowrap;
+  }
   .single-close {
-    left: 87%;
+    left: 56%;
   }
 }
 @media only screen and (max-width: 767px) {
   .single-text {
     font-size: 12px;
+  }
+  .single-close {
+    left: 74%;
+  }
+  .single-data {
+    width: 100%;
   }
   .single-button {
     width: 408px;
@@ -2079,7 +2093,12 @@ h5, h5 {
     height: 164px;
   }
   .single-close {
-    left: 84%;
+    left: 72%;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .single-close {
+    left: 76%;
   }
 }
 @media only screen and (max-width: 340px) {
@@ -2092,6 +2111,11 @@ h5, h5 {
   .single-button {
     width: 270px;
     height: 152px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .single-close {
+    left: 85%;
   }
 }
 .swiper {

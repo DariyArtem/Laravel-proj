@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RegisterController;
@@ -38,6 +39,8 @@ Route:: get('/single/{id}', [PostController::class, 'show'])->name('single')->mi
 Route:: view('/author', 'AuthorPage.index')->name('author')->middleware(LogMiddleware::class);
 Route:: view('/category', 'CategoryPage.index')->name('category')->middleware(LogMiddleware::class);
 Route::post('/message', [MessageController::class, 'store'])->name('message')->middleware(LogMiddleware::class);
+Route::post('/comment', [CommentController::class, 'store'])->name('comment')->middleware(LogMiddleware::class);
+
 
 Route::redirect('/home', '/')->name('home.redirect');
 

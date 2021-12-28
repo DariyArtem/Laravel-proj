@@ -186,8 +186,9 @@
                         <div class="col-xl-4 col-md-6 ">
                             <div class="explores-content">
                                 <div class="explores-card">
-                                    <img class="explores-image" src="{{asset('storage/'.$post->img_path)}}" alt="">
-                                </div>
+                                    <a href="{{route('single',['id' => $post->id])}}">
+                                        <img class="blog-image" src="{{asset('storage/'.$post->img_path)}}" alt="">
+                                    </a>                                </div>
                                 <div class="explores-text">
                                     <h6 class="explores-title">{{__($post->title)}}</h6>
                                     <div class="explores-context">{{__($post->description)}}
@@ -271,14 +272,17 @@
                                         </a>
                                     </div>
                                     <div class="post-text">
-                                        <div class="post-title">13 things i’d Tell Any New Travler</div>
+                                        <div class="post-title">{{$post->title}}</div>
                                         <div class="post-author">
                                             <div class="post-post">Post</div>
                                             <div class="post-by">By</div>
-                                            <div class="post-sign">Adam Smith</div>
+                                            <div class="post-sign">
+                                                {{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
+(\App\Models\User::where('id', $post->author_id)->first()->surname)}}
+                                            </div>
                                         </div>
                                         <div class="post-data">
-                                            <div class="post-date">10, November</div>
+                                            <div class="post-date">{{$post->created_at}}</div>
                                             <div class="post-hr"></div>
                                             <div class="post-comments">
                                                 <a class="post-comment" href="#">50 comments</a>

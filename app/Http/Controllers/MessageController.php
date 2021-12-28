@@ -55,7 +55,8 @@ class MessageController extends Controller
         if ($delete) {
 
             $delete->delete();
-            return redirect()->back()->withSuccess("Message $message_id have been deleted");
+            return redirect(
+            )->back()->withSuccess("Message $message_id have been deleted");
         }
 
         return redirect(route('posts'))->withErrors([

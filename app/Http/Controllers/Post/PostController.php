@@ -29,8 +29,9 @@ class PostController extends Controller
     {
 
         Post::where('id', $post_id)->first()->increment('views', 1);
-        return view('SinglePostPage.index', ['result' => Post::where('id', $post_id)->get()],
-            ['popular' => Post::orderBy('views', 'desc')->limit(5)->get()]);
+        return view('SinglePostPage.index')->with('result', Post::where('id', $post_id)->get())
+            ->with('popular', Post::orderBy('views', 'desc')->limit(5)->get())->with(
+                'comments', Post::find($post_id)->comments)->with('recommendations', Post::find($post_id)->comments);
     }
 
     public function edit($post_id)
@@ -117,12 +118,12 @@ class PostController extends Controller
 
 
         }
-            $post->title = $validateFields['title'];
-            $post->description = $validateFields['description'];
-            $post->notification = $validateFields['notification'];
-            $post->content = $validateFields['content'];
+        $post->title = $validateFields['title'];
+        $post->description = $validateFields['description'];
+        $post->notification = $validateFields['notification'];
+        $post->content = $validateFields['content'];
 
-            $post->save();
+        $post->save();
 
         if ($post) {
             return redirect(route('posts'))->withSuccess("Post $post_id have been updated");
