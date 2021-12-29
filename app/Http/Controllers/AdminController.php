@@ -15,7 +15,10 @@ class AdminController extends Controller
     public function edit($id)
     {
 
-        return view('Admin.edit', ['result' => User::where('id', $id)->get(), 'roles' => Role::all()]);
+        return view('Admin.edit', [
+            'result' => User::where('id', $id)->get(),
+            'roles' => Role::all()
+        ]);
     }
 
     public function update(Request  $request, $id)

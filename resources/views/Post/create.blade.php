@@ -35,7 +35,7 @@
                                         <input id="inputImage" type="file" name="image">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inputImages" class="form-label">{{__('Upload 3 images for you post')}}</label>
+                                    <label for="inputImages" class="form-label">{{__('Please upload image for every paragraph of you post')}}</label>
                                     <input id="inputImages" type="file" multiple name="images[]">
                                 </div>
                                 <div class="mb-3">

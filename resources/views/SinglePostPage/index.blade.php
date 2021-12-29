@@ -127,6 +127,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-8">
             <div class="single-content">
                 <div class="single-shortDescription">
@@ -138,37 +139,46 @@
                         {{$post->notification}}
                     </div>
                 </div>
-                @for($i=0; $i<count(explode(PHP_EOL, $post->content)); $i++)
-                    @if($i%2 !== 0)
-                        @foreach((\App\Models\Post_Image::where('post_id', $post->id)->get()) as $img)
-                            <div class="row single-padding">
-                                <div class="col-sm-6">
-                                    <div class="single-card">
-                                        <img src="{{asset('storage/'.$img->img_path)}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="single-text">
-                                        {{explode(PHP_EOL, $post->content)[$i]}}
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @else
-                        <div class="row single-padding">
-                            <div class="col-sm-6">
-                                <div class="single-text">
-                                    {{explode(PHP_EOL, $post->content)[$i]}}
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="single-card">
-                                    <img src="img/singlePage/card2.png" alt="">
-                                </div>
+
+                @foreach($result as $post)
+                    @if(\App\Models\Post::find($post->id)->images->count() == 0)
+                        <div class="col-sm-12">
+                            <div class="single-text">
+                                {{$post->content}}
                             </div>
                         </div>
+                    @else
+                        @for($i=0; $i<count(explode(PHP_EOL, $post->content,\App\Models\Post::find($post->id)->images->count())); $i++)
+                                @if($i%2 !== 0)
+                                    <div class="row single-padding">
+                                        <div class="col-sm-6">
+                                            <div class="single-card">
+                                                <img src="{{asset('storage/'.\App\Models\Post::find($post->id)->images[$i]->img_path)}}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="single-text">
+                                                {{explode(PHP_EOL, $post->content,\App\Models\Post::find($post->id)->images->count())[$i]}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row single-padding">
+                                        <div class="col-sm-6">
+                                            <div class="single-text">
+                                                {{explode(PHP_EOL, $post->content,\App\Models\Post::find($post->id)->images->count())[$i]}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="single-card">
+                                                <img src="{{asset('storage/'.\App\Models\Post::find($post->id)->images[$i]->img_path)}}" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                        @endfor
                     @endif
-                @endfor
+                @endforeach
                 <h6 class="single-title-fromContent">How was the jungal solo travel ?</h6>
                 <div class="single-text single-padding">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl rutrum vitae ac
@@ -228,7 +238,9 @@
                     <div class="col-xl-4 ">
                         <div class="single-photo">
                             @foreach($result as $post)
-                                <img src="{{asset('storage/'.\App\Models\User::where('id', $post->author_id)->first()->picture)}}" alt="">@endforeach
+                                <img
+                                    src="{{asset('storage/'.\App\Models\User::where('id', $post->author_id)->first()->picture)}}"
+                                    alt="">@endforeach
                         </div>
                         <div class="single-icons">
                             <a href="#">
@@ -255,24 +267,26 @@
                     </div>
                     <div class="col-xl-8">
                         @foreach($result as $post)
-                        <div class="single-name">{{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
+                            <div class="single-name">{{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
 (\App\Models\User::where('id', $post->author_id)->first()->surname)}}</div>
-                        <div class="single-function">{{\App\Models\Role::where
+                            <div class="single-function">{{\App\Models\Role::where
 ('id', (\App\Models\User::where('id', $post->author_id)->first()->role_id))->first()->name}}</div>@endforeach
                     </div>
-                        <div class="single-about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl
-                            rutrum
-                            vitae ac elementum amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit.
-                            Lectus a massa mi
-                        </div>
+                    <div class="single-about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl
+                        rutrum
+                        vitae ac elementum amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit.
+                        Lectus a massa mi
                     </div>
                 </div>
             </div>
-            <div class="single-faetured">
-                <h6 class="featured-title text-center">You Might Also Like</h6>
-                <div class="row">
-                    <div class="col-xl-4">
+        </div>
+        <div class="single-faetured">
+            <h6 class="featured-title text-center">You Might Also Like</h6>
+            <div class="row">
+                <div class="col-xl-4">
+                    @foreach($similar as $sim)
                         <div class="recent-post">
+{{--                            \App\Models\Post::where('id', $sim->post_id)->get() достаю посты по категории--}}
                             <div class="recent-img">
                                 <img src="img/categoryPage/posts/post1.png" alt="">
                             </div>
@@ -294,16 +308,21 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
-            <div class="single-comments">
-                @foreach($result as $post)
-                <h6 class="comments-title">Comments ({{\App\Models\Post::find($post->id)->comments->count()}})</h6>@endforeach
-                @foreach($comments as $comment)
+        </div>
+        <div class="single-comments">
+            @foreach($result as $post)
+                <h6 class="comments-title">Comments ({{\App\Models\Post::find($post->id)->comments->count()}}
+                    )</h6>@endforeach
+            @foreach($comments as $comment)
                 <div class="comments-comment">
                     <div class="comment-photo">
-                        <img src="{{asset('storage/'.\App\Models\User::where('email', $comment->email)->first()->picture)}}" alt="">
+                        <img
+                            src="{{asset('storage/'.\App\Models\User::where('email', $comment->email)->first()->picture)}}"
+                            alt="">
                     </div>
                     <div class="comment-text">
                         <div class="comment-name">{{$comment->name}}</div>
@@ -313,9 +332,9 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
+            @endforeach
         </div>
+    </div>
     </div>
     <div class="form">
         <div class="container">
@@ -324,7 +343,7 @@
                     <div class="col-xl-8 col-lg-10 ">
                         <h6 class="form-title">Leave a Comment</h6>
                     </div>
-                    <form method="post" enctype="multipart/form-data" action="{{route('comment')}}" >
+                    <form method="post" enctype="multipart/form-data" action="{{route('comment')}}">
                         @csrf
                         @if(Auth::check())
                             @foreach($result as $post)
@@ -354,7 +373,7 @@
                                                   placeholder="Your message"></textarea>
                             </div>
                         @endif
-                            <button type="submit" class="form-submitButton single-submit">POST COMMENT</button>
+                        <button type="submit" class="form-submitButton single-submit">POST COMMENT</button>
                     </form>
 
                 </div>

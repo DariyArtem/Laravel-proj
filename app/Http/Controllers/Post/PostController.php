@@ -27,11 +27,13 @@ class PostController extends Controller
 
     public function show($post_id)
     {
-
+        //rand(2,(count(Category::all())))
+        $id = Post::find($post_id)->categories[rand(0,count(Post::find($post_id)->categories)-1)]->id;
         Post::where('id', $post_id)->first()->increment('views', 1);
         return view('SinglePostPage.index')->with('result', Post::where('id', $post_id)->get())
             ->with('popular', Post::orderBy('views', 'desc')->limit(5)->get())->with(
-                'comments', Post::find($post_id)->comments)->with('recommendations', Post::find($post_id)->comments);
+                'comments', Post::find($post_id)->comments)->with('recommendations', Post::find($post_id)->comments)
+            ->with('similar', Post_Category::where('category_id', $id)->inRandomOrder()->limit(3)->get());
     }
 
     public function edit($post_id)
