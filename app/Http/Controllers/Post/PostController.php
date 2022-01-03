@@ -27,7 +27,6 @@ class PostController extends Controller
 
     public function show($post_id)
     {
-        //rand(2,(count(Category::all())))
         $id = Post::find($post_id)->categories[rand(0,count(Post::find($post_id)->categories)-1)]->id;
         Post::where('id', $post_id)->first()->increment('views', 1);
         return view('SinglePostPage.index')->with('result', Post::where('id', $post_id)->get())

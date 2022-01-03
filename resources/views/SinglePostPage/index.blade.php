@@ -10,60 +10,65 @@
         <div class="single-top">
             <div class="row">
                 <div class="col-md-8">
-                    @foreach($result as $post)@endforeach
-                    <div class="post-img">
-                        <img src="{{asset('storage/'.$post->img_path)}}" alt="">
-                    </div>
+                    @foreach($result as $post)
+                        <div class="post-img">
+                            <img src="{{asset('storage/'.$post->img_path)}}" alt="">
+                        </div>
 
-                    <h6 class="single-title">{{$post->title}}</h6>
-                    <h6 class="single-title">Views:{{$post->views}}</h6>
-                    <div class="single-info">
-                        <div class="single-data">
-                            <a class="single-reference" href="#">
-                                <div class="single-time">
-                                    <i class="far fa-clock icon-clock" aria-hidden="true"></i>{{$post->created_at}}
-                                </div>
-                            </a>
-                            <a class="single-reference" href="#">
+                        <h6 class="single-title">{{$post->title}}</h6>
+                        <h6 class="single-title">Views:{{$post->views}}</h6>
+                        <div class="single-info">
+                            <div class="single-data">
+                                <a class="single-reference" href="#">
+                                    <div class="single-time">
+                                        <i class="far fa-clock icon-clock" aria-hidden="true"></i>{{explode(" ", $post->created_at)[0]}}
+                                    </div>
+                                </a>
                                 <div class="single-category">
-                                    <i class="far fa-folder icon-folder" aria-hidden="true"></i>Solo Travel
+                                    <i class="far fa-folder icon-folder" aria-hidden="true"></i>
+                                    @foreach(\App\Models\Post_Category::where('post_id', $post->id)->get() as $categories)
+                                        @foreach(\App\Models\Category::where('id', $categories->category_id)->get() as $category)
+                                            <a class="single-reference" href="#"> {{$category->name.', '}}</a>
+                                        @endforeach
+                                    @endforeach
                                 </div>
-                            </a>
-                            <a class="single-reference" href="#">
-                                <div class="single-by">
-                                    <i class="far fa-user icon-user" aria-hidden="true"></i>{{(\App\Models\User::where
+                                <a class="single-reference" href="#">
+                                    <div class="single-by">
+                                        <i class="far fa-user icon-user" aria-hidden="true"></i>{{(\App\Models\User::where
 ('id', $post->author_id)->first()->name)." ".(\App\Models\User::where('id', $post->author_id)->first()->surname)}}
-                                </div>
-                            </a>
-                            <a class="single-reference" href="#">
-                                <div class="single-quantity">
-                                    <i class="far fa-comment icon-comment" aria-hidden="true"></i>502
-                                </div>
-                            </a>
+                                    </div>
+                                </a>
+                                <a class="single-reference" href="#">
+                                    <div class="single-quantity">
+                                        <i class="far fa-comment icon-comment"
+                                           aria-hidden="true"></i>{{\App\Models\Post::find($post->id)->comments->count()}}
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-social">
+                                <a href="#">
+                                    <div class="header-icon">
+                                        <i class="fab fa-facebook-f icon"></i>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="header-icon">
+                                        <i class="fab fa-twitter icon"></i>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="header-icon">
+                                        <i class="fab fa-instagram icon"></i>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="header-icon">
+                                        <i class="fab fa-youtube icon"></i>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                        <div class="single-social">
-                            <a href="#">
-                                <div class="header-icon">
-                                    <i class="fab fa-facebook-f icon"></i>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="header-icon">
-                                    <i class="fab fa-twitter icon"></i>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="header-icon">
-                                    <i class="fab fa-instagram icon"></i>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="header-icon">
-                                    <i class="fab fa-youtube icon"></i>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="col-md-4">
                     <div class="blog-sidebar">
@@ -87,10 +92,12 @@
                                         </div>
                                     </div>
                                     <div class="post-data">
-                                        <div class="post-date">{{$post->created_at}}</div>
+                                        <div class="post-date">{{explode(" ", $post->created_at)[0]}}</div>
                                         <div class="post-hr"></div>
                                         <div class="post-comments">
-                                            <a class="post-comment" href="#">50 comments</a>
+                                            <a class="post-comment"
+                                               href="#">{{\App\Models\Post::find($post->id)->comments->count()}}
+                                                comments</a>
                                         </div>
                                     </div>
                                 </div>
@@ -149,33 +156,37 @@
                         </div>
                     @else
                         @for($i=0; $i<count(explode(PHP_EOL, $post->content,\App\Models\Post::find($post->id)->images->count())); $i++)
-                                @if($i%2 !== 0)
-                                    <div class="row single-padding">
-                                        <div class="col-sm-6">
-                                            <div class="single-card">
-                                                <img src="{{asset('storage/'.\App\Models\Post::find($post->id)->images[$i]->img_path)}}" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="single-text">
-                                                {{explode(PHP_EOL, $post->content,\App\Models\Post::find($post->id)->images->count())[$i]}}
-                                            </div>
+                            @if($i%2 !== 0)
+                                <div class="row single-padding">
+                                    <div class="col-sm-6">
+                                        <div class="single-card">
+                                            <img
+                                                src="{{asset('storage/'.\App\Models\Post::find($post->id)->images[$i]->img_path)}}"
+                                                alt="">
                                         </div>
                                     </div>
-                                @else
-                                    <div class="row single-padding">
-                                        <div class="col-sm-6">
-                                            <div class="single-text">
-                                                {{explode(PHP_EOL, $post->content,\App\Models\Post::find($post->id)->images->count())[$i]}}
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="single-card">
-                                                <img src="{{asset('storage/'.\App\Models\Post::find($post->id)->images[$i]->img_path)}}" alt="">
-                                            </div>
+                                    <div class="col-sm-6">
+                                        <div class="single-text">
+                                            {{explode(PHP_EOL, $post->content,\App\Models\Post::find($post->id)->images->count())[$i]}}
                                         </div>
                                     </div>
-                                @endif
+                                </div>
+                            @else
+                                <div class="row single-padding">
+                                    <div class="col-sm-6">
+                                        <div class="single-text">
+                                            {{explode(PHP_EOL, $post->content,\App\Models\Post::find($post->id)->images->count())[$i]}}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="single-card">
+                                            <img
+                                                src="{{asset('storage/'.\App\Models\Post::find($post->id)->images[$i]->img_path)}}"
+                                                alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         @endfor
                     @endif
                 @endforeach
@@ -238,9 +249,9 @@
                     <div class="col-xl-4 ">
                         <div class="single-photo">
                             @foreach($result as $post)
-                                <img
-                                    src="{{asset('storage/'.\App\Models\User::where('id', $post->author_id)->first()->picture)}}"
-                                    alt="">@endforeach
+                                <img src="{{asset('storage/'.\App\Models\User::where
+('id', $post->author_id)->first()->picture)}}" alt="">
+                            @endforeach
                         </div>
                         <div class="single-icons">
                             <a href="#">
@@ -283,40 +294,47 @@
         <div class="single-faetured">
             <h6 class="featured-title text-center">You Might Also Like</h6>
             <div class="row">
-                <div class="col-xl-4">
-                    @foreach($similar as $sim)
-                        <div class="recent-post">
-{{--                            \App\Models\Post::where('id', $sim->post_id)->get() достаю посты по категории--}}
-                            <div class="recent-img">
-                                <img src="img/categoryPage/posts/post1.png" alt="">
-                            </div>
-                            <div class="post-text recent-text">
-                                <div class="post-title recent-post proposition-title">13 things i’d Tell Any New
-                                    Travler
-                                </div>
-                                <div class="recent-author">
-                                    <div class="post-post recent-wordPost">Post</div>
-                                    <div class="post-by recent-by">By</div>
-                                    <div class="post-sign recent-sign"></div>
-                                </div>
-                                <div class="post-data recent-data">
-                                    <div class="post-date recent-date">10, November</div>
-                                    <div class="post-hr recent-hr"></div>
-                                    <div class="post-comments recent-comments">
-                                        <a class="post-comment recent-comment" href="#">50 comments</a>
+                @foreach($similar as $sim)
+                    @foreach(\App\Models\Post::where('id', $sim->post_id)->get() as $similar_post)
+                        <div class="col-xl-4">
+                            <div class="recent-post">
+                                <a href="{{route('single',[$similar_post->id])}}">
+                                    <div class="recent-img">
+                                        <img src="{{asset('storage/'.$similar_post->img_path)}}" alt="">
+                                    </div>
+                                </a>
+
+                                <div class="post-text recent-text">
+                                    <div class="post-title recent-post proposition-title">{{$similar_post->title}}
+                                    </div>
+                                    <div class="recent-author">
+                                        <div class="post-post recent-wordPost">Post</div>
+                                        <div class="post-by recent-by">By</div>
+                                        <div class="post-sign recent-sign"> {{(\App\Models\User::where('id', $similar_post->author_id)->first()->name)." ".
+(\App\Models\User::where('id', $similar_post->author_id)->first()->surname)}}</div>
+                                    </div>
+                                    <div class="post-data recent-data">
+                                        <div class="post-date recent-date">10, November</div>
+                                        <div class="post-hr recent-hr"></div>
+                                        <div class="post-comments recent-comments">
+                                            <a class="post-comment recent-comment"
+                                               href="#">{{\App\Models\Post::find($similar_post->id)->comments->count()}}
+                                                comments</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     @endforeach
-
-                </div>
+                @endforeach
             </div>
         </div>
         <div class="single-comments">
             @foreach($result as $post)
-                <h6 class="comments-title">Comments ({{\App\Models\Post::find($post->id)->comments->count()}}
-                    )</h6>@endforeach
+                <h6 class="comments-title">Comments ({{\App\Models\Post::find($post->id)->comments->count()}})</h6>
+            @endforeach
             @foreach($comments as $comment)
                 <div class="comments-comment">
                     <div class="comment-photo">

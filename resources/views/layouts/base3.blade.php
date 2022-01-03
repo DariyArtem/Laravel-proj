@@ -35,7 +35,6 @@
         <ul class="sidebar-references">
             <li><a href="{{route('home')}}">Home</a></li>
             <li><a href="{{route('about')}}">About Me</a></li>
-            <li><a href="{{route('category')}}">Categories</a></li>
             {{--                <li><a href="#">Blog</a></li>--}}
             <li><a href="{{route('contact')}}">Contact Me</a></li>
         </ul>

@@ -32,12 +32,12 @@ Route:: view('/', 'home.index',
         'featuredPosts' =>  Post::paginate(6), 'latestPosts' => Post::orderBy('created_at', 'desc')->paginate(5),
         'users' => User::all(), 'popular' => Post::orderBy('views', 'desc')->limit(5)->get()])
     ->name('home')->middleware(LogMiddleware::class);
-Route:: view('/about', 'about.index')->name('about')->middleware(LogMiddleware::class);
-Route:: view('/contact', 'contact.index')->name('contact')->middleware(LogMiddleware::class);
-Route:: view('/search', 'searchPage.index')->name('search')->middleware(LogMiddleware::class);
-Route:: get('/single/{id}', [PostController::class, 'show'])->name('single')->middleware(LogMiddleware::class);
-Route:: view('/author', 'AuthorPage.index')->name('author')->middleware(LogMiddleware::class);
-Route:: view('/category', 'CategoryPage.index')->name('category')->middleware(LogMiddleware::class);
+Route::view('/about', 'about.index')->name('about')->middleware(LogMiddleware::class);
+Route::view('/contact', 'contact.index')->name('contact')->middleware(LogMiddleware::class);
+Route::view('/search', 'searchPage.index')->name('search')->middleware(LogMiddleware::class);
+Route::get('/single/{id}', [PostController::class, 'show'])->name('single')->middleware(LogMiddleware::class);
+Route::view('/author', 'AuthorPage.index')->name('author')->middleware(LogMiddleware::class);
+Route::view('/categories', 'CategoryPage.index')->name('category')->middleware(LogMiddleware::class);
 Route::post('/message', [MessageController::class, 'store'])->name('message')->middleware(LogMiddleware::class);
 Route::post('/comment', [CommentController::class, 'store'])->name('comment')->middleware(LogMiddleware::class);
 
