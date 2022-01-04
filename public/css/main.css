@@ -791,6 +791,7 @@ h5, h5 {
 .category-card img {
   height: 100%;
   width: 100%;
+  border-radius: 20px;
   position: relative;
 }
 .category-cardTitle {
@@ -821,6 +822,9 @@ h5, h5 {
   font-weight: 500;
   font-size: 14px;
   color: #141414;
+}
+.category-name a:hover {
+  color: #FFA902;
 }
 .category-posts {
   padding-left: 4px;

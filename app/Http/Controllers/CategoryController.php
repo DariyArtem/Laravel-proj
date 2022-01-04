@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Post_Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,6 +15,15 @@ class CategoryController extends Controller
 
     public function create(){
         return view('Admin.categoriesCreate');
+    }
+
+    public function showOne($id){
+
+        return view('CategoryPage.index')
+            ->with('posts_category', Post_Category::where('category_id', $id)->limit(4)->get())
+            ->with('latest', Post_Category::where('category_id', $id)->orderBy('id', 'desc')->paginate(4))
+            ->with('currentCategory', Category::where('id', $id)->first())
+            ->with('categories', Category::all())->with('category_name', Category::where('id', $id)->first()->name);
     }
 
     public function store(Request $request){

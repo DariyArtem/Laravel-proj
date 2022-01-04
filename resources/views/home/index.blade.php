@@ -34,8 +34,8 @@
                         <li><a href="{{route('login')}}">Account</a></li>
                     @endauth
                     <li><a href="{{route('about')}}">About Me</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li><a href="{{route('categories')}}">Categories</a></li>
+                    {{--                    <li><a href="#">Blog</a></li>--}}
                     <li><a href="{{route('contact')}}">Contact Me</a></li>
                 </ul>
             </div>
@@ -112,8 +112,8 @@
                         <li><a href="{{route('login')}}">Account</a></li>
                     @endauth
                     <li><a href="{{route('about')}}">About Me</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li><a href="{{route('categories')}}">Categories</a></li>
+{{--                    <li><a href="#">Blog</a></li>--}}
                     <li><a href="{{route('contact')}}">Contact Me</a></li>
                 </ul>
             </menu>
