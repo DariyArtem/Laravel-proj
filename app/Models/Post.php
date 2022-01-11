@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $table = 'posts';
+    protected $table = "posts";
 
     protected $fillable = [
         "title",
@@ -18,19 +18,22 @@ class Post extends Model
         "notification",
         "content",
         "author_id",
-        'video_path',
+        "video_path",
     ];
 
-    public function categories(){
-        return $this->belongsToMany(Category::class, 'post_category');
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, "post_category");
     }
 
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 
-    public function images(){
-        return $this->hasMany(Post_Image::class);
+    public function images()
+    {
+        return $this->hasMany(PostImage::class);
     }
 
 }

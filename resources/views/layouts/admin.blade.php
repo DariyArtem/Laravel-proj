@@ -50,9 +50,9 @@
                         <a class="nav-link" href="{{route('home')}}">{{__('Home Page')}}</a>
                         <a class="nav-link" href="{{route('posts')}}">{{__('All Post')}}</a>
                         <a class="nav-link" href="{{route('posts.create')}}">{{__('Create New Post')}}</a>
-                        <a class="nav-link" href="{{route('admin.users')}}">{{__('All Users')}}</a>
-                        <a class="nav-link" href="{{route('admin.categories')}}">{{__('Categories')}}</a>
-                        <a class="nav-link" href="{{route('admin.messages')}}">{{__('All messages')}}</a>
+                        <a class="nav-link" href="{{route('auth.admin.users')}}">{{__('All Users')}}</a>
+                        <a class="nav-link" href="{{route('auth.admin.categories')}}">{{__('Categories')}}</a>
+                        <a class="nav-link" href="{{route('auth.admin.messages')}}">{{__('All messages')}}</a>
                     </a>
                 </div>
             </div>

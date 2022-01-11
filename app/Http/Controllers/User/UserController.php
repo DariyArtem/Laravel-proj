@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
 
-        return view('Admin.profileSettings', ['result'=> User::where('id', Auth::id())->get()]);
+        return view('pages.profileSettings.index', ['result'=> User::where('id', Auth::id())->get()]);
     }
 
     public function update(Request $request){
@@ -58,7 +58,7 @@ class UserController extends Controller
             return redirect(route('settings'))->withSuccess("Profile have been updated");
         }
 
-        return redirect(route('admin.edit'))->withErrors([
+        return redirect(route('settings'))->withErrors([
             'formError' => 'An error occurred'
         ]);
     }

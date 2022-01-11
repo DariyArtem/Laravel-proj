@@ -1,14 +1,13 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Post\PostController;
-use App\Http\Controllers\User\UserController;
 use App\Http\Middleware\LogMiddleware;
 use App\Models\Category;
 use App\Models\Post;
@@ -28,51 +27,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route:: view('/', 'home.index',
-    ['categories' => Category::all(),
+Route:: view('/', 'pages.home.index',
+    [
+        'categories' => Category::all(),
         'featuredPosts' =>  Post::paginate(6), 'latestPosts' => Post::orderBy('created_at', 'desc')->paginate(5),
-        'users' => User::all(), 'popular' => Post::orderBy('views', 'desc')->limit(5)->get()])
-    ->name('home')->middleware(LogMiddleware::class);
-Route::view('/categories', 'CategoryPage.categories', ['categories' => Category::all()])->name('categories')->middleware(LogMiddleware::class);
-Route::view('/about', 'about.index')->name('about')->middleware(LogMiddleware::class);
-Route::view('/contact', 'contact.index')->name('contact')->middleware(LogMiddleware::class);
-Route::view('/search', 'searchPage.index')->name('search')->middleware(LogMiddleware::class);
+        'users' => User::all(), 'popular' => Post::orderBy('views', 'desc')->limit(5)->get()
+    ]
+)->name('home')->middleware(LogMiddleware::class);
+Route::view('/categories', 'pages.categories.index', ['categories' => Category::all()])->name('categories')->middleware(LogMiddleware::class);
+Route::view('/about', 'pages.about.index')->name('about')->middleware(LogMiddleware::class);
+Route::view('/contact', 'pages.contact.index')->name('contact')->middleware(LogMiddleware::class);
+Route::view('/search', 'pages.search.index')->name('search')->middleware(LogMiddleware::class);
 Route::get('/single/{id}', [PostController::class, 'show'])->name('single')->middleware(LogMiddleware::class);
-Route::view('/author', 'AuthorPage.index')->name('author')->middleware(LogMiddleware::class);
+Route::get('/author/{id}', [AuthorController::class, 'index'])->name('author')->middleware(LogMiddleware::class);
 Route::get('/category/{id}', [CategoryController::class, 'showOne'])->name('category')->middleware(LogMiddleware::class);
 Route::post('/message', [MessageController::class, 'store'])->name('message')->middleware(LogMiddleware::class);
 Route::post('/comment', [CommentController::class, 'store'])->name('comment')->middleware(LogMiddleware::class);
-
+Route::view('recovery', 'pages.passwordRecovery.index')->name('recovery');
+Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::redirect('/home', '/')->name('home.redirect');
-
-
-Route::middleware(['auth', 'user'])->group(function () {
-    Route::get('private', function () {return view('private');})->name('private');
-    Route::get('settings', [UserController::class, 'index'])->name('settings');
-    Route::put('settings', [UserController::class, 'update'])->name('settings.update');
-});
-
-
-
-Route::view('recovery', 'Account.passwordRecovery')->name('recovery');
-Route::get('logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisterController::class, 'index'])->name('register');
     Route::post('register', [RegisterController::class, 'store'])->name('register.store');
-
     Route::get('login', [LoginController::class, 'index'])->name('login');
     Route::post('login', [LoginController::class, 'login'])->name('login.login');
 });
 
-
-Route::get('blog', [BlogController::class, 'index'])->name('blog');
-Route::get('blog/{blog}', [BlogController::class, 'show'])->name('blog.show');
-
-
 Route::fallback(function () {
-    return view('404');
+    return view('pages.404.index');
 });
 
 

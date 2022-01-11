@@ -49,11 +49,10 @@
         display: flex
 
     &-logo
-        max-width: 170px
+        flex: 0 1 308px
 
     &-search
-        max-width: 554px
-        width: 100%
+        flex: 0 1 673px
         display: flex
         align-items: center
 
@@ -65,10 +64,18 @@
         text-indent: 65px
         width: 98%
         height: 53px
-        border-radius: 100px
+        border-radius: 30px
+        border: none
+
+        &-second
+            text-indent: 65px
+            width: 98%
+            height: 53px
+            border-radius: 30px
+            border: 1px solid #868383
 
     &-icons
-        max-width: 189px
+        flex: 0 1 189px
         display: flex
         justify-content: space-between
 
@@ -184,6 +191,7 @@
 
         li
             padding-bottom: 30px
+
             a
                 &:hover
                     color: #FFA902
@@ -196,6 +204,7 @@
         text-indent: 45vw
         width: 100vw
         border: none
+
 
     &-search
         left: 42vw

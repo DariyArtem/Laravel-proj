@@ -23,6 +23,6 @@ class AdminMiddleware
             return $next($request); // Если проверка пройдена, продолжаем работу
         }
         // Если проверка не пройдена - редирект
-        return redirect('private')->withErrors(['role' => 'Permission Denied']);
+        return redirect()->intended(route('private'))->withErrors(['role' => 'Permission Denied']);
     }
 }

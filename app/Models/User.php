@@ -19,15 +19,15 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone',
-        'surname',
-        'country',
-        'region',
-        'city',
-        'role_id',
+        "name",
+        "email",
+        "password",
+        "phone",
+        "surname",
+        "country",
+        "region",
+        "city",
+        "role_id",
     ];
 
     /**
@@ -36,8 +36,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        "password",
+        "remember_token",
     ];
 
     /**
@@ -46,35 +46,37 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        "email_verified_at" => "datetime",
     ];
 
-    public function setPasswordAttribute($password){
-
-        $this->attributes['password'] = Hash::make($password);
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes["password"] = Hash::make($password);
     }
 
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
 
 //    public function isUser()
 //    {
-//        return $this->role()->where('name', 'User');
+//        return $this->role()->where("name", "User");
 //    }
 //
-    public function isAdmin(){
-
-        return $this->role()->where('name', 'Admin');
+    public function isAdmin()
+    {
+        return $this->role()->where("name", "Admin");
     }
 
-    public static function checkRole($role_id){
+    public static function checkRole($role_id)
+    {
 //В модели не должно быть логики!! Вынести в репозиторий
-        if ($role_id === 1){
-            return 'User';
-        } elseif ($role_id === 2){
-            return 'Author';
+        if ($role_id === 1) {
+            return "User";
+        } elseif ($role_id === 2) {
+            return "Author";
         }
-        return 'Admin';
+        return "Admin";
     }
 }

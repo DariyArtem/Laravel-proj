@@ -9,12 +9,15 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $table = "categories";
+
     protected $fillable = [
         "name",
         "img_path",
     ];
 
-    public function posts(){
+    public function posts()
+    {
         $this->belongsToMany(Post::class);
     }
 }

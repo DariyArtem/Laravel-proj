@@ -34,7 +34,7 @@
 
         </div>
         <div class="header-sidebarSearch">
-            <img class="sidebar-search" src="http://gallivant/img/header/lupa.png" alt="">
+            <img class="sidebar-search" src="{{asset('img/header/lupa.png')}}" alt="">
             <input class="header-input" type="text" placeholder="Search your option">
         </div>
         <div class="header-menu">
@@ -79,10 +79,10 @@
     </div>
     <div class="container">
         <div class="row header-row">
-            <div class="header-logo"><img src="img/errorPage/logo.png" alt=""></div>
+            <div class="header-logo"><img src="{{asset('img/errorPage/logo.png')}}" alt=""></div>
             <div class="header-search">
-                <img class="header-lupa" src="img/header/lupa.png" alt="">
-                <input class="header-input" type="text" placeholder="Search your option">
+                <img class="header-lupa" src="{{asset('img/header/lupa.png')}}" alt="">
+                <input class="header-input-second" type="text" placeholder="Search your option">
             </div>
             <div class="header-burger">
                 <div class="burger-top errorPage-burger"></div>

@@ -42,6 +42,10 @@
         font-size: 15px
         color: #696969
 
+    &-category
+        display: flex
+        align-items: baseline
+
     &-notification
         display: flex
         align-items: center
@@ -105,7 +109,11 @@
     &-reference
         white-space: pre-line
         color: #141414
-
+        margin-left: 9.33px
+        &-author
+            white-space: pre-line
+            color: #141414
+            margin-left: 10.67px
         &:hover
             color: #FFA902
 
@@ -113,7 +121,7 @@
         padding-top: 12px
         display: flex
         justify-content: space-between
-        width: 225px
+        width: 197px
 
     &-icons
         padding-top: 12px
@@ -189,8 +197,11 @@
         &-button
             width: 379px
             height: 213px
+
         &-data
-            flex-wrap: nowrap
+            flex-direction: column
+            text-align: center
+
         &-close
             left: 56%
 
@@ -198,13 +209,19 @@
     .single
         &-text
             font-size: 12px
+
         &-close
             left: 74%
+
         &-data
             width: 100%
+
         &-button
             width: 408px
             height: 229px
+
+        &-title
+            text-align: center
 
 @media only screen and (max-width: 575px)
     .single
@@ -217,6 +234,7 @@
 
         &-close
             left: 72%
+
 @media only screen and (max-width: 480px)
     .single
         &-close
@@ -233,6 +251,7 @@
         &-button
             width: 270px
             height: 152px
+
 @media only screen and (max-width: 320px)
     .single
         &-close

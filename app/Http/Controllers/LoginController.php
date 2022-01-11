@@ -7,25 +7,21 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-
-
-    public function index(){
-
-        return view('Account.login');
-
+    public function index()
+    {
+        return view("pages.login.index");
     }
 
+    public function login(Request $request)
+    {
 
-    public function login(Request $request){
-
-       $formFields = $request->only(['email', 'password']);
-       if(Auth::attempt($formFields)){
-
-            return redirect()->intended(route('private'));
+        $formFields = $request->only(["email", "password"]);
+        if (Auth::attempt($formFields)) {
+            return redirect()->intended(route("private"));
         }
 
-        return redirect(route('login'))->withErrors([
-            'formMessage' => 'Email or password is incorrect'
+        return redirect(route("login"))->withErrors([
+            "formMessage" => "Email or password is incorrect"
         ]);
 
     }
