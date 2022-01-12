@@ -149,7 +149,7 @@
                                                 <div class="category-cardInfo">
                                                     <h6 class="category-cardTitle">{{$post->title}}</h6>
                                                     <div class="category-cardData">
-                                                        <i class="far fa-clock"></i>&nbsp;{{explode(" ", $post->created_at)[0]}}
+                                                        <i class="far fa-clock"></i>&nbsp;{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}
                                                         <i class="far fa-folder"></i>&nbsp;{{$category_name}}
                                                         <i class="far fa-user"></i>&nbsp;{{
     \App\Models\User::where('id', $post->author_id)->first()->name.''.\App\Models\User::where('id', $post->author_id)->first()->surname
@@ -205,11 +205,11 @@
                                         </div>
                                     </div>
                                     <div class="post-data">
-                                        <div class="post-date">{{$post->created_at}}</div>
+                                        <div class="post-date">{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}</div>
                                         <div class="post-hr"></div>
                                         <div class="post-comments">
                                             <a class="post-comment" href="#">
-                                                {{\App\Models\Comment::where('post_id', $post->id)->count()}}
+                                                {{\App\Models\Comment::where('post_id', $post->id)->count()}} comments
                                             </a>
                                         </div>
                                     </div>
@@ -242,9 +242,7 @@
                             </a>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             <div class="col-md-8 ">
                 <div class="recent-posts">
@@ -259,7 +257,7 @@
                                             <div class="category-cardInfo">
                                                 <h6 class="category-cardTitle">{{$post->title}}</h6>
                                                 <div class="category-cardData">
-                                                    <i class="far fa-clock"></i>&nbsp;{{explode(" ", $post->created_at)[0]}}
+                                                    <i class="far fa-clock"></i>&nbsp;{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}
                                                     <i class="far fa-folder"></i>&nbsp;{{$category_name}}
                                                     <i class="far fa-user"></i>&nbsp;{{
     \App\Models\User::where('id', $post->author_id)->first()->name.''.\App\Models\User::where('id', $post->author_id)->first()->surname

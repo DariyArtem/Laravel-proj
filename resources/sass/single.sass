@@ -22,7 +22,7 @@
 
     &-info
         margin-bottom: 55px
-        align-items: flex-end
+        align-items: center
         width: 100%
         display: flex
         justify-content: space-between
@@ -30,7 +30,6 @@
 
     &-data
         flex-wrap: wrap
-        width: 100%
         display: flex
         justify-content: space-between
 
@@ -43,8 +42,15 @@
         color: #696969
 
     &-category
+        margin-left: 15px
         display: flex
         align-items: baseline
+
+    &-by
+        margin-left: 15px
+
+    &-quantity
+        margin-left: 15px
 
     &-notification
         display: flex
@@ -109,16 +115,13 @@
     &-reference
         white-space: pre-line
         color: #141414
-        margin-left: 9.33px
         &-author
             white-space: pre-line
             color: #141414
-            margin-left: 10.67px
         &:hover
             color: #FFA902
 
     &-social
-        padding-top: 12px
         display: flex
         justify-content: space-between
         width: 197px
@@ -140,7 +143,7 @@
         line-height: 36px
         color: #141414
 
-    &-function
+    &-role
         padding-bottom: 11px
         font-family: Poppins, sans-serif
         font-style: normal
@@ -181,11 +184,16 @@
     .single
         &-text
             font-size: 12px
-
+        &-by, &-quantity, &-category
+            margin-left: unset
+        &-data
+            flex-direction: column
+            text-align: center
         &-button
             width: 464px
             height: 261px
-
+        &-info
+            flex-direction: column
         &-close
             left: 57.5%
 
@@ -197,10 +205,6 @@
         &-button
             width: 379px
             height: 213px
-
-        &-data
-            flex-direction: column
-            text-align: center
 
         &-close
             left: 56%
@@ -215,6 +219,9 @@
 
         &-data
             width: 100%
+
+        &-category
+            justify-content: center
 
         &-button
             width: 408px

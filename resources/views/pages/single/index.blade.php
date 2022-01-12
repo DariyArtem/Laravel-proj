@@ -20,13 +20,13 @@
                             <div class="single-data">
                                 <div class="single-time">
                                     <i class="far fa-clock icon-clock"
-                                       aria-hidden="true"></i>{{explode(" ", $post->created_at)[0]}}
+                                       aria-hidden="true"></i>{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}
                                 </div>
                                 <div class="single-category">
                                     <i class="far fa-folder icon-folder" aria-hidden="true"></i>
                                     @foreach(\App\Models\PostCategory::where('post_id', $post->id)->get() as $categories)
                                         @foreach(\App\Models\Category::where('id', $categories->category_id)->get() as $category)
-                                            <a class="single-reference"
+                                            <a class="category-reference"
                                                href="{{route('category', ['id' => $category->id])}}">{{$category->name}}
                                             </a>
                                         @endforeach
@@ -34,7 +34,8 @@
                                 </div>
                                 <div class="single-by">
                                     <i class="far fa-user icon-user" aria-hidden="true"></i>
-                                    <a class="single-reference-author" href="{{route('author', ['id' => $post->author_id])}}">{{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".(\App\Models\User::where('id', $post->author_id)->first()->surname)}}
+                                    <a class="single-reference"
+                                       href="{{route('author', ['id' => $post->author_id])}}">{{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".(\App\Models\User::where('id', $post->author_id)->first()->surname)}}
                                     </a>
                                 </div>
                                 <div class="single-quantity">
@@ -90,7 +91,7 @@
                                         </div>
                                     </div>
                                     <div class="post-data">
-                                        <div class="post-date">{{explode(" ", $post->created_at)[0]}}</div>
+                                        <div class="post-date">{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}</div>
                                         <div class="post-hr"></div>
                                         <div class="post-comments">
                                             <a class="post-comment"
@@ -278,13 +279,14 @@
                         @foreach($result as $post)
                             <div class="single-name">{{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
 (\App\Models\User::where('id', $post->author_id)->first()->surname)}}</div>
-                            <div class="single-function">{{\App\Models\Role::where
+                            <div class="single-role">{{\App\Models\Role::where
 ('id', (\App\Models\User::where('id', $post->author_id)->first()->role_id))->first()->name}}</div>@endforeach
-                    </div>
-                    <div class="single-about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl
-                        rutrum
-                        vitae ac elementum amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit.
-                        Lectus a massa mi
+
+                        <div class="single-about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sem nisl
+                            rutrum
+                            vitae ac elementum amet, et. Non et nulla nisl, libero ac. Proin vitae quis maecenas elit.
+                            Lectus a massa mi
+                        </div>
                     </div>
                 </div>
             </div>
@@ -312,7 +314,7 @@
 (\App\Models\User::where('id', $similar_post->author_id)->first()->surname)}}</div>
                                     </div>
                                     <div class="post-data recent-data">
-                                        <div class="post-date recent-date">10, November</div>
+                                        <div class="post-date recent-date">{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}</div>
                                         <div class="post-hr recent-hr"></div>
                                         <div class="post-comments recent-comments">
                                             <a class="post-comment recent-comment"

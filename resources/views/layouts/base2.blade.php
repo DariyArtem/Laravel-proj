@@ -78,7 +78,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="row header-row">
+        <div class="header-row">
             <div class="header-logo"><img src="{{asset('img/errorPage/logo.png')}}" alt=""></div>
             <div class="header-search">
                 <img class="header-lupa" src="{{asset('img/header/lupa.png')}}" alt="">

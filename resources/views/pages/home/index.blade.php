@@ -20,7 +20,10 @@
             </div>
             <div class="header-sidebarSearch">
                 <img class="sidebar-search" src="{{asset('img/header/lupa.png')}}" alt="">
-                <input class="header-input" type="text" placeholder="Search your option">
+                <form action="{{}}">
+                    @csrf
+                    <input class="header-input" type="text" id="text" placeholder="Search your option">
+                </form>
             </div>
             <div class="header-menu">
                 <ul class="sidebar-references">
@@ -245,11 +248,11 @@
                                             </div>
                                         </div>
                                         <div class="blog-data">
-                                            <div class="blog-date">{{$post->created_at}}</div>
+                                            <div class="blog-date">{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}</div>
                                             <div class="blog-hr"></div>
                                             <div class="blog-comments">
                                                 <a class="blog-comments-ref" href="#">
-                                                    {{\App\Models\Comment::where('post_id', $post->id)->count()}}
+                                                    {{\App\Models\Comment::where('post_id', $post->id)->count()}} comments
                                                 </a>
                                             </div>
                                         </div>
@@ -287,11 +290,11 @@
                                             </div>
                                         </div>
                                         <div class="post-data">
-                                            <div class="post-date">{{$post->created_at}}</div>
+                                            <div class="post-date">{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}</div>
                                             <div class="post-hr"></div>
                                             <div class="post-comments">
                                                 <a class="post-comment" href="#">
-                                                    {{\App\Models\Comment::where('post_id', $post->id)->count()}}
+                                                    {{\App\Models\Comment::where('post_id', $post->id)->count()}} comments
                                                 </a>
                                             </div>
                                         </div>
