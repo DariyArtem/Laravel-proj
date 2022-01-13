@@ -34,8 +34,13 @@
 
         </div>
         <div class="header-sidebarSearch">
-            <img class="sidebar-search" src="{{asset('img/header/lupa.png')}}" alt="">
-            <input class="header-input" type="text" placeholder="Search your option">
+            <form class="search-form" action="{{route('search')}}">
+                @csrf
+                <button class="search-loupe">
+                    <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
+                </button>
+                <input class="search-input" type="text" name="title" placeholder="Search your option">
+            </form>
         </div>
         <div class="header-menu">
             <ul class="sidebar-references">
@@ -81,8 +86,13 @@
         <div class="header-row">
             <div class="header-logo"><img src="{{asset('img/errorPage/logo.png')}}" alt=""></div>
             <div class="header-search">
-                <img class="header-lupa" src="{{asset('img/header/lupa.png')}}" alt="">
-                <input class="header-input-second" type="text" placeholder="Search your option">
+                <form class="search-form" action="{{route('search')}}">
+                    @csrf
+                    <button class="search-loupe">
+                        <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
+                    </button>
+                    <input class="search-input" type="text" name="title" placeholder="Search your option">
+                </form>
             </div>
             <div class="header-burger">
                 <div class="burger-top errorPage-burger"></div>

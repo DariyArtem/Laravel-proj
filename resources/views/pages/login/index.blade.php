@@ -10,6 +10,11 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
+                            @if(session('success'))
+                                <div class="mt-4 mb-0">
+                                    <div class="d-grid btn-success big h5">{{session('success')}}</div>
+                                </div>
+                            @endif
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                 <div class="card-body">

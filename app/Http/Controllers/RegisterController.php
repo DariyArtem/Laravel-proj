@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\UserService;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,14 @@ use Illuminate\Validation\Rules\Password;
 class RegisterController extends Controller
 {
 
+    protected $userService;
+
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
         return view("pages.register.index");
@@ -17,30 +26,25 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-
-        $validateFields = $request->validate([
-            "email" => "required|string|email|max:100|unique:users,email",
-            "password" => ["required", Password::min(8)->numbers()->mixedCase()],
-            "name" => "required|string|max:50|min:3",
-            "phone" => "required|string|max:12|min:9",
-            "surname" => "required|string|max:50|min:3",
-            "country" => "required|string",
-            "region" => "required|string",
-            "city" => "required|string",
-        ], [
-            "email.unique" => "User with this email already exists"
+        $data = $request->only([
+            "email",
+            "password",
+            "name",
+            "phone",
+            "surname",
+            "country",
+            "region",
+            "city",
         ]);
 
-        $user = User::create($validateFields + ["role_id" => 1]);
-
-        if ($user) {
-            Auth::loginUsingId($user->id);
-            return redirect(route("private"));
+        try {
+            $this->userService->saveUser($data);
+        } catch (\Exception $e){
+            return redirect(route("register"))->withErrors([
+                "email" => "An error occurred"
+            ]);
         }
-
-        return redirect(route("register"))->withErrors([
-            "email" => "An error occurred"
-        ]);
+        return redirect(route("private"));
 
     }
 }

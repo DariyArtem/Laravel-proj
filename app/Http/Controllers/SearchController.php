@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
+
     public function index(Request $request){
         $validatedField = $request->validate([
             "title" => "required"

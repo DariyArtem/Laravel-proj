@@ -19,13 +19,13 @@
                 </div>
             </div>
             <div class="header-sidebarSearch">
-                <form action="">
-                    @csrf
-                    <input class="header-input" type="text" id="text" placeholder="Search your option">
-                    <button>
-                        <img class="sidebar-search" src="{{asset('img/header/lupa.png')}}" alt="">
-                    </button>
-                </form>
+                <form class="search-form" action="{{route('search')}}">
+                        @csrf
+                        <button class="search-loupe">
+                            <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
+                        </button>
+                        <input class="search-input" type="text" name="title" placeholder="Search your option">
+                    </form>
             </div>
             <div class="header-menu">
                 <ul class="sidebar-references">
