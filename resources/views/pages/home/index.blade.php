@@ -19,10 +19,12 @@
                 </div>
             </div>
             <div class="header-sidebarSearch">
-                <img class="sidebar-search" src="{{asset('img/header/lupa.png')}}" alt="">
-                <form action="{{}}">
+                <form action="">
                     @csrf
                     <input class="header-input" type="text" id="text" placeholder="Search your option">
+                    <button>
+                        <img class="sidebar-search" src="{{asset('img/header/lupa.png')}}" alt="">
+                    </button>
                 </form>
             </div>
             <div class="header-menu">
@@ -69,8 +71,13 @@
             <div class="row header-row">
                 <div class="header-logo"><img src="../img/header/logo.png" alt=""></div>
                 <div class="header-search">
-                    <img class="header-lupa" src="../img/header/lupa.png" alt="">
-                    <input class="header-input" type="text" placeholder="Search your option">
+                    <form class="search-form" action="{{route('search')}}">
+                        @csrf
+                        <button class="search-loupe">
+                            <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
+                        </button>
+                       <input class="search-input" type="text" name="title" placeholder="Search your option">
+                    </form>
                 </div>
                 <div class="header-burger">
                     <div class="burger-top"></div>
@@ -199,7 +206,6 @@
                                                 'id', \App\Models\PostCategory::where('post_id', $post->id)->first()
                                                 ->category_id)->first()->id])}}">
                                             <div class="explores-category">
-
                                                 {{\App\Models\Category::where(
                                                  'id', \App\Models\PostCategory::where(
                                                      'post_id', $post->id)->first()->category_id)->first()->name

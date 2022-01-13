@@ -19,15 +19,14 @@
                             @foreach($popular as $post)
                                 <div class="col-lg-6">
                                     <div class="category-card">
-                                        <img src="{{asset("storage/".$post->img_path)}}" alt="">
+                                        <a href="{{route('single', [$post->id])}}">
+                                            <img src="{{asset("storage/".$post->img_path)}}" alt="">
+                                        </a>
                                         <div class="category-cardInfo">
                                             <div class="category-cardTitle">{{$post->title}}</div>
                                             <div class="category-cardData">
                                                 <i class="far fa-clock icon-clock"></i>{{explode(" ", $post->created_at)[0]}}
-                                                <i class="far fa-folder icon-folder"></i>{{\App\Models\Category::where(
-                                                 'id', \App\Models\PostCategory::where(
-                                                     'post_id', $post->id)->first()->category_id)->first()->name
-                                             }}
+                                                <i class="far fa-folder icon-folder"></i>
                                                 <i class="far fa-user icon-user"></i>{{$info->name." ".$info->surname}}
                                                 <i class="far fa-comment icon-comment"></i>{{\App\Models\Post::find($post->id)->comments->count()}}
                                             </div>
@@ -44,7 +43,9 @@
                             @foreach($recent as $post)
                                 <div class="col-lg-6">
                                     <div class="category-card">
-                                        <img src="{{asset("storage/".$post->img_path)}}" alt="">
+                                        <a href="{{route('single', [$post->id])}}">
+                                            <img src="{{asset("storage/".$post->img_path)}}" alt="">
+                                        </a>
                                         <div class="category-cardInfo">
                                             <div class="category-cardTitle">{{$post->title}}</div>
                                             <div class="category-cardData">

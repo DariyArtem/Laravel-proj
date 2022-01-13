@@ -8,6 +8,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Post\PostController;
+use App\Http\Controllers\SearchController;
 use App\Http\Middleware\LogMiddleware;
 use App\Models\Category;
 use App\Models\Post;
@@ -37,7 +38,7 @@ Route:: view('/', 'pages.home.index',
 Route::view('/categories', 'pages.categories.index', ['categories' => Category::all()])->name('categories')->middleware(LogMiddleware::class);
 Route::view('/about', 'pages.about.index')->name('about')->middleware(LogMiddleware::class);
 Route::view('/contact', 'pages.contact.index')->name('contact')->middleware(LogMiddleware::class);
-Route::view('/search', 'pages.search.index')->name('search')->middleware(LogMiddleware::class);
+Route::get('/search', [SearchController::class, 'index'])->name('search')->middleware(LogMiddleware::class);
 Route::get('/single/{id}', [PostController::class, 'show'])->name('single')->middleware(LogMiddleware::class);
 Route::get('/author/{id}', [AuthorController::class, 'index'])->name('author')->middleware(LogMiddleware::class);
 Route::get('/category/{id}', [CategoryController::class, 'showOne'])->name('category')->middleware(LogMiddleware::class);
