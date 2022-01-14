@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Post;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\PostService;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\PostCategory;
@@ -15,6 +16,13 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+
+    protected $postService;
+
+    public function __construct(PostService $postService)
+    {
+        $this->postService = $postService;
+    }
     public function index()
     {
         return view("pages.posts.index", ["result" => Post::where("author_id", Auth::id())->get()]);
@@ -42,108 +50,39 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        $validateFields = $request->validate([
-            "title" => "required",
-            "description" => "required",
-            "notification" => "required",
-            "content" => "required",
-            "image" => "required|image|mimetypes:image/jpeg,image/png,image/jpg",
-            "images.*" => "required|image|mimetypes:image/jpeg,image/png",
-            "video" => "required|mimetypes:video/mp4,video/avi,video/mpeg",
 
-        ]);
-
-        $validateCategories = $request->validate([
-            "categories.*" => "required|integer",
-        ]);
-
-        $imagesPath = Storage::put("img/postsTitles", $validateFields["image"]);
-        $videoPath = Storage::put("video", $validateFields["video"]);
-        $post = Post::create($validateFields + ["author_id" => Auth::id()]
-            + ["img_path" => $imagesPath] + ["video_path" => $videoPath]);
-
-        $categories = $validateCategories["categories"];
-        $images = $validateFields["images"];
-        $insertCategories = false;
-        $insertImages = false;
-
-        for ($i = 0; $i < count($categories); $i++) {
-            $data = [
-                "post_id" => $post->id,
-                "category_id" => $categories[$i],
-            ];
-            $insertCategories = DB::table("post_category")->insert($data);
+        try {
+            $this->postService->save($request);
+        }catch (\Exception $e){
+            return redirect(route("posts.create"))->withErrors([
+                "formMessage" => "An error occurred"
+            ]);
         }
+        return redirect(route("posts"))->withSuccess("New post have been created");
 
-        for ($i = 0; $i < count($images); $i++) {
-            $imagesPath = Storage::put("img/posts", $images[$i]);
-            $data = [
-                "post_id" => $post->id,
-                "img_path" => $imagesPath,
-            ];
-            $insertImages = DB::table("post_images")->insert($data);
-        }
-
-        if ($post && $insertCategories && $insertImages) {
-            return redirect(route("posts"))->withSuccess("New post have been created");
-        }
-
-        return redirect(route("posts.create"))->withErrors([
-            "formError" => "An error occurred"
-        ]);
     }
 
     public function update(Request $request, $post_id)
     {
-        $validateFields = $request->validate([
-            "title" => "required",
-            "description" => "required",
-            "notification" => "required",
-            "content" => "required",
-        ]);
-
-        $post = Post::find($post_id);
-
-        if ($request->image !== null) {
-
-            $validateImage = $request->validate([
-                "image" => "image|mimes:jpeg,png,jpg,gif,svg",
+        try {
+            $this->postService->update($request, $post_id);
+        } catch (\Exception $e){
+            return redirect(route("posts.edit", $post_id))->withErrors([
+                "formMessage" => "An error occurred"
             ]);
-            Storage::delete($post->img_path);
-            $imagePath = Storage::put("img/postsTitles", $validateImage["image"]);
-
-            $post->img_path = $imagePath;
-
         }
-
-        $post->title = $validateFields["title"];
-        $post->description = $validateFields["description"];
-        $post->notification = $validateFields["notification"];
-        $post->content = $validateFields["content"];
-        $post->save();
-
-        if ($post) {
-            return redirect(route("posts"))->withSuccess("Post $post_id have been updated");
-        }
-
-        return redirect(route("posts.create"))->withErrors([
-            "formError" => "An error occurred"
-        ]);
+        return redirect(route("posts"))->withSuccess("Post $post_id have been deleted");
     }
 
     public function delete($post_id)
     {
-        $delete = Post::where("id", $post_id)->first();
-        if ($delete) {
-
-            Storage::delete($delete->img_path);
-            $delete->delete();
-
-            return redirect()->back()->withSuccess("Post $post_id have been deleted");
+        try {
+            $this->postService->delete($post_id);
+        } catch (\Exception $e){
+            return redirect(route("posts"))->withErrors([
+                "formMessage" => "An error occurred"
+            ]);
         }
-
-        return redirect(route("posts"))->withErrors([
-            "formError" => "An error occurred"
-        ]);
+        return redirect()->back()->withSuccess("Post $post_id have been deleted");
     }
 }

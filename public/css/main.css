@@ -1600,6 +1600,9 @@ h5, h5 {
   white-space: pre-line;
   color: #141414;
 }
+.category-reference:hover {
+  color: #FFA902;
+}
 .category-reference-search {
   color: #FFFFFF;
 }
@@ -1609,9 +1612,6 @@ h5, h5 {
 .category-author {
   white-space: pre-line;
   color: #141414;
-}
-.category:hover {
-  color: #FFA902;
 }
 .category-content {
   margin-top: 154px;

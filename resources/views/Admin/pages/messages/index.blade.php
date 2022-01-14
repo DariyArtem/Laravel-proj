@@ -35,13 +35,6 @@
                         <td>{{$element->email}}</td>
                         <td>{{$element->message}}</td>
                         <td>{{$element->created_at}}</td>
-                        <td>
-                            <form method="POST" action="{{route('auth.admin.messages.delete', ['id' => $element->id])}}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger">{{__("Delete")}}</button>
-                            </form>
-                        </td>
                     </tr>
                 @endforeach
                 </tbody>
