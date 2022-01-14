@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="category-content margin-top-50px">
+    <div class="category-content">
         <div class="container">
             <div class="search">
                 <div class="search-search">Search Result:</div>

@@ -28,7 +28,7 @@
                     <button class="search-loupe">
                         <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
                     </button>
-                    <input class="search-input" type="text" name="title" placeholder="Search your option">
+                    <input class="search-input-second" type="text" name="title" placeholder="Search your option">
                 </form>
             </div>
             <div class="header-burger">

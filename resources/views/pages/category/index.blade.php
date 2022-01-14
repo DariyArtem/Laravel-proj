@@ -1,16 +1,16 @@
-@extends('layouts.base')
+@extends('layouts.base2')
 
 @section('page.title')
     Categories
 @endsection
 
 @section('content')
-    <div class="background">
-        <img src="{{asset('storage/'.$currentCategory->img_path)}}" alt="">
-        <div class="background-gradient"></div>
-    </div>
     <div class="category-content">
         <div class="container">
+            <div class="search">
+                <div class="search-search">Search Result:</div>
+                <div class="search-result">{{$category_name}}</div>
+            </div>
             <div class="row">
                 <div class="col-md-8 ">
                     <div class="row">
@@ -27,7 +27,7 @@
                                                         <i class="far fa-clock"></i>&nbsp;{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}
                                                         <i class="far fa-folder"></i>&nbsp;{{$category_name}}
                                                         <i class="far fa-user"></i>&nbsp;{{
-    \App\Models\User::where('id', $post->author_id)->first()->name.''.\App\Models\User::where('id', $post->author_id)->first()->surname
+    \App\Models\User::where('id', $post->author_id)->first()->name.' '.\App\Models\User::where('id', $post->author_id)->first()->surname
 }}
                                                         <i class="far fa-comment"></i>&nbsp;{{\App\Models\Comment::where(
     'post_id', $post->id)->count()}}</div>
