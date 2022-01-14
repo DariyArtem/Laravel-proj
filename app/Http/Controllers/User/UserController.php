@@ -15,18 +15,19 @@ class UserController extends Controller
     public function index()
     {
 
-        return view('pages.profileSettings.index', ['result'=> User::where('id', Auth::id())->get()]);
+        return view("pages.profileSettings.index", ["result"=> User::where("id", Auth::id())->get()]);
     }
 
     public function update(Request $request){
 
         $validateFields = $request->validate([
-            'name' => 'required|string|max:50|min:3',
-            'phone' => 'required|string|max:12|min:9',
-            'surname' => 'required|string|max:50|min:3',
-            'country' => 'required|string|max:50|min:3',
-            'region' => 'required|string|max:50|min:3',
-            'city' => 'required|string|max:50|min:3',
+            "name" => "required|string|max:50|min:3",
+            "phone" => "required|string|max:12|min:9",
+            "surname" => "required|string|max:50|min:3",
+            "country" => "required|string|max:50|min:3",
+            "region" => "required|string|max:50|min:3",
+            "city" => "required|string|max:50|min:3",
+            "about" => "required|string",
         ]);
 
         $user = User::find(Auth::id());
@@ -34,32 +35,32 @@ class UserController extends Controller
         if ($request->picture !== null) {
 
             $validateImage = $request->validate([
-                'picture' => 'image|mimes:jpeg,png,jpg,gif,svg',
+                "picture" => "image|mimes:jpeg,png,jpg,gif,svg",
             ]);
 
             Storage::delete($user->picture);
-            $path = Storage::put('img/avatars', $validateImage['picture']);
+            $path = Storage::put("img/avatars", $validateImage["picture"]);
             $user->picture = $path;
 
 
         }
-            $user->name = $validateFields['name'];
-            $user->surname = $validateFields['surname'];
-            $user->phone = $validateFields['phone'];
-            $user->country = $validateFields['country'];
-            $user->region = $validateFields['region'];
-            $user->city = $validateFields['city'];
-
+            $user->name = $validateFields["name"];
+            $user->surname = $validateFields["surname"];
+            $user->phone = $validateFields["phone"];
+            $user->country = $validateFields["country"];
+            $user->region = $validateFields["region"];
+            $user->city = $validateFields["city"];
+            $user->about = $validateFields["about"];
 
 
         $user->save();
 
         if($user){
-            return redirect(route('settings'))->withSuccess("Profile have been updated");
+            return redirect(route("settings"))->withSuccess("Profile have been updated");
         }
 
-        return redirect(route('settings'))->withErrors([
-            'formError' => 'An error occurred'
+        return redirect(route("settings"))->withErrors([
+            "formError" => "An error occurred"
         ]);
     }
 

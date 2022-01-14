@@ -104,6 +104,10 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
+                                        <label for="inputContent"  class="form-label">{{__('Input information about yourself')}}</label>
+                                        <textarea class="form-control" name="about" id="inputContent" rows="12">{{$element->about}}</textarea>
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="inputImage"
                                                class="form-label">{{__('Upload profile picture')}}</label>
                                         <input id="inputImage" type="file" name="picture">

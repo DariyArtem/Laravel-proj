@@ -59,11 +59,6 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-//    public function isUser()
-//    {
-//        return $this->role()->where("name", "User");
-//    }
-//
     public function isAdmin()
     {
         return $this->role()->where("name", "Admin");
@@ -76,6 +71,9 @@ class User extends Authenticatable
             return "User";
         } elseif ($role_id === 2) {
             return "Author";
+        }
+        elseif ($role_id === 4) {
+            return "Creator";
         }
         return "Admin";
     }

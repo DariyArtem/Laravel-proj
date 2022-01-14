@@ -22,21 +22,12 @@ About Me
                                 </div>
                                 <div class="col-md-10 ">
                                     <div class="about-subtitle">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed et donec purus viverra.
-                                        Sit justo velit, eu sed sollicitudin tempus, risus. Sed sit elit mauris adipiscing. Lobortis
-                                        pellentesque nulla accumsan id urna, ullamcorper gravida varius.
+                                       {{("Here you can see and read common information about person who created this blog.
+The Author hopes you will enjoy his work that was done by this moment. And of course the work on this project is not finished it is still in process!")}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="about-description">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu pulvinar diam adipiscing ut placerat
-                                nulla. Netus tortor ante vestibulum egestas facilisi scelerisque est rhoncus tristique. Viverra
-                                malesuada massa libero, adipiscing elit phasellus elementum. Faucibus penatibus cursus
-                                pellentesque tellus. Pellentesque dignissim. Netus pharetra in pellentesque vitae ante neque
-                                duis nec. Eu eget tellus tempor aliquam commodo et ut vestibulum. Vulputate tellus sed semper
-                                malesuada interdum lectus a sapien. Praesent lectus eu mauris libero rhoncus. Ac sapien rhoncus
-                                diam cursus pellentesque aliquet.
-                            </div>
+                            <div class="about-description">{{$author->about}}</div>
                         </div>
                         <div class="about-cards">
                             <div class="row">
@@ -77,15 +68,10 @@ About Me
                             <div class="blog-sidebar sidebar-profile">
                                 <div class="sidebar-profileInfo">
                                     <div class="sidebar-photo">
-                                        <img src="img/aboutMePage/profile-photo/photo1.png" alt="">
+                                        <img src="{{asset("storage/".$author->picture)}}" alt="">
                                     </div>
-                                    <div class="sidebar-name">
-                                        Adam Smith
-                                    </div>
-                                    <div class="sidebar-bio">
-                                        Lorem ipsum dolor sit am consectetur adipisc ing elit. In sed et donec purus viverra.
-                                        Sit justo
-                                    </div>
+                                    <div class="sidebar-name">{{$author->name." ".$author->surname}}</div>
+                                    <div class="sidebar-bio">{{$author->about}}</div>
                                     <div class="sidebar-hr-aboutPage"></div>
                                     <div class="blog-icons sidebar-social">
                                         <h6 class="sidebar-title">
@@ -119,12 +105,12 @@ About Me
                             <div class="blog-sidebar sidebar-contacts">
                                 <h6 class="sidebar-message">Contact ME</h6>
                                 <p class="sidebar-address">
-                                    <i class="fas fa-map-marker-alt icon-location"></i>Brahmanbaria, Chattagram, Bangladesh</p>
+                                    <i class="fas fa-map-marker-alt icon-location"></i>{{$author->city.", ".$author->region.", ".$author->country}}</p>
                                 <p class="sidebar-email">
-                                    <i class="fas fa-envelope icon-mail"></i>Designhunterrbd@gmail.com
+                                    <i class="fas fa-envelope icon-mail"></i>{{$author->email}}
                                 </p>
                                 <p class="sidebar-phone">
-                                    <i class="fas fa-mobile icon-mobile"></i>+880 012 345 6789
+                                    <i class="fas fa-mobile icon-mobile"></i>+{{$author->phone}}
                                 </p>
                             </div>
 
@@ -133,7 +119,6 @@ About Me
                 </div>
             </div>
         </div>
-
     </div>
     <div class="video-background">
         <img src="video/home/airpods-preview.jpg" alt="">

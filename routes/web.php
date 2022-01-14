@@ -36,7 +36,7 @@ Route:: view('/', 'pages.home.index',
     ]
 )->name('home')->middleware(LogMiddleware::class);
 Route::view('/categories', 'pages.categories.index', ['categories' => Category::all()])->name('categories')->middleware(LogMiddleware::class);
-Route::view('/about', 'pages.about.index')->name('about')->middleware(LogMiddleware::class);
+Route::view('/about', 'pages.about.index', ['author' => User::where('role_id', 4)->first()])->name('about')->middleware(LogMiddleware::class);
 Route::view('/contact', 'pages.contact.index')->name('contact')->middleware(LogMiddleware::class);
 Route::get('/search', [SearchController::class, 'index'])->name('search')->middleware(LogMiddleware::class);
 Route::get('/single/{id}', [PostController::class, 'show'])->name('single')->middleware(LogMiddleware::class);
