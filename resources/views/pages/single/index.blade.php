@@ -248,8 +248,7 @@
                     <div class="col-xl-4 ">
                         <div class="single-photo">
                             @foreach($result as $post)
-                                <img src="{{asset('storage/'.\App\Models\User::where
-('id', $post->author_id)->first()->picture)}}" alt="">
+                                <img src="{{asset('storage/'.\App\Models\User::where('id', $post->author_id)->first()->picture)}}" alt="">
                             @endforeach
                         </div>
                         <div class="single-icons">
@@ -277,8 +276,13 @@
                     </div>
                     <div class="col-xl-8">
                         @foreach($result as $post)
-                            <div class="single-name">{{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
-(\App\Models\User::where('id', $post->author_id)->first()->surname)}}</div>
+
+                            <div class="single-name">
+                                <a class="single-reference" href="{{route('author', ['id' => $post->author_id])}}">
+                                    {{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
+                                    (\App\Models\User::where('id', $post->author_id)->first()->surname)}}
+                                </a>
+                            </div>
                             <div class="single-role">{{\App\Models\Role::where
 ('id', (\App\Models\User::where('id', $post->author_id)->first()->role_id))->first()->name}}</div>@endforeach
 

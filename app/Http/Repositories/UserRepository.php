@@ -18,8 +18,6 @@ class UserRepository
 
     public function save($validated){
 
-        $user = new $this->user;
-
         $user = User::create($validated + ["role_id" => 1]);
 
         Auth::loginUsingId($user->id);

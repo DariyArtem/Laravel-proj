@@ -328,6 +328,29 @@ h5, h5 {
   transform: scale(-1, 1);
 }
 
+.background {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  z-index: -3;
+  top: 0;
+}
+.background-gradient {
+  height: 100vh;
+  top: 0;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+}
+.background img {
+  z-index: -2;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .footer {
   background: #FFA902;
   width: 100%;
@@ -1102,6 +1125,24 @@ h5, h5 {
   width: 100%;
 }
 
+.sidebar-search {
+  text-align: center;
+  max-width: 1399px;
+  padding-top: 46px;
+}
+.sidebar-icons-mobile {
+  display: flex;
+  max-width: 189px;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+  padding-top: 190px;
+  padding-bottom: 90px;
+}
+.sidebar-closeSidebar {
+  cursor: pointer;
+  color: #FFF;
+}
 .sidebar-top {
   display: flex;
   justify-content: space-between;
@@ -1227,7 +1268,6 @@ h5, h5 {
 }
 @media only screen and (max-width: 767px) {
   .sidebar-post {
-    justify-content: center;
     display: flex;
   }
   .sidebar-title {
@@ -1243,9 +1283,6 @@ h5, h5 {
   .sidebar-social {
     display: block;
   }
-}
-.header {
-  height: 100vh;
 }
 .header-template2 {
   max-height: 142px;
@@ -1270,20 +1307,6 @@ h5, h5 {
   top: 0;
   overflow-x: hidden;
   padding-top: 36px;
-}
-.header-sidebarSearch {
-  text-align: center;
-  max-width: 1399px;
-  padding-top: 46px;
-}
-.header-sidebarIcons {
-  display: flex;
-  max-width: 189px;
-  width: 100%;
-  margin: 0 auto;
-  justify-content: space-between;
-  padding-top: 100px;
-  padding-bottom: 90px;
 }
 .header-closeSidebar {
   cursor: pointer;
@@ -1768,6 +1791,7 @@ h5, h5 {
   position: relative;
   width: 100%;
   height: 100%;
+  border-radius: 50px;
 }
 .comment-name {
   font-family: Poppins, sans-serif;
@@ -1982,7 +2006,6 @@ h5, h5 {
   border-radius: 100px;
 }
 .single-reference {
-  white-space: pre-line;
   color: #141414;
 }
 .single-reference-author {
@@ -2281,27 +2304,6 @@ h5, h5 {
 }
 a {
   color: #fff;
-}
-
-.background {
-  height: 100vh;
-  width: 100%;
-  position: absolute;
-  z-index: -3;
-}
-.background-gradient {
-  height: 100vh;
-  width: 100%;
-  position: absolute;
-  z-index: -1;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
-}
-.background img {
-  z-index: -2;
-  height: 100%;
-  width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
 }
 
 .top {

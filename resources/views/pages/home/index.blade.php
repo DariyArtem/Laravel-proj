@@ -5,147 +5,11 @@
 @endsection
 
 @section('content')
-    <header class="header">
-        <div class="background">
-            <img src="{{asset('img/header/background.png')}}" alt="">
-        </div>
+    <section class="background">
+        <img src="{{asset('img/header/background.png')}}" alt="">
         <div class="background-gradient"></div>
-        <div class="header-sidebar">
-            <div class="sidebar-top">
-                <div class="header-logo"><img src="{{asset('img/header/logo.png')}}" alt=""></div>
-                <div class="header-closeSidebar">
-                    <span class="close-left"></span>
-                    <span class="close-right"></span>
-                </div>
-            </div>
-            <div class="header-sidebarSearch">
-                <form class="search-form" action="{{route('search')}}">
-                        @csrf
-                        <button class="search-loupe">
-                            <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
-                        </button>
-                        <input class="search-input" type="text" name="title" placeholder="Search your option">
-                    </form>
-            </div>
-            <div class="header-menu">
-                <ul class="sidebar-references">
-                    <li><a href="{{route('home')}}">Home</a></li>
-                    @auth()
-                        @if(Auth::user()->role->name === "User")
-                            <li><a href="{{route('logout')}}">Logout</a></li>
-                        @else
-                            <li><a href="{{route('private')}}">Adminka</a></li>@endif
-                    @else
-                        <li><a href="{{route('login')}}">Account</a></li>
-                    @endauth
-                    <li><a href="{{route('about')}}">About Me</a></li>
-                    <li><a href="{{route('categories')}}">Categories</a></li>
-                    {{--                    <li><a href="#">Blog</a></li>--}}
-                    <li><a href="{{route('contact')}}">Contact Me</a></li>
-                </ul>
-            </div>
-            <div class="header-sidebarIcons">
-                <a href="#">
-                    <div class="header-icon">
-                        <i class="fab fa-facebook-f icon"></i>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="header-icon">
-                        <i class="fab fa-twitter icon"></i>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="header-icon">
-                        <i class="fab fa-instagram icon"></i>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="header-icon">
-                        <i class="fab fa-youtube icon"></i>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row header-row">
-                <div class="header-logo"><img src="../img/header/logo.png" alt=""></div>
-                <div class="header-search">
-                    <form class="search-form" action="{{route('search')}}">
-                        @csrf
-                        <button class="search-loupe">
-                            <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
-                        </button>
-                       <input class="search-input" type="text" name="title" placeholder="Search your option">
-                    </form>
-                </div>
-                <div class="header-burger">
-                    <div class="burger-top"></div>
-                    <div class="burger-center"></div>
-                    <div class="burger-bottom"></div>
-                </div>
-                <div class="header-icons">
-                    <a href="#">
-                        <div class="header-icon">
-                            <i class="fab fa-facebook-f icon"></i>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="header-icon">
-                            <i class="fab fa-twitter icon"></i>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="header-icon">
-                            <i class="fab fa-instagram icon"></i>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="header-icon">
-                            <i class="fab fa-youtube icon"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="header-hr">
-                <hr class="header--hr">
-            </div>
-            <menu class="header-menu">
-                <ul class="header-references">
-                    <li><a href="{{route('home')}}">Home</a></li>
-                    @auth()
-                        @if(Auth::user()->role->name === "User")
-                            <li><a href="{{route('logout')}}">Logout</a></li>
-                        @else
-                            <li><a href="{{route('private')}}">Adminka</a></li>@endif
-                    @else
-                        <li><a href="{{route('login')}}">Account</a></li>
-                    @endauth
-                    <li><a href="{{route('about')}}">About Me</a></li>
-                    <li><a href="{{route('categories')}}">Categories</a></li>
-                    {{--                    <li><a href="#">Blog</a></li>--}}
-                    <li><a href="{{route('contact')}}">Contact Me</a></li>
-                </ul>
-            </menu>
-            <div class="header-content">
-                <div class="header-text">
-                    <div class="header-title">Where will you go next?</div>
-                    <div class="header-description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed et donec purus viverra. Sit
-                            justo velit,
-                            eu sed sollicitudin tempus, risus. Sed sit elit mauris adipiscing. Lobortis pellentesque
-                            nulla accumsan id
-                            urna, ullamcorper gravida varius. Massa mauris, cursus orci magna non enim fames et
-                            sed. </p>
-                    </div>
-                    <div class="header-subtitle">
-                        <p>Let’s Go.....</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <div class="content">
+    </section>
+    <section class="content">
         <div class="container">
             <div class="position-relative">
                 <h6 class="content-title">
@@ -339,11 +203,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     {{$latestPosts->links()}}
-    <div class="video-background margin-top-60px">
+    <section class="video-background margin-top-60px">
         <img src="video/home/airpods-preview.jpg" alt="">
-    </div>
+    </section>
     <div class="video-file margin-top-60px">
         <video id="video1" controls>
             <source src="video/home/Airpods%20(Not%20For%20Poor%20People).mp4"
@@ -353,7 +217,7 @@
             <button class="video-close" type="button"><i class="fas fa-times fa-2x"></i></button>
         </div>
     </div>
-    <div class="video margin-top-60px">
+    <section class="video margin-top-60px">
         <button id="close-video1" class="close-video-btn"><i class="fas fa-times fa-2x"></i></button>
         <div class="container">
             <div class="video-content">
@@ -374,7 +238,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
 @endsection
 

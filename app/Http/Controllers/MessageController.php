@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\MessageService;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
+    protected $messageService;
 
+    public function __construct(MessageService $messageService)
+    {
+        $this->messageService = $messageService;
+    }
     public function show()
     {
         return view("Admin.pages.messages.index", ["result" => Message::all()]);
@@ -16,39 +22,14 @@ class MessageController extends Controller
 
     public function store(Request $request)
     {
-        $user = Auth::user();
-
-        if (Auth::check()) {
-
-            $validateFields = $request->validate([
-                "message" => "required",
-            ]);
-            $message = Message::create(
-                $validateFields + ["name" => "$user->name" . " " . "$user->surname"] + ["email" => $user->email]
-                + ["number" => $user->phone]);
-            if ($message) {
-                return redirect(route("contact"))->withSuccess("Your message have been sent");
-            }
-            return redirect(route("contact"))->withErrors([
-                "formError" => "An error occurred"
+        try {
+            $this->messageService->save($request, Auth::user());
+        } catch (\Exception $e){
+            return back()->withErrors([
+                "formError" => "$e"
             ]);
         }
-
-        $validateFields = $request->validate([
-            "name" => "required",
-            "email" => "required",
-            "number" => "required",
-            "message" => "required",
-        ]);
-
-        $message = Message::create($validateFields);
-
-        if ($message) {
-            return redirect(route("contact"))->withSuccess("Your message have been sent");
-        }
-        return redirect(route("contact"))->withErrors([
-            "formError" => "An error occurred"
-        ]);
+        return back()->withSuccess("Your message have been sent");
     }
 
     public function delete($message_id)

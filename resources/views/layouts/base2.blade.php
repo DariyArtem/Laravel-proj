@@ -14,74 +14,11 @@
 </head>
 <body>
 @error('role')
-<div class="alert alert-danger mb-0 text-center">
+<section class="alert alert-danger mb-0 text-center">
     {{$message}}
-</div>
+</section>
 @enderror
-<div class="header-absoluteSearch">
-    <button class="absolute-search" type="submit"><i class="fa fa-search"></i></button>
-    <input class="absolute-input" type="text" placeholder="Search your option">
-    <button class="absolute-searchClose" type="submit"><i class="fa fa-times"></i></button>
-</div>
 <header class="header-template2">
-    <div class="header-sidebar">
-        <div class="sidebar-top">
-            <div class="header-logo"><img src="http://gallivant/img/header/logo.png" alt=""></div>
-            <div class="header-closeSidebar">
-                <span class="close-left"></span>
-                <span class="close-right"></span>
-            </div>
-
-        </div>
-        <div class="header-sidebarSearch">
-            <form class="search-form" action="{{route('search')}}">
-                @csrf
-                <button class="search-loupe">
-                    <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
-                </button>
-                <input class="search-input" type="text" name="title" placeholder="Search your option">
-            </form>
-        </div>
-        <div class="header-menu">
-            <ul class="sidebar-references">
-                <li><a href="{{route('home')}}">Home</a></li>
-                @auth()
-                    @if(Auth::user()->role->name === "User")
-                        <li><a href="{{route('logout')}}">Logout</a></li>
-                    @else
-                        <li><a href="{{route('private')}}">Adminka</a></li>@endif
-                @else
-                    <li><a href="{{route('login')}}">Account</a></li>
-                @endauth
-                <li><a href="{{route('about')}}">About Me</a></li>
-                <li><a href="{{route('categories')}}">Categories</a></li>
-                {{--                <li><a href="#">Blog</a></li>--}}
-                <li><a href="{{route('contact')}}">Contact Me</a></li>
-            </ul>
-        </div>
-        <div class="header-sidebarIcons">
-            <a href="#">
-                <div class="header-icon">
-                    <i class="fab fa-facebook-f icon" aria-hidden="true"></i>
-                </div>
-            </a>
-            <a href="#">
-                <div class="header-icon">
-                    <i class="fab fa-twitter icon" aria-hidden="true"></i>
-                </div>
-            </a>
-            <a href="#">
-                <div class="header-icon">
-                    <i class="fab fa-instagram icon" aria-hidden="true"></i>
-                </div>
-            </a>
-            <a href="#">
-                <div class="header-icon">
-                    <i class="fab fa-youtube icon" aria-hidden="true"></i>
-                </div>
-            </a>
-        </div>
-    </div>
     <div class="container">
         <div class="header-row">
             <div class="header-logo"><img src="{{asset('img/errorPage/logo.png')}}" alt=""></div>
@@ -144,14 +81,68 @@
         </menu>
     </div>
 </header>
+<aside class="header-sidebar">
+    <div class="sidebar-top">
+        <div class="header-logo"><img src="http://gallivant/img/header/logo.png" alt=""></div>
+        <div class="header-closeSidebar">
+            <span class="close-left"></span>
+            <span class="close-right"></span>
+        </div>
 
-
-
+    </div>
+    <div class="sidebar-search">
+        <form class="search-form" action="{{route('search')}}">
+            @csrf
+            <button class="search-loupe">
+                <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
+            </button>
+            <input class="search-input" type="text" name="title" placeholder="Search your option">
+        </form>
+    </div>
+    <div class="header-menu">
+        <ul class="sidebar-references">
+            <li><a href="{{route('home')}}">Home</a></li>
+            @auth()
+                @if(Auth::user()->role->name === "User")
+                    <li><a href="{{route('logout')}}">Logout</a></li>
+                @else
+                    <li><a href="{{route('private')}}">Adminka</a></li>@endif
+            @else
+                <li><a href="{{route('login')}}">Account</a></li>
+            @endauth
+            <li><a href="{{route('about')}}">About Me</a></li>
+            <li><a href="{{route('categories')}}">Categories</a></li>
+            {{--                <li><a href="#">Blog</a></li>--}}
+            <li><a href="{{route('contact')}}">Contact Me</a></li>
+        </ul>
+    </div>
+    <div class="sidebar-icons-mobile">
+        <a href="#">
+            <div class="header-icon">
+                <i class="fab fa-facebook-f icon" aria-hidden="true"></i>
+            </div>
+        </a>
+        <a href="#">
+            <div class="header-icon">
+                <i class="fab fa-twitter icon" aria-hidden="true"></i>
+            </div>
+        </a>
+        <a href="#">
+            <div class="header-icon">
+                <i class="fab fa-instagram icon" aria-hidden="true"></i>
+            </div>
+        </a>
+        <a href="#">
+            <div class="header-icon">
+                <i class="fab fa-youtube icon" aria-hidden="true"></i>
+            </div>
+        </a>
+    </div>
+</aside>
 
 @yield('content')
 
-
-<div class="instagram-posts">
+<section class="instagram-posts">
     <h6 class="instagram-title">Follow Me Instagram</h6>
     <div class="instagram-reference">
         <a class="instagram-ref" href="#">@designhunterrbd</a>
@@ -245,7 +236,7 @@
                 </a>
             </div></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
-</div>
+</section>
 <footer class="footer-errorPage">
     <div class="footer-items">
         <div class="footer-copyright">

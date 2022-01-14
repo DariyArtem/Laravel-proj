@@ -1,4 +1,4 @@
-@extends('private')
+@extends('pages.private.index')
 
 @section('content')
     <main>
@@ -19,7 +19,7 @@
                                     <label for="inputImage" class="form-label">{{__('Upload title image of you post')}}</label>
                                     <input id="inputImage" type="file" name="image">
                                 </div>
-                                @error('formMessage')
+                                @error('formError')
                                 <div class="mt-4 mb-0">
                                     <div class="d-grid btn-danger">{{$message}}</div>
                                 </div>

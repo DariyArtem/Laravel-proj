@@ -14,11 +14,66 @@
 </head>
 <body>
 @error('role')
-<div class="alert alert-danger mb-0 text-center">
+<section class="alert alert-danger mb-0 text-center">
     {{$message}}
-</div>
+</section>
 @enderror
-<div class="header-sidebar">
+<header>
+    <div class="container">
+        <div class="row header-row">
+            <div class="header-logo"><img src="{{asset('img/errorPage/logo.png')}}" alt=""></div>
+            <div class="header-search">
+                <form class="search-form" action="{{route('search')}}">
+                    @csrf
+                    <button class="search-loupe">
+                        <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
+                    </button>
+                    <input class="search-input" type="text" name="title" placeholder="Search your option">
+                </form>
+            </div>
+            <div class="header-burger">
+                <div class="burger-top errorPage-burger"></div>
+                <div class="burger-center errorPage-burger"></div>
+                <div class="burger-bottom errorPage-burger"></div>
+            </div>
+            <div class="header-icons">
+                <a href="#">
+                    <div class="header-icon">
+                        <i class="fab fa-facebook-f icon"></i>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="header-icon">
+                        <i class="fab fa-twitter icon"></i>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="header-icon">
+                        <i class="fab fa-instagram icon"></i>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="header-icon">
+                        <i class="fab fa-youtube icon"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="header-hr">
+            <hr class="header--hr">
+        </div>
+        <menu class="header-menu error-page">
+            <ul class="header-references">
+                <li><a href="{{route('home')}}">Home</a></li>
+                <li><a href="{{route('about')}}">About Me</a></li>
+                <li><a href="{{route('categories')}}">Categories</a></li>
+                {{--                <li><a href="#">Blog</a></li>--}}
+                <li><a href="{{route('contact')}}">Contact Me</a></li>
+            </ul>
+        </menu>
+    </div>
+</header>
+<aside class="header-sidebar">
     <div class="sidebar-top">
         <div class="header-logo"><img src="http://gallivant/img/header/logo.png" alt=""></div>
         <div class="header-closeSidebar">
@@ -27,19 +82,24 @@
         </div>
 
     </div>
-    <div class="header-sidebarSearch">
-        <img class="sidebar-search" src="http://gallivant/img/header/lupa.png" alt="">
-        <input class="header-input" type="text" placeholder="Search your option">
+    <div class="sidebar-search">
+        <form class="search-form" action="{{route('search')}}">
+            @csrf
+            <button class="search-loupe">
+                <img src="{{asset('img/header/lupa.png')}}" alt="loupe">
+            </button>
+            <input class="search-input" type="text" name="title" placeholder="Search your option">
+        </form>
     </div>
     <div class="header-menu">
         <ul class="sidebar-references">
             <li><a href="{{route('home')}}">Home</a></li>
             <li><a href="{{route('about')}}">About Me</a></li>
-            {{--                <li><a href="#">Blog</a></li>--}}
+            <li><a href="{{route('categories')}}">Categories</a></li>
             <li><a href="{{route('contact')}}">Contact Me</a></li>
         </ul>
     </div>
-    <div class="header-sidebarIcons">
+    <div class="sidebar-icons-mobile">
         <a href="#">
             <div class="header-icon">
                 <i class="fab fa-facebook-f icon" aria-hidden="true"></i>
@@ -61,12 +121,8 @@
             </div>
         </a>
     </div>
-</div>
-<div class="header-absoluteSearch">
-    <button class="absolute-search" type="submit"><i class="fa fa-search"></i></button>
-    <input class="absolute-input" type="text" placeholder="Search your option">
-    <button class="absolute-searchClose" type="submit"><i class="fa fa-times"></i></button>
-</div>
+</aside>
+
 
 @yield('content')
 

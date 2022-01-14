@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\CategoryService;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\PostCategory;
@@ -10,6 +11,14 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
+
+    protected $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     public function index()
     {
         return view("Admin.pages.categories.index", ["result" => Category::all()]);
@@ -32,23 +41,20 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $validateFields = $request->validate([
-            "name" => "required",
-            "image" => "required|image|mimetypes:image/jpeg,image/png",
+        $data = $request->only([
+            "name",
+            "image",
         ]);
 
-        $imagePath = Storage::put("img/categories", $validateFields["image"]);
-
-        $category = Category::create($validateFields + ["img_path" => $imagePath]);
-
-        if ($category) {
-
-            return redirect(route("auth.admin.categories"))->withSuccess("New category have been created");
+        try {
+            $this->categoryService->save($data);
+        } catch (\Exception $e){
+            return redirect(route("auth.admin.categories.create"))->withErrors([
+                "formError" => "An error occurred"
+            ]);
         }
 
-        return redirect(route("auth.admin.categories.create"))->withErrors([
-            "formError" => "An error occurred"
-        ]);
+        return redirect(route("auth.admin.categories"))->withSuccess("New category have been created");
     }
 
     public function edit($category_id)
@@ -58,34 +64,16 @@ class CategoryController extends Controller
 
     public function update(Request $request, $category_id)
     {
-        $validateFields = $request->validate([
-            "name" => "required",
-        ]);
 
-        $category = Category::find($category_id);
-
-        if ($request->image !== null) {
-
-            $validateImage = $request->validate([
-                "image" => "image|mimes:jpeg,png,jpg,gif,svg",
+        try {
+            $this->categoryService->edit($request, $category_id);
+        } catch (\Exception $e){
+            return redirect(route("auth.admin.categories.edit", $category_id))->withErrors([
+                "formError" => "An error occurred"
             ]);
-
-            Storage::delete($category->img_path);
-            $imagePath = Storage::put("img/categories", $validateImage["image"]);
-
-            $category->img_path = $imagePath;
-
         }
 
-        $category->name = $validateFields["name"];
-        $category->save();
+        return redirect(route("auth.admin.categories"))->withSuccess("Category $category_id have been updated");
 
-        if ($category) {
-            return redirect(route("auth.admin.categories"))->withSuccess("Category $category_id have been updated");
-        }
-
-        return redirect(route("auth.admin.categories"))->withErrors([
-            "formError" => "An error occurred"
-        ]);
     }
 }
