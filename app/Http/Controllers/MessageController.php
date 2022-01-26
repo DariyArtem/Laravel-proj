@@ -6,6 +6,7 @@ use App\Http\Services\MessageService;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class MessageController extends Controller
 {
@@ -22,27 +23,29 @@ class MessageController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [];
+        $result = [
+            'message' => [
+                'Yor message has been sent :)'
+            ],
+            'status' => 200
+        ];
+
         try {
+
             $this->messageService->save($request, Auth::user());
-        } catch (\Exception $e){
-            return back()->withErrors([
-                "formError" => "$e"
-            ]);
+        } catch (ValidationException $e){
+            foreach ($e->errors() as $error){
+               for($i=0; $i < count($error); $i++){
+                   array_push($messages, $error[$i]);
+               }
+            }
+            $result =[
+                'status' => 500,
+                'message' => $messages,
+            ];
         }
-        return back()->withSuccess("Your message have been sent");
+        return response()->json($result);
     }
 
-    public function delete($message_id)
-    {
-        $delete = Message::where("id", $message_id)->first();
-        if ($delete) {
-            $delete->delete();
-            return redirect()->back()->withSuccess("Message $message_id have been deleted");
-        }
-
-        return redirect(route("auth.admin.messages"))->withErrors([
-            "formError" => "An error occurred"
-        ]);
-
-    }
 }

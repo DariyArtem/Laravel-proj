@@ -18,7 +18,7 @@ class MessageService
 
         if (Auth::check()){
             $validated = $request->validate([
-                "message" => "required",
+                "message" => "required|string|min:3",
             ]);
 
             $validated["name"] = $user->name." ".$user->surname;
@@ -29,10 +29,10 @@ class MessageService
         }
 
         $validated = $request->validate([
-            "name" => "required",
-            "email" => "required",
-            "number" => "required",
-            "message" => "required",
+            "name" => "required|string|min:2",
+            "email" => "required|string|min:12",
+            "number" => "required||max:13|min:9",
+            "message" => "required|string|min:3",
         ]);
 
         return $this->messageRepository->save($validated);

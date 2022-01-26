@@ -62,7 +62,7 @@ class PostRepository
         return $post;
     }
 
-    public function update( $validateFields, $imagePath, $post_id)
+    public function update($validateFields, $imagePath, $post_id)
     {
 
         $post = $this->post::find($post_id);

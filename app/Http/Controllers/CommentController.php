@@ -19,13 +19,27 @@ class CommentController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [];
+        $result = [
+            'message' => [
+                'Yor message has been sent :)'
+            ],
+            'status' => 200
+        ];
+
         try {
-            $this->commentService->save($request, Auth::user());
+            $this->commentService->save($request);
         } catch (\Exception $e){
-            return back()->withErrors([
-                "formError" => "$e"
-            ]);
+            foreach ($e->errors() as $error){
+                for($i=0; $i < count($error); $i++){
+                    array_push($messages, $error[$i]);
+                }
+            }
+            $result =[
+                'status' => 500,
+                'message' => $messages,
+            ];
         }
-        return back()->withSuccess("Your message have been sent");
+        return response()->json($result);
     }
 }

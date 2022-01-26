@@ -5,10 +5,6 @@
 @endsection
 
 @section('content')
-    <section class="background">
-        <img src="{{asset('img/header/background.png')}}" alt="">
-        <div class="background-gradient"></div>
-    </section>
     <section class="content">
         <div class="container">
             <div class="position-relative">

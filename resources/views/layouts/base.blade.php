@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="{{asset('css/swiper-bundle.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/main.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="https://kit.fontawesome.com/4d1ce4c9a9.js" crossorigin="anonymous"></script>
+    <script src="{{asset('js/toastr.min.js')}}"></script>
 </head>
 <body>
 <header class="header">
+    <div class="background">
+        <img src="{{asset('img/header/background.png')}}" alt="">
+        <div class="background-gradient"></div>
+    </div>
     <div class="container">
         <div class="row header-row">
             <div class="header-logo"><img src="../img/header/logo.png" alt=""></div>
@@ -149,8 +155,8 @@
         </a>
     </div>
 </aside>
-@yield('content')
 
+@yield('content')
 
 <div class="instagram-posts">
     <h6 class="instagram-title">Follow Me Instagram</h6>

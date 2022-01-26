@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="{{asset('css/swiper-bundle.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/main.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="https://kit.fontawesome.com/4d1ce4c9a9.js" crossorigin="anonymous"></script>
+    <script src="{{asset('js/toastr.min.js')}}"></script>
 </head>
 <body>
 @error('role')
@@ -280,6 +282,5 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <!-- Initialize Swiper -->
 <script src="{{asset('js/swiper.js')}}"></script>
-
 </body>
 </html>

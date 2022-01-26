@@ -10,8 +10,11 @@
     <title>Register - SB Admin</title>
     <link href="{{asset('css/main.css')}}" rel="stylesheet" />
     <link href="{{asset('css/admin.css')}}" rel="stylesheet" />
+    <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet"/>
     <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="{{asset('js/toastr.min.js')}}"></script>
 </head>
 <body class="bg-primary">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">

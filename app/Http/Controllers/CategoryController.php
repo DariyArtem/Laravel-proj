@@ -24,6 +24,10 @@ class CategoryController extends Controller
         return view("Admin.pages.categories.index", ["result" => Category::all()]);
     }
 
+    public function showPageWithCategories(){
+        return view("pages.categories.index", ["categories" => Category::all()]);
+    }
+
     public function create()
     {
         return view("Admin.pages.categories.create");

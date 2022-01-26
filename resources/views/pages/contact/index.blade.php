@@ -23,25 +23,25 @@
                         @csrf
                         @if(Auth::check())
                             <div class="form-input">
-                                <textarea required="required" class="form-message" type="text" name="message"
+                                <textarea required="required" id="inputMessage" class="form-message" type="text" name="message"
                                           placeholder="Your message here"></textarea>
                             </div>
                         @else
                             <div class="form-input">
-                                <input id="inputName" required="required" class="form-name" type="text" name="name"
+                                <input id="inputName" class="form-name" type="text" name="name"
                                        placeholder="Full Name">
                             </div>
                             <div class="form-input">
-                                <input id="inputEmail" required="required" class="form-email" type="text" name="email"
+                                <input id="inputEmail" class="form-email" type="text" name="email"
                                        placeholder="E-mail">
                             </div>
                             <div class="form-input">
-                                <input id="inputNumber" required="required" class="form-number" type="text"
+                                <input id="inputNumber" class="form-number" type="text"
                                        name="number"
                                        placeholder="Number">
                             </div>
                             <div class="form-input">
-                                        <textarea id="inputMessage" required="required" class="form-message" type="text"
+                                        <textarea id="inputMessage" class="form-message" type="text"
                                                   name="message"
                                                   placeholder="Your message"></textarea>
                             </div>
@@ -51,7 +51,7 @@
                             <div class="d-grid btn-danger">{{$message}}</div>
                         </div>
                         @enderror
-                        <button type="submit" class="form-submitButton">SEND MESSAGE</button>
+                        <button type="button" id="submit" class="form-submitButton">SEND MESSAGE</button>
                     </form>
 
                 </div>
@@ -67,5 +67,42 @@
             </div>
         </div>
     </div>
-
+<script>
+    $(document).ready(function () {
+        $('#submit').click(function () {
+            let name = $('#inputName').val();
+            let email = $('#inputEmail').val();
+            let number = $('#inputNumber').val();
+            let message = $('#inputMessage').val();
+            let csrf_token = "{{csrf_token()}}"
+            $.ajax({
+                type: 'POST',
+                url: '/message',
+                data: {
+                    _token: csrf_token,
+                    name: name,
+                    email: email,
+                    number: number,
+                    message: message,
+                },
+                success: function (response) {
+                    if (response.status === 500) {
+                        response.message.forEach(function (message) {
+                            toastr.error(message);
+                        })
+                    }
+                    if (response.status === 200) {
+                        response.message.forEach(function (message) {
+                            toastr.success(message);
+                        })
+                        $('#inputName').val('')
+                        $('#inputEmail').val('')
+                        $('#inputNumber').val('')
+                        $('#inputMessage').val('')
+                    }
+                },
+            })
+        })
+    })
+</script>
 @endsection

@@ -6,6 +6,7 @@ namespace App\Http\Services;
 
 use App\Http\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
@@ -35,5 +36,30 @@ class UserService
 
         return $this->userRepository->save($validated);
 
+    }
+
+    public function updateUser($request){
+
+        $validated = $request->validate([
+            "name" => "required|string|max:50|min:3",
+            "phone" => "required|string|max:12|min:9",
+            "surname" => "required|string|max:50|min:3",
+            "country" => "required|string|max:50|min:3",
+            "region" => "required|string|max:50|min:3",
+            "city" => "required|string|max:50|min:3",
+            "about" => "required|string",
+        ]);
+
+        $imagePath = '/';
+        if ($request->picture !== null) {
+
+            $validateImage = $request->validate([
+                "picture" => "image|mimes:jpeg,png,jpg,gif,svg",
+            ]);
+            $imagePath = Storage::put("img/avatars", $validateImage["picture"]);
+
+        }
+
+        return $this->userRepository->update($validated, $imagePath);
     }
 }

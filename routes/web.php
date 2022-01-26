@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RegisterController;
@@ -27,16 +29,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route:: view('/', 'pages.home.index',
-    [
-        'categories' => Category::all(),
-        'featuredPosts' =>  Post::paginate(6), 'latestPosts' => Post::orderBy('created_at', 'desc')->paginate(5),
-        'users' => User::all(), 'popular' => Post::orderBy('views', 'desc')->limit(5)->get()
-    ]
-)->name('home')->middleware(LogMiddleware::class);
-Route::view('/categories', 'pages.categories.index', ['categories' => Category::all()])->name('categories')->middleware(LogMiddleware::class);
-Route::view('/about', 'pages.about.index', ['author' => User::where('role_id', 4)->first()])->name('about')->middleware(LogMiddleware::class);
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware(LogMiddleware::class);
+Route::get('/categories', [CategoryController::class, 'showPageWithCategories'])->name('categories')->middleware(LogMiddleware::class);
+Route::get('/about', [AboutPageController::class, 'index'])->name('about')->middleware(LogMiddleware::class);
 Route::view('/contact', 'pages.contact.index')->name('contact')->middleware(LogMiddleware::class);
 Route::get('/search', [SearchController::class, 'index'])->name('search')->middleware(LogMiddleware::class);
 Route::get('/single/{id}', [PostController::class, 'show'])->name('single')->middleware(LogMiddleware::class);

@@ -3,65 +3,59 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\UserService;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Nette\Schema\ValidationException;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
 
-        return view("pages.profileSettings.index", ["result"=> User::where("id", Auth::id())->get()]);
+        return view("pages.profileSettings.index", ["result" => User::where("id", Auth::id())->get()]);
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
+        $messages = [];
+        $result = [
+            'message' => [
+                'Yor message has been sent :)'
+            ],
+            'status' => 200
+        ];
+        try {
 
-        $validateFields = $request->validate([
-            "name" => "required|string|max:50|min:3",
-            "phone" => "required|string|max:12|min:9",
-            "surname" => "required|string|max:50|min:3",
-            "country" => "required|string|max:50|min:3",
-            "region" => "required|string|max:50|min:3",
-            "city" => "required|string|max:50|min:3",
-            "about" => "required|string",
-        ]);
+            $this->userService->updateUser($request);
 
-        $user = User::find(Auth::id());
+        } catch (ValidationException $e) {
 
-        if ($request->picture !== null) {
+            foreach ($e->errors() as $error) {
+                for ($i = 0; $i < count($error); $i++) {
+                    array_push($messages, $error[$i]);
+                }
+            }
 
-            $validateImage = $request->validate([
-                "picture" => "image|mimes:jpeg,png,jpg,gif,svg",
-            ]);
-
-            Storage::delete($user->picture);
-            $path = Storage::put("img/avatars", $validateImage["picture"]);
-            $user->picture = $path;
-
-
-        }
-            $user->name = $validateFields["name"];
-            $user->surname = $validateFields["surname"];
-            $user->phone = $validateFields["phone"];
-            $user->country = $validateFields["country"];
-            $user->region = $validateFields["region"];
-            $user->city = $validateFields["city"];
-            $user->about = $validateFields["about"];
-
-
-        $user->save();
-
-        if($user){
-            return redirect(route("settings"))->withSuccess("Profile have been updated");
+            $result = [
+                'status' => 500,
+                'message' => $messages,
+            ];
         }
 
-        return redirect(route("settings"))->withErrors([
-            "formError" => "An error occurred"
-        ]);
+        return response()->json($result);
+
     }
 
 }
