@@ -391,6 +391,7 @@
                                                   name="message"
                                                   placeholder="Your message"></textarea>
                             </div>
+                            <input type="hidden" id="post_id" value="{{$post->id}}">
                         @endif
                         @error('formMessage')
                         <div class="mt-4 mb-0">
@@ -405,45 +406,5 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $('#submit').click(function () {
-                let name = $('#inputName').val();
-                let email = $('#inputEmail').val();
-                let number = $('#inputNumber').val();
-                let message = $('#inputMessage').val();
-                let csrf_token = "{{csrf_token()}}"
-                let post_id = "{{$post->id}}"
-                console.log(message)
-                $.ajax({
-                    type: 'POST',
-                    url: '/comment',
-                    data: {
-                        _token: csrf_token,
-                        name: name,
-                        email: email,
-                        number: number,
-                        message: message,
-                        post_id: post_id
-                    },
-                    success: function (response) {
-                        if (response.status === 500) {
-                            response.message.forEach(function (message) {
-                                toastr.error(message);
-                            })
-                        }
-                        if (response.status === 200) {
-                            response.message.forEach(function (message) {
-                                toastr.success(message);
-                            })
-                            $('#inputName').val('')
-                            $('#inputEmail').val('')
-                            $('#inputNumber').val('')
-                            $('#inputMessage').val('')
-                        }
-                    },
-                })
-            })
-        })
-    </script>
+    <script src="{{asset('js/AjaxComment.js')}}"></script>
 @endsection

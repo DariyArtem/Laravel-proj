@@ -1,23 +1,20 @@
+
 $(document).ready(function () {
     $('#submit').click(function () {
         let name = $('#inputName').val();
         let email = $('#inputEmail').val();
         let number = $('#inputNumber').val();
         let message = $('#inputMessage').val();
-        let csrf_token = "{{csrf_token()}}"
-        console.log(name);
-        console.log(email)
-        console.log(number)
-        console.log(message)
+        let csrf_token = $('#csrf').attr('content')
         $.ajax({
             type: 'POST',
             url: '/message',
             data: {
-                _token: csrf_token,
                 name: name,
                 email: email,
                 number: number,
                 message: message,
+                _token: csrf_token
             },
             success: function (response) {
                 if (response.status === 500) {

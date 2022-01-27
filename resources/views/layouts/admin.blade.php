@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <meta name="csrf-token" content="{{csrf_token()}}">
-    <title>Register - SB Admin</title>
+    <meta name="csrf_token" id="csrf" content="{{csrf_token()}}">
+    <title>{{__("Admin")}}</title>
     <link href="{{asset('css/main.css')}}" rel="stylesheet" />
     <link href="{{asset('css/admin.css')}}" rel="stylesheet" />
     <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet"/>
