@@ -14,7 +14,7 @@
             </div>
             @enderror
             <div class="about-sidebar">
-                @foreach($result as $element)
+                @foreach($user as $element)
                     <div class="blog-sidebar sidebar-profile">
                         <div class="sidebar-profileInfo">
                             <div class="sidebar-photo mb-2">

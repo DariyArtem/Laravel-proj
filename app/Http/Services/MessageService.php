@@ -14,6 +14,11 @@ class MessageService
         $this->messageRepository = $messageRepository;
     }
 
+    public function getAll()
+    {
+        return $this->messageRepository->getAll();
+    }
+
     public function save($request, $user){
 
         if (Auth::check()){

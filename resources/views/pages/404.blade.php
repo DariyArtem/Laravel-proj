@@ -6,7 +6,7 @@
             <div class="error-img">
                 <img src="img/errorPage/Oops.png" alt="">
             </div>
-            <div class="error-text">
+            <div class="error__text">
                 <div class="error-title">Oops!</div>
                 <div class="error-description">The page you’re looking for doesn’t exits.</div>
                 <div class="error-subtitle">Don’t panic just click the big button to retun home</div>

@@ -17,9 +17,7 @@ class CommentRepository
 
     public function save($validated){
 
-        return $this->comment::create($validated);
-
-
+        return $this->comment::insert($validated);
     }
 
 }

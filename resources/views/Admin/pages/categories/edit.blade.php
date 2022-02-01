@@ -14,7 +14,7 @@
             </div>
             @enderror
             <div class="about-sidebar">
-                @foreach($result as $element)
+                @foreach($category as $element)
                     <div class="blog-sidebar sidebar-profile">
                         <div class="sidebar-profileInfo">
                             <form action="{{route('auth.admin.categories.update', [$element->id])}}" method="post"

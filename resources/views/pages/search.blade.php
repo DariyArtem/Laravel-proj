@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="row">
-                        @foreach($result as $post)
+                        @foreach($posts as $key => $post)
                             <div class="col-lg-6 col-md-10 ">
                                 <div class="category-card">
                                     <a href="{{route('single',[$post->id])}}">
@@ -25,42 +25,60 @@
                                         <div class="category-cardData">
                                           <div class="search-date">
                                               <i class="far fa-clock icon-clock-search"></i>
-                                              {{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}s
+                                              {{$datesOfPosts[$key]}}
                                           </div>
                                             <div class="search-category">
                                                 <i class="far fa-folder icon-folder-search"></i>
                                                 <a class="category-reference-search"
-                                                   href="{{route('category', ['id' => \App\Models\Category::where(
-                                                 'id', \App\Models\PostCategory::where(
-                                                     'post_id', $post->id)->first()->category_id)->first()->id])}}">
-                                                    {{\App\Models\Category::where('id', \App\Models\PostCategory::where(
-                                                         'post_id', $post->id)->first()->category_id)->first()->name}}
+                                                   href="{{route('category', ['id' => $post->categories[0]->id])}}">
+                                                    {{$post->categories[0]->name}}
                                                 </a>
+                                            </div><div class="category-cardData">
+                                                <div class="search-date">
+                                                    <i class="far fa-clock icon-clock-search"></i>
+                                                    {{$datesOfPosts[$key]}}
+                                                </div>
+                                                <div class="search-category">
+                                                    <i class="far fa-folder icon-folder-search"></i>
+                                                    <a class="category-reference-search"
+                                                       href="{{route('category', ['id' => $post->categories[0]->id])}}">
+                                                        {{$post->categories[0]->name}}
+                                                    </a>
+                                                </div>
+                                                <div class="search-user">
+                                                    <i class="far fa-user icon-user-search"></i>
+                                                    <a href="{{route('author',[$post->user->id])}}">
+                                                        {{$post->user->name." ".$post->user->surname}}
+                                                    </a>
+                                                </div>
+                                                <div class="search-comments">
+                                                    <i class="far fa-comment icon-comment-search"></i>
+                                                    {{$post->comments->count()}}
+                                                </div>
                                             </div>
                                             <div class="search-user">
                                                 <i class="far fa-user icon-user-search"></i>
-                                                {{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
-                                                (\App\Models\User::where('id', $post->author_id)->first()->surname)}}
+                                                <a href="{{route('author',[$post->user->id])}}">
+                                                    {{$post->user->name." ".$post->user->surname}}
+                                                </a>
                                             </div>
                                             <div class="search-comments">
                                                 <i class="far fa-comment icon-comment-search"></i>
-                                                {{\App\Models\Post::find($post->id)->comments->count()}}
+                                                {{$post->comments->count()}}
                                             </div>
                                         </div>
                                         </div>
                                     </div>
-
                                 </div>
                             @endforeach
                         </div>
-
                     </div>
                     <div class="col-md-4 ">
                         <div class="blog-sidebar">
                             <h6 class="sidebar-title">
                                 Popular Post
                             </h6>
-                            @foreach($popular as $post)
+                            @foreach($popular as $key => $post)
                                 <div class="sidebar-post">
                                     <div class="sidebar-card">
                                         <a href="{{route('single',[$post->id])}}">
@@ -73,17 +91,17 @@
                                             <div class="post-post">Post</div>
                                             <div class="post-by">By</div>
                                             <div class="post-sign">
-                                                {{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
-    (\App\Models\User::where('id', $post->author_id)->first()->surname)}}
+                                                {{$post->user->name." ".$post->user->surname}}
                                             </div>
                                         </div>
                                         <div class="post-data">
-                                            <div
-                                                class="post-date">{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}</div>
+                                            <div class="post-date">
+                                                {{$datesOfPopularPosts[$key]}}
+                                            </div>
                                             <div class="post-hr"></div>
                                             <div class="post-comments">
                                                 <a class="post-comment" href="#">
-                                                    {{\App\Models\Comment::where('post_id', $post->id)->count()}} comments
+                                                    {{$post->comments->count()}} comments
                                                 </a>
                                             </div>
                                         </div>
@@ -119,7 +137,7 @@
                             </div>
                         </div>
                     </div>
-                    {{$result->links()}}
+                    {{$posts->appends($_GET)->links()}}
                 </div>
             </div>
         </div>

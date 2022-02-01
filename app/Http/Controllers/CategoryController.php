@@ -2,30 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DateFormatHelper;
 use App\Http\Services\CategoryService;
-use App\Models\Category;
-use App\Models\Post;
-use App\Models\PostCategory;
+use App\Http\Services\PostCategoryService;
+use App\Http\Services\PostService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
 
     protected $categoryService;
+    protected $postService;
+    protected $postCategoryService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(CategoryService $categoryService, PostService $postService, PostCategoryService $postCategoryService)
     {
         $this->categoryService = $categoryService;
+        $this->postService = $postService;
+        $this->postCategoryService = $postCategoryService;
     }
 
     public function index()
     {
-        return view("Admin.pages.categories.index", ["result" => Category::all()]);
+        return view("Admin.pages.categories.index", ["result" => $this->categoryService->getAll()]);
     }
 
     public function showPageWithCategories(){
-        return view("pages.categories.index", ["categories" => Category::all()]);
+        return view("pages.categories", ["categories" => $this->categoryService->getAll()]);
     }
 
     public function create()
@@ -35,12 +38,22 @@ class CategoryController extends Controller
 
     public function showOne($id)
     {
-        return view("pages.category.index")
-            ->with("posts_category", PostCategory::where("category_id", $id)->inRandomOrder()->limit(4)->get())
-            ->with("latest", PostCategory::where("category_id", $id)->orderBy("id", "desc")->paginate(4))
-            ->with("currentCategory", Category::where("id", $id)->first())
-            ->with("categories", Category::all())->with("category_name", Category::where("id", $id)->first()->name)
-            ->with("popular", Post::orderBy('views', 'desc')->limit(5)->get());
+        $popular = $this->postService->getPopular(5);
+        $latest = $this->postService->getLatestPosts(4);
+        $posts = $this->postCategoryService->getPostsFromPostCategory($id);
+        $datesOfPosts = $this->postService->getDatesOfPosts($posts);
+        $datesOfPopularPosts = $this->postService->getDatesOfPosts($popular);
+        $datesOfRecentPosts = $this->postService->getDatesOfPosts($latest);
+
+        return view("pages.category")
+            ->with("posts", $posts)
+            ->with("latest", $latest)
+            ->with("popular", $popular)
+            ->with("datesOfPopularPosts", $datesOfPopularPosts)
+            ->with("datesOfRecentPosts", $datesOfRecentPosts)
+            ->with("datesOfPosts", $datesOfPosts)
+            ->with("categories", $this->categoryService->getAll())
+            ->with("category_name", $this->categoryService->getCategoryNameById($id));
     }
 
     public function store(Request $request)
@@ -61,9 +74,9 @@ class CategoryController extends Controller
         return redirect(route("auth.admin.categories"))->withSuccess("New category have been created");
     }
 
-    public function edit($category_id)
+    public function edit($id)
     {
-        return view("Admin.pages.categories.edit", ["result" => Category::where("id", $category_id)->get()]);
+        return view("Admin.pages.categories.edit", ["category" => $this->categoryService->getCategoryById($id)]);
     }
 
     public function update(Request $request, $category_id)

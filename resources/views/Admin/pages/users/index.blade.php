@@ -29,7 +29,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($result as $element)
+                @foreach($users as $element)
                     <tr>
                         <td>{{$element->id}}</td>
                         <td>{{$element->name}}</td>

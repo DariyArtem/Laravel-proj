@@ -596,6 +596,10 @@ h5, h5 {
 }
 .blog-author {
   padding-top: 12px;
+  display: flex;
+}
+.blog-author div {
+  margin-right: 6px;
 }
 .blog-data {
   padding-top: 12px;
@@ -634,11 +638,6 @@ h5, h5 {
 }
 .blog-more-ref:hover {
   color: black;
-}
-.blog-author {
-  display: flex;
-  justify-content: space-between;
-  max-width: 128px;
 }
 .blog-post {
   color: #FFA902;
@@ -1248,6 +1247,7 @@ h5, h5 {
   padding-bottom: 17px;
 }
 .sidebar-address, .sidebar-phone, .sidebar-email {
+  max-width: 260px;
   font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -1641,6 +1641,9 @@ h5, h5 {
   top: -102px;
   width: 100%;
 }
+.category-cardInfo a:hover {
+  color: #FFA902;
+}
 .category-cardData {
   padding-top: 10px;
   font-family: Poppins, sans-serif;
@@ -1651,12 +1654,8 @@ h5, h5 {
   display: flex;
   align-items: baseline;
 }
-.category-cardData i {
-  margin-right: 3.83px;
-  margin-left: 9.83px;
-}
-.category-cardData i:first-child {
-  margin-left: unset;
+.category-cardData div:hover {
+  color: #FFA902;
 }
 .category-name a {
   font-family: Poppins, sans-serif;
@@ -2219,7 +2218,7 @@ h5, h5 {
   width: 100%;
   height: 100%;
 }
-.error-text {
+.error__text {
   padding-top: 44px;
   text-align: center;
 }

@@ -11,7 +11,10 @@ class DateFormatHelper
 
     static public function index($date)
     {
-        $array = explode("-", $date);
+        $newDate = explode(" ", $date);
+
+        $array = explode("-", $newDate[0]);
+
         $day = $array[2];
 
         $year = $array[0];

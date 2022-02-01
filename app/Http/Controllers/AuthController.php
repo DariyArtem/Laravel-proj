@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\UserService;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Password;
 
-class RegisterController extends Controller
+class AuthController extends Controller
 {
-
     protected $userService;
 
     public function __construct(UserService $userService)
@@ -18,9 +15,9 @@ class RegisterController extends Controller
         $this->userService = $userService;
     }
 
-    public function index()
+    public function registerPage()
     {
-        return view("pages.register.index");
+        return view("pages.register");
     }
 
     public function store(Request $request)
@@ -43,7 +40,29 @@ class RegisterController extends Controller
                 "email" => "An error occurred"
             ]);
         }
-        return redirect(route("private"));
+        return redirect(route("user.private"));
 
+    }
+    public function loginPage()
+    {
+        return view("pages.login");
+    }
+
+    public function login(Request $request)
+    {
+        $formFields = $request->only(["email", "password"]);
+        if (Auth::attempt($formFields)) {
+            return redirect()->intended(route("private"));
+        }
+
+        return redirect(route("login"))->withErrors([
+            "formMessage" => "Email or password is incorrect"
+        ]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect("/");
     }
 }

@@ -16,14 +16,14 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
 
                 $table->id("id");
-                $table->string("title")->nullable(false);
-                $table->string("img_path")->nullable(false)->default('/');
-                $table->string("description")->nullable(false);
-                $table->string("notification")->nullable(false);
-                $table->text("content")->nullable(false);
-                $table->integer("author_id")->nullable(false)->default(1);
-                $table->integer("views")->nullable(false)->default(0);
-                $table->string('video_path')->nullable(false)->default('/');
+                $table->string("title");
+                $table->string("img_path")->default('/');
+                $table->string("description");
+                $table->string("notification");
+                $table->text("content");
+                $table->integer("author_id")->default(1);
+                $table->integer("views")->default(0);
+                $table->string('video_path')->default('/');
                 $table->timestamps();
 
         });

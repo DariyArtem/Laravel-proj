@@ -17,15 +17,13 @@ $(document).ready(function () {
                 _token: csrf_token
             },
             success: function (response) {
-                if (response.status === 500) {
+                if (response.status === false) {
                     response.message.forEach(function (message) {
                         toastr.error(message);
                     })
                 }
-                if (response.status === 200) {
-                    response.message.forEach(function (message) {
-                        toastr.success(message);
-                    })
+                if (response.status === true) {
+                    toastr.success(response.message);
                     $('#inputName').val('')
                     $('#inputEmail').val('')
                     $('#inputNumber').val('')

@@ -24,15 +24,13 @@ $(document).ready(function () {
                 picture: picture
             },
             success: function (response) {
-                if (response.status === 500) {
+                if (response.status === false) {
                     response.message.forEach(function (message) {
                         toastr.error(message);
                     })
                 }
-                if (response.status === 200) {
-                    response.message.forEach(function (message) {
-                        toastr.success(message);
-                    })
+                if (response.status === true) {
+                    toastr.success(response.message);
                 }
             },
         })

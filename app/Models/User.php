@@ -59,6 +59,15 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function post(){
+        return $this->hasMany(Post::class, "author_id");
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, "user_id");
+    }
+
     public function isAdmin()
     {
         return $this->role()->where("name", "Admin");

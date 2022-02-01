@@ -2,20 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DateFormatHelper;
+use App\Http\Services\PostService;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
 
-    public function index(Request $request){
-        $validatedField = $request->validate([
-            "title" => "required"
-        ]);
+    protected $postService;
 
-        return view("pages.search.index")
+    public function __construct(PostService $postService)
+    {
+        $this->postService = $postService;
+    }
+
+    public function index(Request $request)
+    {
+        $validatedField = $this->postService->validationOfQuery($request);
+        $popular = $this->postService->getPopular(5);
+        $posts =  $this->postService->searchByQuery($validatedField["title"]);
+        $datesOfPopularPosts = [];
+        $datesOfPosts = [];
+
+        for ($i=0; $i<count($popular); $i++){
+            array_push($datesOfPopularPosts, DateFormatHelper::index($popular[$i]->created_at));
+        }
+        for ($i=0; $i<count($posts); $i++){
+            array_push($datesOfPosts, DateFormatHelper::index($posts[$i]->created_at));
+        }
+
+        return view("pages.search")
             ->with('query', $validatedField["title"])
-            ->with("result", Post::where("title", "LIKE", "%{$validatedField["title"]}%")->paginate(8))
-            ->with("popular", Post::orderBy("views", "desc")->limit(5)->get());
+            ->with("posts", $posts)
+            ->with("popular", $this->postService->getPopular(5))
+            ->with("datesOfPopularPosts", $datesOfPopularPosts)
+            ->with("datesOfPosts", $datesOfPosts);
     }
 }

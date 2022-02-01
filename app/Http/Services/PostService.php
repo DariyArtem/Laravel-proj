@@ -4,6 +4,7 @@
 namespace App\Http\Services;
 
 
+use App\Helpers\DateFormatHelper;
 use App\Http\Repositories\PostRepository;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,62 @@ class PostService
     public function __construct(PostRepository $postRepository)
     {
         $this->postRepository = $postRepository;
+    }
+
+    public function getFeatured()
+    {
+        return $this->postRepository->getFeatured();
+    }
+
+    public function getPostById($id)
+    {
+        return $this->postRepository->getPostById($id);
+    }
+
+    public function getPostComments($post_id)
+    {
+        return $this->postRepository->getPostComments($post_id);
+    }
+
+    public function validationOfQuery($request)
+    {
+        return $request->validate([
+            "title" => "required"
+        ]);
+    }
+
+    public function searchByQuery($validatedField)
+    {
+        return $this->postRepository->searchByQuery($validatedField);
+    }
+
+    public function getLatestPosts($count)
+    {
+        return $this->postRepository->getLatestPosts($count);
+    }
+
+    public function getPopular($count)
+    {
+        return $this->postRepository->getPopular($count);
+    }
+
+    public function getPopularByAuthorId($id)
+    {
+        return $this->postRepository->getPopularByAuthorId($id);
+    }
+
+    public function getLatestPostsByAuthorId($id)
+    {
+        return $this->postRepository->getLatestPostsByAuthorId($id);
+    }
+
+    public function getDatesOfPosts($posts)
+    {
+        $dates = [];
+        for ($i = 0; $i < count($posts); $i++) {
+            array_push($dates, DateFormatHelper::index($posts[$i]->created_at));
+        }
+        return $dates;
     }
 
     public function save($request)

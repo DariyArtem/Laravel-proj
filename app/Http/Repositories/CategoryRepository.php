@@ -17,6 +17,21 @@ class CategoryRepository
         $this->category = $category;
     }
 
+    public function getAll()
+    {
+        return $this->category::all();
+    }
+
+    public function getCategoryNameById($id)
+    {
+        return $this->category::where("id", $id)->first()->name;
+    }
+
+    public function getCategoryById($id)
+    {
+        return $this->category::where("id", $id)->get();
+    }
+
     public function save($validated)
     {
         return $this->category::create([
@@ -29,7 +44,7 @@ class CategoryRepository
     {
         $category = $this->category::find($id);
 
-        if ($img !== "/"){
+        if ($img !== "/") {
             Storage::delete($category->img_path);
         }
         $img_path = Storage::put("img/categories", $img);

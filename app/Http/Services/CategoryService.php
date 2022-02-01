@@ -19,6 +19,21 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function getAll()
+    {
+        return $this->categoryRepository->getAll();
+    }
+
+    public function getCategoryById($id)
+    {
+        return $this->categoryRepository->getCategoryById($id);
+    }
+
+    public function getCategoryNameById($id)
+    {
+        return $this->categoryRepository->getCategoryNameById($id);
+    }
+
     public function save($data)
     {
         $validated = Validator::make($data, [

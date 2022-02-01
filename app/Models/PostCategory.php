@@ -15,4 +15,14 @@ class PostCategory extends Model
         "category_id",
         "post_id",
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, "post_id");
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class, "category_id");
+    }
 }

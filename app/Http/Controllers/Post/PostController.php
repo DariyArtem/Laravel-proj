@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Post;
 
 
+use App\Helpers\DateFormatHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Services\CategoryService;
+use App\Http\Services\PostCategoryService;
 use App\Http\Services\PostService;
 use App\Models\Category;
 use App\Models\Post;
@@ -18,10 +21,14 @@ class PostController extends Controller
 {
 
     protected $postService;
+    protected $categoryService;
+    protected $postCategoryService;
 
-    public function __construct(PostService $postService)
+    public function __construct(PostService $postService, CategoryService $categoryService, PostCategoryService $postCategoryService)
     {
         $this->postService = $postService;
+        $this->categoryService = $categoryService;
+        $this->postCategoryService = $postCategoryService;
     }
     public function index()
     {
@@ -30,22 +37,34 @@ class PostController extends Controller
 
     public function create()
     {
-        return view("pages.posts.create", ["categories" => Category::all()]);
+        return view("pages.posts.create", ["categories" => $this->categoryService->getAll()]);
     }
 
     public function show($post_id)
     {
-        $id = Post::find($post_id)->categories[rand(0, count(Post::find($post_id)->categories) - 1)]->id;
         Post::where("id", $post_id)->first()->increment("views", 1);
-        return view("pages.single.index")->with("result", Post::where("id", $post_id)->get())
-            ->with("popular", Post::orderBy("views", "desc")->limit(5)->get())->with(
-                "comments", Post::find($post_id)->comments)->with("recommendations", Post::find($post_id)->comments)
-            ->with("similar", PostCategory::where("category_id", $id)->inRandomOrder()->limit(3)->get());
+        $post = $this->postService->getPostById($post_id);
+        $popular = $this->postService->getPopular(5);
+        $similar = $this->postCategoryService->getSimilarPostsFromPostCategory(
+            Post::find($post_id)->categories[rand(0, count(Post::find($post_id)->categories) - 1)]->id
+        );
+        $dateOfSimilarPosts = $this->postService->getDatesOfPosts($similar);
+        $dateOfPopularPosts =  $this->postService->getDatesOfPosts($popular);
+        $dateOfPost = $this->postService->getDatesOfPosts($post);
+        $categories = $this->postCategoryService->getCategoriesByPostId($post_id);
+        return view("pages.single")
+            ->with("currentPost", $post)
+            ->with("popular", $popular)
+            ->with("similar", $similar)
+            ->with("dateOfPost", $dateOfPost)
+            ->with("categories", $categories)
+            ->with("dateOfPopularPosts", $dateOfPopularPosts)
+            ->with("dateOfSimilarPosts", $dateOfSimilarPosts);
     }
 
-    public function edit($post_id)
+    public function edit($id)
     {
-        return view("pages.posts.edit", ["result" => Post::where("id", $post_id)->get()]);
+        return view("pages.posts.edit", ["result" => $this->postService->getPostById($id)]);
     }
 
     public function store(Request $request)

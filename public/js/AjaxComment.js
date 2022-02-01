@@ -4,8 +4,10 @@ $(document).ready(function () {
         let email = $('#inputEmail').val();
         let number = $('#inputNumber').val();
         let message = $('#inputMessage').val();
-        let csrf_token = $('#csrf').attr('content');
         let post_id = $('#post_id').val();
+        let user_id = $('#user_id').val();
+        console.log(user_id)
+        let csrf_token = $('#csrf').attr('content');
         $.ajax({
             type: 'POST',
             url: '/comment',
@@ -15,18 +17,18 @@ $(document).ready(function () {
                 email: email,
                 number: number,
                 message: message,
-                post_id: post_id
+                post_id: post_id,
+                user_id: user_id
             },
             success: function (response) {
-                if (response.status === 500) {
-                    response.message.forEach(function (message) {
-                        toastr.error(message);
-                    })
-                }
-                if (response.status === 200) {
+                console.log(response.message)
+                if (response.status === false) {
                     response.message.forEach(function (message) {
                         toastr.success(message);
                     })
+                }
+                if (response.status === true) {
+                    toastr.success(response.message);
                     $('#inputName').val('')
                     $('#inputEmail').val('')
                     $('#inputNumber').val('')

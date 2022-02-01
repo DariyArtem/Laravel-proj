@@ -14,6 +14,11 @@ class MessageRepository
         $this->message = $message;
     }
 
+    public function getAll()
+    {
+        return $this->message::all();
+    }
+
     public function save($validated){
 
         return $this->message::create($validated);

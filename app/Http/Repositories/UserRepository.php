@@ -18,11 +18,25 @@ class UserRepository
     }
 
     public function save($validated){
-
-        $user = User::create($validated + ["role_id" => 1]);
+        $user = User::create($validated);
 
         Auth::loginUsingId($user->id);
         return $user;
+    }
+
+    public function getAll()
+    {
+        return $this->user::all();
+    }
+
+    public function getBlogAuthorById($id)
+    {
+        return $this->user::where('role_id', $id)->first();
+    }
+
+    public function getUserById($id)
+    {
+        return $this->user::where("id", $id)->get();
     }
 
     public function update($validated, $imagePath){

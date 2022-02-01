@@ -86,14 +86,13 @@
                 </div>
             </div>
             {{$featuredPosts->links()}}
-
             <div class="blog">
                 <h6 class="content-title">
                     My latest blog
                 </h6>
                 <div class="row">
                     <div class="col-md-8 ">
-                        @foreach($latestPosts as $post)
+                        @foreach($latestPosts as $key => $post)
                             <div class="row">
                                 <div class="col-lg-6 col-md-10 ">
                                     <div class="blog-card">
@@ -108,18 +107,14 @@
                                         <div class="blog-author">
                                             <div class="blog-post">Post</div>
                                             <div class="blog-by">By</div>
-                                            <div class="blog-sign">
-                                                {{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
-                                           (\App\Models\User::where('id', $post->author_id)->first()->surname)}}
+                                            <div class="blog-sign">{{$post->user->name." ".$post->user->surname}}
                                             </div>
                                         </div>
                                         <div class="blog-data">
-                                            <div class="blog-date">{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}</div>
+                                            <div class="blog-date">{{$datesOfLatestPosts[$key]}}</div>
                                             <div class="blog-hr"></div>
                                             <div class="blog-comments">
-                                                <a class="blog-comments-ref" href="#">
-                                                    {{\App\Models\Comment::where('post_id', $post->id)->count()}} comments
-                                                </a>
+                                                <a class="blog-comments-ref" href="#">{{$post->comments->count()}} comments</a>
                                             </div>
                                         </div>
                                         <div class="blog-text">{{$post->description}}
@@ -138,7 +133,7 @@
                             <h6 class="sidebar-title">
                                 Popular Post
                             </h6>
-                            @foreach($popular as $post)
+                            @foreach($popular as $key => $post)
                                 <div class="sidebar-post">
                                     <div class="sidebar-card">
                                         <a href="{{route('single',[$post->id])}}">
@@ -150,18 +145,13 @@
                                         <div class="post-author">
                                             <div class="post-post">Post</div>
                                             <div class="post-by">By</div>
-                                            <div class="post-sign">
-                                                {{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
-(\App\Models\User::where('id', $post->author_id)->first()->surname)}}
-                                            </div>
+                                            <div class="post-sign">{{$post->user->name." ".$post->user->surname}}</div>
                                         </div>
                                         <div class="post-data">
-                                            <div class="post-date">{{\App\Helpers\DateFormatHelper::index(explode(" ", $post->created_at)[0])}}</div>
+                                            <div class="post-date">{{$datesOfPopularPosts[$key]}}</div>
                                             <div class="post-hr"></div>
                                             <div class="post-comments">
-                                                <a class="post-comment" href="#">
-                                                    {{\App\Models\Comment::where('post_id', $post->id)->count()}} comments
-                                                </a>
+                                                <a class="post-comment" href="#">{{$post->comments->count()}} comments</a>
                                             </div>
                                         </div>
                                     </div>

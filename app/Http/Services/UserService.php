@@ -19,6 +19,20 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
+    public function getAll()
+    {
+        return $this->userRepository->getAll();
+    }
+    public function getUserById($id)
+    {
+        return $this->userRepository->getUserById($id);
+    }
+
+    public function getBlogAuthorById($id)
+    {
+        return $this->userRepository->getBlogAuthorById($id);
+    }
+
     public function saveUser($data){
 
         $validated = Validator::make($data, [

@@ -20,6 +20,45 @@ class PostRepository
         $this->post = $post;
     }
 
+    public function getFeatured()
+    {
+        return $this->post::paginate(6);
+    }
+
+    public function getLatestPosts($count)
+    {
+        return $this->post::orderBy("created_at", "desc")->paginate($count);
+    }
+    public function getLatestPostsByAuthorId($id)
+    {
+        return $this->post::where("author_id", $id)->orderBy("created_at", "desc")->paginate(4);
+    }
+    public function searchByQuery($validatedField)
+    {
+        return $this->post::where("title", "LIKE", "%{$validatedField}%")->paginate(8);
+    }
+
+    public function getPostById($id)
+    {
+        return $this->post::where("id", $id)->get();
+    }
+
+    public function getPostComments($post_id)
+    {
+        return $this->post::find($post_id)->comments;
+    }
+
+    public function getPopular($count)
+    {
+        return $this->post::orderBy("views", "desc")->limit($count)->get();
+    }
+
+    public function getPopularByAuthorId($id)
+    {
+        return $this->post::where("author_id", $id)->orderBy("views", "desc")->limit(4)->get();
+    }
+
+
     public function save($validateFields, $validateCategories, $imagesPath, $videoPath){
         $categories = $validateCategories["categories"];
         $images = $validateFields["images"];
@@ -67,7 +106,7 @@ class PostRepository
 
         $post = $this->post::find($post_id);
 
-        if ($imagePath !== '/'){
+        if ($imagePath !== "/"){
             Storage::delete($post->img_path);
             $post->img_path = $imagePath;
         }

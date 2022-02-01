@@ -17,16 +17,16 @@ class CommentService
         $this->commentRepository = $commentRepository;
     }
 
-    public function save($request)
+    public function save($request, $user)
     {
-
         if (Auth::check()) {
-            $user = Auth::user();
 
             $validated = $request->validate([
                 "message" => "required|string|min:3",
                 "post_id" => "required",
+                "user_id" => "required|int",
             ]);
+
             $validated["name"] = $user->name." ".$user->surname;
             $validated["email"] = $user->email;
             $validated["number"] = $user->phone;

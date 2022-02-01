@@ -1,4 +1,4 @@
-@extends('pages.private.index')
+@extends('pages.private')
 
 @section('content')
 

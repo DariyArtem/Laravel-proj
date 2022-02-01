@@ -16,10 +16,8 @@ class PostImages extends Migration
         Schema::create('post_images', function (Blueprint $table){
 
             $table->id("id");
-//            $table->integer('post_id')->nullable(false);
-//            $table->foreign('post_id')->references('id')->on('posts')->onDelete("cascade");
-            $table->foreignId('post_id')->references('id')->on('posts')->onDelete('cascade');
-            $table->string('img_path')->nullable(false);
+            $table->foreignId('post_id')->nullable(true)->references('id')->on('posts')->onDelete('cascade');
+            $table->string('img_path');
 
         });
     }
@@ -31,6 +29,6 @@ class PostImages extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('post_images');
     }
 }

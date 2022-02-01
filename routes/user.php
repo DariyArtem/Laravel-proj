@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('user')->middleware(['auth', 'user'])->group(function (){
-    Route::get('private', function () {return view('pages.private.index');})->name('private');
+    Route::get('private', function () {return view('pages.private');})->name('private');
     Route::get('settings', [UserController::class, 'index'])->name('settings');
     Route::post('settings', [UserController::class, 'update'])->name('settings.update');
     Route::get('posts', [PostController::class, 'index'])->name('posts');

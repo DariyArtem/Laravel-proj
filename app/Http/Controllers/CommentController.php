@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\CommentService;
-use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,27 +18,23 @@ class CommentController extends Controller
 
     public function store(Request $request)
     {
-        $messages = [];
-        $result = [
-            'message' => [
-                'Yor message has been sent :)'
-            ],
-            'status' => 200
-        ];
-
         try {
-            $this->commentService->save($request);
+            $this->commentService->save($request, Auth::user());
         } catch (\Exception $e){
-            foreach ($e->errors() as $error){
-                for($i=0; $i < count($error); $i++){
-                    array_push($messages, $error[$i]);
-                }
-            }
-            $result =[
-                'status' => 500,
-                'message' => $messages,
-            ];
+           // $messages = [];
+//            foreach ($e->getMessage() as $error){
+//                for($i=0; $i < count($error); $i++){
+//                    array_push($messages, $error[$i]);
+//                }
+//            }
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 400);
         }
-        return response()->json($result);
+        return response()->json([
+            'status' => true,
+            'message' => 'Your data have been sent :)',
+        ], 200);
     }
 }
