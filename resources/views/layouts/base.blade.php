@@ -18,7 +18,7 @@
 <body>
 <header class="header">
     <div class="background">
-        <img src="{{asset('img/header/background.png')}}" alt="">
+       @yield('backgroundImage')
         <div class="background-gradient"></div>
     </div>
     <div class="container">
@@ -85,7 +85,7 @@
 </header>
 <section class="header-content">
     <div class="header-text">
-        <div class="header-title">Where will you go next?</div>
+        @yield('title')
         <div class="header-description">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed et donec purus viverra. Sit
                 justo velit,

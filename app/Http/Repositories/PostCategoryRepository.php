@@ -25,7 +25,6 @@ class PostCategoryRepository
         return $this->postCategory::where("post_id", $id)->get();
     }
 
-
     public function getSimilarPostsByCategoryId($id)
     {
         return $this->postCategory::where("category_id", $id)->inRandomOrder()->limit(3)->get();

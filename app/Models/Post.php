@@ -37,6 +37,11 @@ class Post extends Model
         return $this->belongsTo(User::class, "author_id");
     }
 
+    public function postCategory()
+    {
+        return $this->belongsTo(PostCategory::class, "post_id");
+    }
+
     public function images()
     {
         return $this->hasMany(PostImage::class);

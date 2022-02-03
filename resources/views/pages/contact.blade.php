@@ -4,12 +4,14 @@
     Contact Me
 @endsection
 
+@section('backgroundImage')
+    <img src="{{asset('img/contactMePage/background.png')}}" alt="">
+@endsection
+
+
 @section('content')
 
-    <section class="background">
-        <img src="{{asset('img/contactMePage/background.png')}}" alt="">
-        <div class="background-gradient"></div>
-    </section>
+
     <div class="form">
         <div class="container">
             <div class="row">

@@ -4,6 +4,10 @@
     Gallivant
 @endsection
 
+@section('backgroundImage')
+    <img src="{{asset('img/header/background.png')}}" alt="">
+@endsection
+
 @section('content')
     <section class="content">
         <div class="container">
@@ -62,20 +66,14 @@
                                     <div class="explores-context">{{__($post->description)}}
                                     </div>
                                     <div class="explores-text-footer">
-                                        <a href="{{route('category', ['id' => \App\Models\Category::where(
-                                                'id', \App\Models\PostCategory::where('post_id', $post->id)->first()
-                                                ->category_id)->first()->id])}}">
+                                        <a href="{{route('category', ['id' => $post->categories[0]->id])}}">
                                             <div class="explores-category">
-                                                {{\App\Models\Category::where(
-                                                 'id', \App\Models\PostCategory::where(
-                                                     'post_id', $post->id)->first()->category_id)->first()->name
-                                             }}
+                                                {{$post->categories[0]->name}}
                                             </div>
                                         </a>
-                                        <div class="explores-by">&nbspBy &nbsp</div>
+                                        <div class="explores-by" style="margin: 0 5px 0 5px">By</div>
                                         <div class="explores-author">
-                                            {{(\App\Models\User::where('id', $post->author_id)->first()->name)." ".
-                                            (\App\Models\User::where('id', $post->author_id)->first()->surname)}}
+                                            {{$post->user->name." ".$post->user->surname}}
                                         </div>
                                     </div>
                                 </div>
@@ -84,8 +82,8 @@
                     @endforeach
 
                 </div>
+                {{$featuredPosts->links()}}
             </div>
-            {{$featuredPosts->links()}}
             <div class="blog">
                 <h6 class="content-title">
                     My latest blog

@@ -33,6 +33,7 @@ class PostRepository
     {
         return $this->post::where("author_id", $id)->orderBy("created_at", "desc")->paginate(4);
     }
+
     public function searchByQuery($validatedField)
     {
         return $this->post::where("title", "LIKE", "%{$validatedField}%")->paginate(8);

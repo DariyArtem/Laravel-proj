@@ -4,12 +4,12 @@
 About Me
 @endsection
 
+@section('backgroundImage')
+    <img src="img/aboutMePage/header-bg.png" alt="">
+@endsection
+
 @section('content')
 
-    <div class="background">
-        <img src="img/aboutMePage/header-bg.png" alt="">
-        <div class="background-gradient"></div>
-    </div>
     <div class="about">
         <div class="about-content">
             <div class="container">

@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
                 'country' => 'Ukraine',
                 'region' => 'Mykolaiv',
                 'city' => 'Mykolaiv',
-                'role_id' => 3
+                'role_id' => 4
             ],
         ], 'id');
     }

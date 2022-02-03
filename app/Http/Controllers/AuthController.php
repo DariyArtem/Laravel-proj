@@ -52,7 +52,7 @@ class AuthController extends Controller
     {
         $formFields = $request->only(["email", "password"]);
         if (Auth::attempt($formFields)) {
-            return redirect()->intended(route("private"));
+            return redirect()->intended(route("user.private"));
         }
 
         return redirect(route("login"))->withErrors([

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\DateFormatHelper;
+use App\Models\PostCategory;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Services\CategoryService;
 use App\Http\Services\PostCategoryService;
 use App\Http\Services\PostService;
@@ -39,7 +43,8 @@ class CategoryController extends Controller
     public function showOne($id)
     {
         $popular = $this->postService->getPopular(5);
-        $latest = $this->postService->getLatestPosts(4);
+        $latestPosts = $this->postCategoryService->getPostsFromPostCategory($id);
+        $latest = $this->paginate($latestPosts)->withPath('');
         $posts = $this->postCategoryService->getPostsFromPostCategory($id);
         $datesOfPosts = $this->postService->getDatesOfPosts($posts);
         $datesOfPopularPosts = $this->postService->getDatesOfPosts($popular);
@@ -47,13 +52,23 @@ class CategoryController extends Controller
 
         return view("pages.category")
             ->with("posts", $posts)
-            ->with("latest", $latest)
+            ->with("latest", compact('latest'))
             ->with("popular", $popular)
             ->with("datesOfPopularPosts", $datesOfPopularPosts)
             ->with("datesOfRecentPosts", $datesOfRecentPosts)
             ->with("datesOfPosts", $datesOfPosts)
             ->with("categories", $this->categoryService->getAll())
-            ->with("category_name", $this->categoryService->getCategoryNameById($id));
+            ->with("category", $this->categoryService->getCategoryById($id));
+    }
+
+
+    public function paginate($items, $perPage = 4, $page = null)
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $total = count($items);
+        $offset = ($page * $perPage) - $perPage ;
+        $itemsToShow = array_slice($items , $offset , $perPage);
+        return new LengthAwarePaginator($itemsToShow ,$total ,$perPage);
     }
 
     public function store(Request $request)

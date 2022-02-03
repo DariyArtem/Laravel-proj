@@ -32,12 +32,12 @@
                                 <div class="single-by">
                                     <i class="far fa-user icon-user" aria-hidden="true"></i>
                                     <a class="single-reference"
-                                       href="{{route('author', ['id' => $element->author_id])}}">{{(\App\Models\User::where('id', $element->author_id)->first()->name)." ".(\App\Models\User::where('id', $element->author_id)->first()->surname)}}
+                                       href="{{route('author', ['id' => $element->author_id])}}">{{$element->user->name." ".$element->user->surname}}
                                     </a>
                                 </div>
                                 <div class="single-quantity">
                                     <i class="far fa-comment icon-comment"
-                                       aria-hidden="true"></i>{{\App\Models\Post::find($element->id)->comments->count()}}
+                                       aria-hidden="true"></i>{{$element->comments->count()}}
                                 </div>
                             </div>
                             @endforeach
@@ -318,12 +318,11 @@
                 @foreach($post->comments as $comment)
                     <div class="comments-comment">
                         <div class="comment-photo">
-                            @if(\App\Models\User::where('email', $comment->email)->first() === null)
-                                <img src="" alt="">
+                            @if($comment->user === null)
+                                <img src="{{asset('img/avatars/default.png')}}" alt="">
                             @else
                                 <img
-                                    src="{{asset('storage/'.\App\Models\User::where('email', $comment->email)->first()->picture)}}"
-                                    alt="">
+                                    src="{{asset('storage/'.$comment->user->picture)}}" alt="">
                             @endif
                         </div>
                         <div class="comment-text">

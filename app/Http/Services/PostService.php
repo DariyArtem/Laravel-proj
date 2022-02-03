@@ -52,6 +52,7 @@ class PostService
         return $this->postRepository->getLatestPosts($count);
     }
 
+
     public function getPopular($count)
     {
         return $this->postRepository->getPopular($count);
@@ -70,8 +71,9 @@ class PostService
     public function getDatesOfPosts($posts)
     {
         $dates = [];
-        for ($i = 0; $i < count($posts); $i++) {
-            array_push($dates, DateFormatHelper::index($posts[$i]->created_at));
+
+        foreach ($posts as $post) {
+            array_push($dates, DateFormatHelper::index($post->created_at));
         }
         return $dates;
     }

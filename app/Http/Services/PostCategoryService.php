@@ -33,6 +33,7 @@ class PostCategoryService
 
     public function getPostsFromPostCategory($id)
     {
+
         $posts_category = $this->getPostCategoryByCategoryId($id);
         $posts = [];
         foreach ($posts_category as $post_category) {

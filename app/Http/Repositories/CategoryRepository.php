@@ -29,7 +29,7 @@ class CategoryRepository
 
     public function getCategoryById($id)
     {
-        return $this->category::where("id", $id)->get();
+        return $this->category::where("id", $id)->first();
     }
 
     public function save($validated)
